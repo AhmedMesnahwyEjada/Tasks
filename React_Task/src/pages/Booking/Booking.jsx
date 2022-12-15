@@ -29,9 +29,11 @@ const Booking = () => {
                     <button style={{backgroundColor: "#A162F7"}} className="m-2 shadow btn"> <i className="fa-solid fa-sliders"></i></button>
                 </div>
                 <br/>
-                {cars.map(car => {
-                    return <CarCard key={car.id} {...car.data} />
-                })}
+                <div className="row row-cols-1 row-cols-md-3 w-100 g-1">
+                    {cars.map(car => {
+                        return <CarCard key={car.id} {...car.data} />
+                    })}
+                </div>
             </div>
 }
 export default Booking;
