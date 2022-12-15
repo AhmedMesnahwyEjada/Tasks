@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Messages</title>
+    <link rel="stylesheet" href="Messages.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/af48480f4d.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="d-flex flex-row h-100 w-100">
+        <div class="d-flex flex-column p-3" style="width: 18.5%; position: fixed;">
+            <div>
+                <img alt="logo" src="./logo.png"/>
+                <h3 class="d-inline-block">&nbsp;Motiv.</h3> 
+            </div>
+            <br/>
+            <ul class="h-100 w-100" style="position: relative;">
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-border-all"></i>&nbsp;Dashboard</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-regular fa-life-ring"></i>&nbsp;Assets</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-car"></i> &nbsp;Booking</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-bag-shopping"></i>&nbsp;Sell cars</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-cart-shopping"></i>&nbsp; Buy cars</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-scissors"></i> &nbsp;Services</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-calendar-days"></i>&nbsp; Calender</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-regular fa-comment-dots"></i>&nbsp;Messages</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-gear"></i> &nbsp;Settings</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</li>
+                
+            </ul>
+        </div>
+
+        <div class="d-flex flex-column w-100 h-100" style="margin-left: 18.5%;">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <div style="background-color: #F5f5f5; border-radius: 7%;  width: 30%;">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input id="input" type="text" placeholder="Search or type" style="background-color:#F5F4F6; width: 90%; border: 0;" />
+                    </div>
+                    <div class="float-end">
+                        <i class="fa-regular fa-bell"></i>
+                        &emsp;
+                        <img src="./profile.svg" style="border-radius: 50%;" />
+                    </div>
+                </div>
+            </nav>
+            <div class="content-container w-100 h-100">
+                <div class="d-flex flex-row" style="height: 100%;">
+                    <div class="d-flex flex-column m-3 me-0 p-4" style="width: 30%; background-color: white;">
+                        <div>
+                            <h1 class="d-inline-block">Messages</h1>
+                            <i class="fa-solid fa-pen float-end m-3"></i>
+                        </div>
+                        <div  style="background-color: #F5f5f5; border-radius: 7%; padding: 5%;">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input id="search" type="text" placeholder="Search..." style="background-color: #F5f5f5;  border: 0;"/>
+                        </div>
+                        <div style="color: #A9ABAD;">
+                            <i class="fa-solid fa-thumbtack mt-3 d-inline-block"></i> 
+                            Pinned
+                        </div>
+                        <div class="friend">
+                            <img src="./friend.svg"  class="image mb-3 me-2"/>
+                            <div class="d-inline-block">
+                                Killan James
+                                <div style="color: green; font-size: small;">Typing..</div>
+                            </div>
+                            <div class="d-inline-block float-end">
+                                 <div style="color: #A9ABAD;">4:30PM</div>
+                                 <div class="float-end" style="background-color: red; color: white; border-radius: 50%; width: 20px; height: 20px; text-align: center;">2</div>
+                            </div>
+                            
+                        </div>
+                        <div class="friend">
+                            <img src="./friend2.svg"  class="image mb-3 me-2"/>
+                            <div class="d-inline-block">
+                                Desian Tam
+                                <div style="font-size: small;">Hello! Everyone</div>
+                            </div>
+                            <div class="d-inline-block float-end">
+                                 <div style="color: #A9ABAD;">9:36AM</div>
+                            </div>
+                        </div>
+                        <div class="friend">
+                            <img src="./friend3.svg"  class="image mb-3 me-2"/>
+                            <div class="d-inline-block">
+                                Ahmed Medi
+                                <div style="color: #A9ABAD; font-size: small;">WOW really Cool</div>
+                            </div>
+                            <div class="d-inline-block float-end">
+                                 <div style="color: #A9ABAD;">1:15AM</div>
+                            </div>
+                        </div>
+                        <div style="color: #B4B5B7;">
+                            <i class="fa-regular fa-message"></i>
+                            All Messages
+                        </div>
+                        <div class="friend">
+                            <img src="./friend4.svg"  class="image mb-3 me-2"/>
+                            <div class="d-inline-block">
+                                Claudia Maudi
+                                <div style="color: #A9ABAD; font-size: small;">Nice</div>
+                            </div>
+                            <div class="d-inline-block float-end">
+                                 <div style="color: #A9ABAD;">4:30PM</div>
+                            </div>
+                        </div>
+                        <div class="friend">
+                            <img src="./friend5.svg"  class="image mb-3 me-2"/>
+                            <div class="d-inline-block">
+                                Novita
+                                <div style="color: #A9ABAD; font-size: small;">yah, nice design</div>
+                            </div>
+                            <div class="d-inline-block float-end">
+                                 <div style="color: #A9ABAD;">4:30PM</div>
+                            </div>
+                        </div>
+                        <div class="friend">
+                            <img src="./friend6.svg"  class="image mb-3 me-2"/>
+                            <div class="d-inline-block">
+                                Milie Nose
+                                <div style="color: #A9ABAD; font-size: small;">Awesome</div>
+                            </div>
+                            <div class="d-inline-block float-end">
+                                 <div style="color: #A9ABAD;">8:20PM</div>
+                            </div>
+                        </div>
+                        <div class="friend">
+                            <img src="./friend7.svg"  class="image mb-3 me-2"/>
+                            <div class="d-inline-block">
+                                Ikshan SD
+                                <div style="color: #A9ABAD; font-size: small;">voice message</div>
+                            </div>
+                            <div class="d-inline-block float-end">
+                                 <div style="color: #A9ABAD;">yesterday</div>
+                            </div>
+                        </div>
+                        <div class="friend">
+                            <img src="./friend8.svg"  class="image mb-3 me-2"/>
+                            <div class="d-inline-block">
+                                Aditya
+                                <div style="color: #A9ABAD; font-size: small;">publish now</div>
+                            </div>
+                            <div class="d-inline-block float-end">
+                                 <div style="color: #A9ABAD;">yesterday</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column m-3 ms-0 p-3" style="background-color: white; width: 70%;">
+                        <div class="border">
+                            <img src="./friend.svg"  class="image"/>
+                            <div class="d-inline-block">
+                                <div class="d-block">Killan James</div>
+                                <div style="color: #818891;" >Active Now</div>
+                            </div>
+                            <div class="d-inline-block float-end">
+                                <button style="background-color: #F2F6F8; border-radius: 50%;" class="btn"><i class="fa-solid fa-video"></i></button>
+                                <button style="background-color: #F2F6F8; border-radius: 50%;" class="btn"><i class="fa-solid fa-phone"></i></button>
+                                <button style="background-color: #F2F6F8; border-radius: 50%;" class="btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                            </div>
+                        </div>
+                        <div class="border d-flex flex-column">
+                            <div class="message">
+                                <img  src="./friend.svg" class="image"/>
+                                <div class="d-inline-block ms-3 p-2" style="background-color: #F5F6FA; width: 80%;">Hi, I hope you are doing well, yesterday you have gave a pen This very nice, i am very happy for this.yesterday you have gave a pen This very nice</div>
+                                <div class="float-end" style="font-size: small; color: #A4A5A6;">4:30 PM</div>
+                            </div>
+
+                            <div class="message ms-auto mt-3">
+                                <div class="d-inline-block ms-3 p-2" style="background-color: #A162F7; width: 80%;">yea I’m well, Thank you, i am very happy for this.yesterday you have gave a pen This very nice</div>
+                                <img  src="./profile.svg" class="image"/>
+                            </div>
+
+                            <div class="message mt-3">
+                                <img  src="./friend.svg" class="image"/>
+                                <div class="d-inline-block ms-3 p-2" style="background-color: #F5F6FA; width: 80%;">Hi, I hope you are doing well, yesterday you have gave a pen This very nice 😍</div>
+                            </div>
+
+                            <div class="message mt-3">
+                                <div class="d-inline-block ms-3 p-2" style="background-color: #F5F6FA; width: 80%;"> i am very happy for this.yesterday you have gave a pen This very nice</div>
+                            </div>
+
+                            <div class="message ms-auto mt-3">
+                                <div class="d-inline-block ms-3 p-2" style="background-color: #A162F7; width: 80%;">yea I’m well, Thank you, i am very happy for this.yesterday you have gave a pen This very nice</div>
+                                <img  src="./profile.svg" class="image"/>
+                            </div>
+
+                            <div class="message mt-3 mb-5">
+                                <img  src="./friend.svg" class="image"/>
+                                <div class="d-inline-block ms-3 p-2" style="background-color: #F5F6FA; width: 80%;">Hi, I hope you are doing well, yesterday you have gave a pen This very nice 😍</div>
+                            </div>
+
+                            <div style="background-color: #E9E9F2;">
+                                <i class="fa-solid fa-paperclip d-inline-block"></i>
+                                <input  placeholder="Type Something" style="width: 90%; background-color: #E9E9F2; height: 50px; border:0;"/>
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

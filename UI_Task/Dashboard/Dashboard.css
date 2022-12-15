@@ -1,0 +1,94 @@
+body{
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.list-group-item:hover{
+    filter: contrast(0.7);
+}
+.content-container{
+    background-color: #F5F5F5;
+}
+.drop-down{
+    border: #F5F5F5;
+    border-radius: 7px;
+}
+.card-container{
+    width: 25%;
+    max-height: 100%;
+    min-height: 300px;
+    margin: 1%;
+    align-items: center;
+    align-content: center;
+    padding: 20px 60px;    
+    background: #FFFFFF;
+    border-radius: 14px;
+}
+
+.button{
+    display: block;
+    border-radius: 50%;
+    top: 10%;
+    margin: auto;
+    background: #f3f3f3;
+}
+.chart{
+    width: 100%;
+    height: 100%;
+    position:relative;
+    margin: auto;
+}
+svg{
+    position: relative;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+.percentage{
+    top: 45%;
+    margin: auto;
+    float: center;
+    position: relative;
+    font-size: 150%;
+    color: white;
+    z-index: 1;
+}
+#energy{
+    stroke-dasharray: 8.55 19;
+}
+#range{
+    stroke-dasharray: 10.8 19;
+}
+#fluid{
+    stroke-dasharray: 1.7 19;
+}
+#tire{
+    stroke-dasharray: 4.75 19;
+}
+
+.stats-containter{
+    width: 48%;
+    max-height: 100%;
+    min-height: 300px;
+    margin: 1%;
+    padding: 20px 60px;    
+    background-color: #FFFFFF;
+    border-radius: 14px;
+}
+.statsBtn{
+    border-radius: 50%;
+    padding-top: 50%;
+}
+.recommendation-container{
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    background-color: #FFFFFF;
+    margin: 1% 1% 2% 1%;
+    border-radius: 14px;
+}
+.recCar{
+    height: 150px;
+    width: 100%;
+}

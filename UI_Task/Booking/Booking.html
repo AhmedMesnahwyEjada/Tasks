@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking</title>
+    <link rel="stylesheet" href="Booking.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/af48480f4d.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="d-flex flex-row h-100 w-100">
+        <div class="d-flex flex-column p-3" style="width: 18.5%; position: fixed;">
+            <div>
+                <img alt="logo" src="./logo.png"/>
+                <h3 class="d-inline-block">&nbsp;Motiv.</h3> 
+            </div>
+            <br/>
+            <ul class="h-100 w-100" style="position: relative;">
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-border-all"></i>&nbsp;Dashboard</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-regular fa-life-ring"></i>&nbsp;Assets</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-car"></i> &nbsp;Booking</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-bag-shopping"></i>&nbsp;Sell cars</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-cart-shopping"></i>&nbsp; Buy cars</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-scissors"></i> &nbsp;Services</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-calendar-days"></i>&nbsp; Calender</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-regular fa-comment-dots"></i>&nbsp;Messages</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-gear"></i> &nbsp;Settings</li>
+                <li class="list-group-item border-0 ps-0"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</li>
+                
+            </ul>
+        </div>
+
+        <div class="d-flex flex-column w-100 h-100" style="margin-left: 18.5%;">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <div style="background-color: #F5f5f5; border-radius: 7%;  width: 30%;">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input id="input" type="text" placeholder="Search or type" style="background-color:#F5F4F6; width: 90%; border: 0;" />
+                    </div>
+                    <div class="float-end">
+                        <i class="fa-regular fa-bell"></i>
+                        &emsp;
+                        <img src="./profile.svg" style="border-radius: 50%;" />
+                    </div>
+                </div>
+            </nav>
+            <div class="content-container w-100 h-80">
+                <h1 class="m-3"> Booking </h1>
+                <select name="age" id="age" class="m-3 drop-down">
+                    <option value="New">New</option>
+                    <option value="Old">Old</option>
+                </select>
+                <select name="cars" id="cars" class="m-3 drop-down">
+                    <option value="Toyota">Toyota</option>
+                    <option value="Ferrari">Ferrari</option>
+                    <option value="Audi">Audi</option>
+                    <option value="lamborghini">lamborghini</option>
+                </select>
+                <div class="float-end me-5">
+                    <button style="border-radius: 50%; background-color: white; border: 0;" class="m-2 shadow btn"> <i class="fa-solid fa-border-all"></i></button>
+                    <button style="border-radius: 50%; background-color: #A162F7; border: 0;" class="m-2 shadow btn"> <i class="fa-solid fa-sliders"></i></button>
+                    
+                </div>
+                <br/>
+                <div class="card-container m-3 p-4">
+                    <h4 class="d-inline-block">Porche 718 Cayman S</h4>
+                    <i class="fa-regular fa-heart d-inline-block float-end"></i>
+                    <h5 style="color: #72767C;">Coupe</h5>
+                    <img class="car" src="./car1.svg"/>
+                    <br/>
+                    <i class="fa-regular fa-user d-inline-block"></i>
+                    <div class="d-inline-block" style="color: #72767C;">4</div>
+                    <i class="fa-solid fa-retweet d-inline-block ms-3"></i>
+                    <div class="d-inline-block" style="color: #72767C;">manual</div>
+                    <div class="d-inline-block float-end"> $400/d</div>
+                </div>
+                
+                <div class="card-container m-3 p-4">
+                    <h4 class="d-inline-block">Porche 718 Cayman S</h4>
+                    <i class="fa-regular fa-heart d-inline-block float-end"></i>
+                    <h5 style="color: #72767C;">Coupe</h5>
+                    <img class="car" src="./car2.svg"/>
+                    <br/>
+                    <i class="fa-regular fa-user d-inline-block"></i>
+                    <div class="d-inline-block" style="color: #72767C;">4</div>
+                    <i class="fa-solid fa-retweet d-inline-block ms-3"></i>
+                    <div class="d-inline-block" style="color: #72767C;">manual</div>
+                    <div class="d-inline-block float-end"> $400/d</div>
+                </div>
+
+                <div class="card-container m-3 p-4">
+                    <h4 class="d-inline-block">Porche 718 Cayman S</h4>
+                    <i class="fa-regular fa-heart d-inline-block float-end"></i>
+                    <h5 style="color: #72767C;">Coupe</h5>
+                    <img class="car" src="./car3.svg"/>
+                    <br/>
+                    <i class="fa-regular fa-user d-inline-block"></i>
+                    <div class="d-inline-block" style="color: #72767C;">4</div>
+                    <i class="fa-solid fa-retweet d-inline-block ms-3"></i>
+                    <div class="d-inline-block" style="color: #72767C;">manual</div>
+                    <div class="d-inline-block float-end"> $400/d</div>
+                </div>
+
+                <div class="card-container m-3 p-4">
+                    <h4 class="d-inline-block">Porche 718 Cayman S</h4>
+                    <i class="fa-regular fa-heart d-inline-block float-end"></i>
+                    <h5 style="color: #72767C;">Coupe</h5>
+                    <img class="car" src="./car4.svg"/>
+                    <br/>
+                    <i class="fa-regular fa-user d-inline-block"></i>
+                    <div class="d-inline-block" style="color: #72767C;">4</div>
+                    <i class="fa-solid fa-retweet d-inline-block ms-3"></i>
+                    <div class="d-inline-block" style="color: #72767C;">manual</div>
+                    <div class="d-inline-block float-end"> $400/d</div>
+                </div>
+
+                <div class="card-container m-3 p-4">
+                    <h4 class="d-inline-block">Porche 718 Cayman S</h4>
+                    <i class="fa-regular fa-heart d-inline-block float-end"></i>
+                    <h5 style="color: #72767C;">Coupe</h5>
+                    <img class="car" src="./car5.svg"/>
+                    <br/>
+                    <i class="fa-regular fa-user d-inline-block"></i>
+                    <div class="d-inline-block" style="color: #72767C;">4</div>
+                    <i class="fa-solid fa-retweet d-inline-block ms-3"></i>
+                    <div class="d-inline-block" style="color: #72767C;">manual</div>
+                    <div class="d-inline-block float-end"> $400/d</div>
+                </div>
+
+                <div class="card-container m-3 p-4">
+                    <h4 class="d-inline-block">Porche 718 Cayman S</h4>
+                    <i class="fa-regular fa-heart d-inline-block float-end"></i>
+                    <h5 style="color: #72767C;">Coupe</h5>
+                    <img class="car" src="./car6.svg"/>
+                    <br/>
+                    <i class="fa-regular fa-user d-inline-block"></i>
+                    <div class="d-inline-block" style="color: #72767C;">4</div>
+                    <i class="fa-solid fa-retweet d-inline-block ms-3"></i>
+                    <div class="d-inline-block" style="color: #72767C;">manual</div>
+                    <div class="d-inline-block float-end"> $400/d</div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
