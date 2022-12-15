@@ -3,7 +3,6 @@ import CarCard from "../../components/CarCard/CarCard";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import { useEffect, useState } from "react";
 import { collection, query, onSnapshot  } from "firebase/firestore";
-import {ref, getDownloadURL, getStorage } from 'firebase/storage'
 import {db} from './../../firebase'
 const Booking = () => {
     const [cars, setCars] = useState([]);
@@ -15,8 +14,6 @@ const Booking = () => {
               data: doc.data()
             })))
         })
-        const storage = getStorage();
-        getDownloadURL(ref(storage, "/car1.svg")).then(url => console.log(url))
         
     },[])
     
