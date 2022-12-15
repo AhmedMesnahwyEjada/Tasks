@@ -1,0 +1,13 @@
+.sidebar{
+    width: 18.5%;
+    position: fixed;
+    ul{
+        position: relative;
+        .list-group-item{
+            &:hover{
+                filter: contrast(0.7);
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -1,0 +1,73 @@
+.signup{
+    margin: auto;
+    margin-top: 5%;
+    width: 40%;
+    display: block;
+    .google{
+        margin: 3%;
+        background: none;
+        border: 1px solid #242731;
+        padding: 1%;
+        width: 40%;
+        //color: #FFF;
+        border-radius: 10px;
+    }
+    .img{
+        width: 25px;
+        height: 25px;
+        align-self: center;
+        margin: 1%;
+    }
+    .facebook{
+        margin: 3%;
+        padding: 1%;
+        width: 40%;
+        background: #4776D0;
+        border-radius: 8px;
+        color: #FFF;
+    }
+    .Signin{
+        color: #7C7C8D;
+    }
+    .anchor{
+        color: #A162F7;
+        display: inline;
+        text-decoration: none;
+        &:hover{
+            filter: brightness(0.7);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+    .form{
+        padding: 3%;
+        align-items: center;
+        box-sizing: border-box;
+        border: 1px solid #242731;
+        border-radius: 10px;
+        .form-input{
+            margin: 1%;
+            padding: 1%;
+            display: block;
+            width: 100%;
+            border: 1px solid #B1B5C3;
+            border-radius: 10px;
+        }
+    }
+    .flex-container{    
+        display: block;
+        .checkBox{
+            margin-right: 1%;
+        }
+        .right-side{
+            float: right;
+        }
+        .btn{
+            background-color: #A162F7;
+            color: #ffffff;
+            width: 100%;
+            margin-top: 5%;
+            border-radius: 10px;
+        }
+    }
+}

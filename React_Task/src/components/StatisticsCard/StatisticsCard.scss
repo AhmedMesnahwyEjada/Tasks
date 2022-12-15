@@ -1,0 +1,15 @@
+.statistics-container{
+    width: 48%;
+    max-height: 100%;
+    min-height: 300px;
+    margin: 1%;
+    padding: 20px 60px;    
+    background-color: #FFFFFF;
+    border-radius: 14px;
+    .measured{
+        margin-top: auto; 
+        margin-bottom: auto; 
+        color: #5F6165;
+        width: fit-content;
+    }
+}
