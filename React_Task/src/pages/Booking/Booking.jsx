@@ -1,63 +1,25 @@
 import "./Booking.scss"
 import CarCard from "../../components/CarCard/CarCard";
-import Car1 from './../../Assets/car1.svg'
-import Car2 from './../../Assets/car2.svg'
-import Car3 from './../../Assets/car3.svg'
-import Car4 from './../../Assets/car4.svg'
-import Car5 from './../../Assets/car5.svg'
-import Car6 from './../../Assets/car6.svg'
 import Dropdown from "../../components/Dropdown/Dropdown";
+import { useEffect, useState } from "react";
+import { collection, query, onSnapshot  } from "firebase/firestore";
+import {ref, getDownloadURL, getStorage } from 'firebase/storage'
+import {db} from './../../firebase'
 const Booking = () => {
-    const cars = [
-        {
-            id: 1,
-            Name: "Toyota",
-            image : Car1,
-            title: "Coupe",
-            price: 400,
-            type: "manual"
-        },
-        {
-            id: 2,
-            Name: "Porche 718 Cayman S",
-            image : Car2,
-            title: "Coupe",
-            price: 200,
-            type: "manual"
-        },
-        {
-            id: 3,
-            Name: "Porche 718 Cayman S",
-            image : Car3,
-            title: "Coupe",
-            price: 400,
-            type: "manual"
-        },
-        {
-            id: 4,
-            Name: "Porche 718 Cayman S",
-            image : Car4,
-            title: "Coupe",
-            price: 400,
-            type: "manual"
-        },
-        {
-            id: 5,
-            Name: "Porche 718 Cayman S",
-            image : Car5,
-            title: "Coupe",
-            price: 400,
-            type: "manual"
-        },
-        {
-            id: 6,
-            Name: "Porche 718 Cayman S",
-            image : Car6,
-            title: "Coupe",
-            price: 600,
-            type: "automatix"
-        },
-    ]
+    const [cars, setCars] = useState([]);
+    useEffect(() => {
+        const q = query(collection(db, 'Car'))
+        onSnapshot(q, (querySnapshot) => {
+            setCars(querySnapshot.docs.map(doc => ({
+              id: doc.id,
+              data: doc.data()
+            })))
+        })
+        const storage = getStorage();
+        getDownloadURL(ref(storage, "/car1.svg")).then(url => console.log(url))
+        
+    },[])
+    
     const age = ["New", "Old"]
     const type = ["Toyota", "Ferrari", "Audi", "Lamborghini"]
     return <div className="w-100 h-80 booking">
@@ -71,7 +33,7 @@ const Booking = () => {
                 </div>
                 <br/>
                 {cars.map(car => {
-                    return <CarCard key={car.id} {...car} />
+                    return <CarCard key={car.id} {...car.data} />
                 })}
             </div>
 }
