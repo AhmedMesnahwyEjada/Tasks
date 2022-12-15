@@ -1,5 +1,5 @@
 import "./App.scss";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate, redirect } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage.jsx";
 import { useEffect, useState } from "react";
 import UserForm from "./components/UserForm/UserForm";
@@ -19,6 +19,11 @@ function App() {
       document.body.style.color = "#FFF";
     }
   });
+  const navigate = useNavigate();
+  useEffect(()=>{
+    if (!isLoggedIn)
+      navigate('/login')
+  },[isLoggedIn])
   return (
     <div className="App d-flex flex-row h-100 w-100">
         <Routes>
@@ -26,8 +31,8 @@ function App() {
           <Route exact path="/booking" element={<Layout> <Booking /> </Layout>} />
           <Route exact path="/messages" element={<Layout> <Messages /> </Layout> } />
           <Route exact path="/" element={<Layout> <HomePage /> </Layout> } />
-          <Route exact path="/signup" element={<UserForm type={"signup"} />} />
-          <Route exact path="/login" element={<UserForm type={"login"} />} />
+          <Route exact path="/signup" element={<UserForm setIsLoggedIn={setIsLoggedIn} type={"signup"} />} />
+          <Route exact path="/login" element={<UserForm setIsLoggedIn={setIsLoggedIn} type={"login"} />} />
         </Routes>
       </div>
   

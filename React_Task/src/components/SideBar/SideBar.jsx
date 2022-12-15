@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import logo from './../../Assets/logo.png'
 import './SideBar.scss'
+import { auth } from '../../firebase'
+import { signOut } from 'firebase/auth'
 const SideBar = () => {
     const navigate = useNavigate();
     return <div className="d-flex flex-column p-3 sidebar">
@@ -20,7 +22,7 @@ const SideBar = () => {
             <li className="list-group-item border-0 ps-0" onClick={() => navigate('/messages')}><i className="fa-regular fa-comment-dots"></i>&nbsp;Messages</li>
             <div id="loginSection">
                 <li className="list-group-item border-0 ps-0" ><i className="fa-solid fa-gear"></i> &nbsp;Settings</li>
-                <li className="list-group-item border-0 ps-0"><i className="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</li>
+                <li className="list-group-item border-0 ps-0" onClick={() => {signOut(auth); navigate('/login');}}><i className="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</li>
             </div>
             
         </ul>
