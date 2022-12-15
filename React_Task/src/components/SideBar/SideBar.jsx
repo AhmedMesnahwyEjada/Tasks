@@ -18,8 +18,10 @@ const SideBar = () => {
             <li className="list-group-item border-0 ps-0"><i className="fa-solid fa-scissors"></i> &nbsp;Services</li>
             <li className="list-group-item border-0 ps-0"><i className="fa-solid fa-calendar-days"></i>&nbsp; Calender</li>
             <li className="list-group-item border-0 ps-0" onClick={() => navigate('/messages')}><i className="fa-regular fa-comment-dots"></i>&nbsp;Messages</li>
-            <li className="list-group-item border-0 ps-0"><i className="fa-solid fa-gear"></i> &nbsp;Settings</li>
-            <li className="list-group-item border-0 ps-0"><i className="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</li>
+            <div id="loginSection">
+                <li className="list-group-item border-0 ps-0" ><i className="fa-solid fa-gear"></i> &nbsp;Settings</li>
+                <li className="list-group-item border-0 ps-0"><i className="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</li>
+            </div>
             
         </ul>
     </div>
