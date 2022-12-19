@@ -15,6 +15,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.5",
+    "redux-persist": "^6.0.0",
     "sass": "^1.56.2"
   },
   "devDependencies": {

@@ -1,6 +1,5 @@
 import profile from './../../Assets/profile.svg'
 import './NavBar.scss'
-import { useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleTheme } from '../../redux/theme';
 const NavBar = ()=> {

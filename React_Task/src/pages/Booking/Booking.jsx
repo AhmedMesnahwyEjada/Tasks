@@ -4,10 +4,8 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import { useEffect, useState } from "react";
 import { collection, query, onSnapshot  } from "firebase/firestore";
 import {db} from './../../firebase'
-import { useSelector } from "react-redux";
 const Booking = () => {
     const [cars, setCars] = useState([]);
-    const theme = useSelector((state) => state.theme.theme)
     const age = ["New", "Old"]
     const type = ["Toyota", "Ferrari", "Audi", "Lamborghini"]
     useEffect(() => {

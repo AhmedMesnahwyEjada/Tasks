@@ -27,7 +27,7 @@ function App() {
           <Route exact path="/messages" element={<Layout> <Messages /> </Layout> } />
           <Route exact path="/" element={<Layout> <HomePage /> </Layout> } />
           <Route exact path="/signup" element={<UserForm type={"signup"} />} />
-          <Route exact path="/login" element={<UserForm type={"login"} />} />
+          <Route exact path="/login" element={<UserForm type={"login"} />} /> 
         </Routes>
       </div>
   

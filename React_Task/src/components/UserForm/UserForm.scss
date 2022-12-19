@@ -66,12 +66,16 @@ $backgroundColor : var(--background-color);
         .right-side{
             float: right;
         }
-        .btn{
-            background-color: #A162F7;
-            color: #ffffff;
+        $buttonBackgroundColor : #A162F7; 
+        .login-btn{
+            background-color: $buttonBackgroundColor;
             width: 100%;
             margin-top: 5%;
             border-radius: 10px;
+        }
+        .btn{
+            background-color: $buttonBackgroundColor;
+            color: #ffffff;
         }
     }
 }

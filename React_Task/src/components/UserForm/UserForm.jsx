@@ -8,6 +8,7 @@ import {db, auth} from './../../firebase'
 import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { useDispatch } from 'react-redux'
 import { login } from '../../redux/user';
+import { toggleTheme } from '../../redux/theme'
 const UserForm = ({ type }) => {
     const [firstName, setFirstname] = useState('');
     const [lastName, setLastname] = useState('');
@@ -113,11 +114,16 @@ const UserForm = ({ type }) => {
                 <label >Password</label>
                 <input className="form-input" type="password" placeholder="Password" required value={Password} onChange={(e) => setPassword(e.target.value)}/>
             </div>
-            <div className='flex-container'>
-                <input type="checkbox" className='checkBox' /> 
-                <label > Remmember me</label>
-                <Link className='anchor right-side' to={'/forgotPassword'} >Forgot your password?</Link>
-                <button type='submit' className='btn'>{type === 'login'? 'Login' : 'Sign up'}</button>
+            <div className='flex-container mt-2'>
+                <div className='row'>
+                    <div className='col my-1'>
+                        <input type="checkbox" className='checkBox' /> 
+                        <label> Remmember me</label>
+                    </div>
+                    <button type='reset' className='col-auto btn mx-5' onClick={(e) =>{e.preventDefault(); dispatch(toggleTheme());}}>Change Theme</button>
+                    <Link className='col-auto anchor right-side my-1'>Forgot your password?</Link>
+                </div>
+                <button type='submit' className='btn login-btn'>{type === 'login'? 'Login' : 'Sign up'}</button>
             </div>
         </form>
     </div>
