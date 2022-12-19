@@ -3,7 +3,7 @@ const CarCard = ({name , image, model, type, price, usersCount}) => {
     
     return <div className='col'>
         <div className="card-container ms-4 mb-2 p-4">
-                <h4 className="d-inline-block text-dark">{name}</h4>
+                <h4 className="d-inline-block title">{name}</h4>
                 <i className="fa-regular fa-heart d-inline-block float-end"></i>
                 <h5 >{model}</h5>
                 <img className='carImage' src={image}/>

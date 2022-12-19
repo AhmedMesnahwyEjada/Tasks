@@ -1,7 +1,7 @@
 import './UserForm.scss'
 import {useNavigate, Link} from 'react-router-dom'
 import { useState } from 'react';
-import google from '../../Assets/google.png'
+import google from '../../Assets/google.svg'
 import facebook from '../../Assets/facebook.svg'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import {db, auth} from './../../firebase'
@@ -95,7 +95,7 @@ const UserForm = ({ type }) => {
         {type === 'signup' ? 
             <div className='Signin'> Already have an account ? <Link className='anchor' to={'/login'}>Sign in</Link> </div> :
             <div className='Signin'> Don't have an account ? <Link className='anchor' to={'/signup'}>Sign Up</Link> </div> }
-        <div>
+        <div className='row justify-content-center'>
             <button className='google' onClick={signupWithGoogle}> <img className='img'  alt='google logo' src={google} /> Sign in with Google </button>
             <button className='facebook'> <img className='img'  alt='facebook logo' src={facebook} /> Sign in with Facebook </button>
         </div>

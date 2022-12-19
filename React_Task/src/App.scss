@@ -1,6 +1,15 @@
-
+:root{
+    --background-color: #FFF;
+    --font-color : #000;
+    --page-background-color : #F5F5F5; 
+}
+$backgroundColor : var(--background-color);
+$fontColor : var(--font-color);
 .App {
     width: 100%;
     height: 100%;
-    
+}
+body{
+    background-color: $backgroundColor;
+    color: $fontColor;
 }

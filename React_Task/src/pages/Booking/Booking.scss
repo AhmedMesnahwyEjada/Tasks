@@ -1,5 +1,7 @@
+
+$backgroundColor : var(--page-background-color);
 .booking{
-    //background-color: #F5F5F5;
+    background-color: $backgroundColor;
     button{
         border-radius: 50%;
         background-color: white; 

@@ -1,6 +1,11 @@
+$backgroundColor : var(--background-color);
+$fontColor : var(--font-color);
 .card-container{
     color: #72767C;
-    background-color: #FFFFFF;
+    background-color: $backgroundColor;
+    .title{
+        color : $fontColor;
+    }
     margin: 1%;
     .carImage{
         width : 80%;

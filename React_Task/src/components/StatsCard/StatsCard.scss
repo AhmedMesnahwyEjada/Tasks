@@ -1,4 +1,7 @@
+$backgroundColor : var(--background-color);
+$fontColor : var(--font-color);
 .stats-container{
+    background-color: $backgroundColor;
     width: 25%;
     min-height: 300px;
     margin: 1%;
@@ -10,7 +13,7 @@
         text-align: center;
         position: relative; 
         top: 10%; 
-        color: white;
+        color: $fontColor;
         width: 150%;
     }
     .button-stats{
@@ -27,7 +30,7 @@
         float: center;
         position: relative;
         font-size: 150%;
-        color: white;
+        color: $fontColor;
         z-index: 1;
     }
     svg{

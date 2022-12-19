@@ -1,4 +1,8 @@
+$backgroundColor : var(--background-color);
+$fontColor : var(--font-color);
 .drop-down{
-    border: #F5F5F5;
+    color : $fontColor; 
+    background-color: $backgroundColor;
+    border: $backgroundColor;
     border-radius: 7px;
 }

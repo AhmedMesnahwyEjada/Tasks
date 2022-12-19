@@ -8,7 +8,7 @@ const SideBar = () => {
     const dispatch = useDispatch();
     return <div className="d-flex flex-column p-3 sidebar">
         <div>
-            <img alt="logo" src={logo}/>
+            <img alt="logo" className='mb-2' src={logo}/>
             <h3 className="d-inline-block">&nbsp;Motiv.</h3> 
         </div>
         <br/>

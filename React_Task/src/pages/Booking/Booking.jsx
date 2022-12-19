@@ -4,8 +4,12 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import { useEffect, useState } from "react";
 import { collection, query, onSnapshot  } from "firebase/firestore";
 import {db} from './../../firebase'
+import { useSelector } from "react-redux";
 const Booking = () => {
     const [cars, setCars] = useState([]);
+    const theme = useSelector((state) => state.theme.theme)
+    const age = ["New", "Old"]
+    const type = ["Toyota", "Ferrari", "Audi", "Lamborghini"]
     useEffect(() => {
         const q = query(collection(db, 'Car'))
         onSnapshot(q, (querySnapshot) => {
@@ -15,9 +19,6 @@ const Booking = () => {
             })))
         })
     },[])
-    
-    const age = ["New", "Old"]
-    const type = ["Toyota", "Ferrari", "Audi", "Lamborghini"]
     return <div className="w-100 h-80 booking">
                 <h1 className="m-3"> Booking </h1>
                 <Dropdown title={"age"} items={age}/>

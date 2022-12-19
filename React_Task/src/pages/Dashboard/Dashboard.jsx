@@ -28,8 +28,6 @@ const Dashboard = () => {
             strokeFillColor: "#FFFFFF"
         },
         {
-            backGroundColor: "#FFFFFF",
-            textColor: "#000000",
             buttonBackgroundColor: "rgba(255, 126, 134, 0.1)",
             icon: <i className="fa-solid fa-arrows-up-down" style={{color: "#FF7E86"}}></i>, 
             title: "Range", 
@@ -38,8 +36,6 @@ const Dashboard = () => {
             strokeFillColor: "#FF7E86"
         },
         {
-            backGroundColor: "#FFFFFF",
-            textColor: "#000000",
             buttonBackgroundColor: "rgba(161, 98, 247, 0.1)",
             icon: <i className="fa-solid fa-droplet" style={{color: "#A162F7"}}></i>, 
             title: "Break Fluid", 
@@ -48,8 +44,6 @@ const Dashboard = () => {
             strokeFillColor: "#A162F7"
         },
         {
-            backGroundColor: "#FFFFFF",
-            textColor: "#000",
             buttonBackgroundColor: "rgba(161, 98, 247, 0.1)",
             icon: <i className="fa-solid fa-gear" style={{color: "#F6CC0D"}}></i>, 
             title: "Tire Wear", 

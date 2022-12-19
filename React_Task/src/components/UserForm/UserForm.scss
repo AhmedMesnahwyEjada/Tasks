@@ -1,3 +1,5 @@
+$fontColor : var(--font-color);
+$backgroundColor : var(--background-color);
 .signup{
     margin: auto;
     margin-top: 5%;
@@ -6,10 +8,10 @@
     .google{
         margin: 3%;
         background: none;
-        border: 1px solid #242731;
+        border: 1px solid #2C303D;
         padding: 1%;
         width: 40%;
-        //color: #FFF;
+        color: $fontColor;
         border-radius: 10px;
     }
     .img{
@@ -46,11 +48,13 @@
         border: 1px solid #242731;
         border-radius: 10px;
         .form-input{
+            background-color: $backgroundColor;
+            color: $fontColor;
             margin: 1%;
             padding: 1%;
             display: block;
             width: 100%;
-            border: 1px solid #B1B5C3;
+            border: 1px solid;
             border-radius: 10px;
         }
     }

@@ -1,3 +1,4 @@
+$backgroundColor : var(--page-background-color);
 .content-container{
-    background-color: #F5F5F5;
+    background-color: $backgroundColor;
 }

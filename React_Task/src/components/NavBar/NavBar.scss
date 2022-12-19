@@ -1,11 +1,14 @@
+$backgroundColor : var(--page-background-color);
+$fontColor : var(--font-color);
 .searchBar{
-    background-color: #F5f5f5; 
-    border-radius: 7%;  
+    background-color: $backgroundColor; 
+    border-radius: 7px;  
     width: 30%;
     input{
-        background-color:#F5F4F6; 
+        background-color:$backgroundColor; 
         width: 90%; 
         border: 0;
+        color: $fontColor;
     }
 }
 .navbar{
