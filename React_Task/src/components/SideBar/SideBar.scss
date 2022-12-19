@@ -3,11 +3,13 @@
     position: fixed;
     ul{
         position: relative;
-        .list-group-item{
+        li{
+            list-style-type: none;
+            height: 10%;
             &:hover{
-                filter: contrast(0.7);
+                backdrop-filter:  contrast(0.8);
                 cursor: pointer;
-            }
+            }   
         }
     }
 }

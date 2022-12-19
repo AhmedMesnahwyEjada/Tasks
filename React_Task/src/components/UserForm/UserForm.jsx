@@ -3,7 +3,7 @@ import {useNavigate, Link} from 'react-router-dom'
 import { useState } from 'react';
 import google from '../../Assets/google.png'
 import facebook from '../../Assets/facebook.svg'
-import { getIdToken, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import {db, auth} from './../../firebase'
 import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
 const UserForm = ({ type, setIsLoggedIn }) => {

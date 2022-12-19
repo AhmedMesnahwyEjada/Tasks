@@ -7,7 +7,7 @@ const Layout = ({children}) => {
                 className="d-flex flex-column w-100 h-100"
                 style={{ marginLeft: "18.5%" }}
                 >
-                    <NavBar />    
+                    <NavBar/>    
                     {children}
                 </div>
             </>

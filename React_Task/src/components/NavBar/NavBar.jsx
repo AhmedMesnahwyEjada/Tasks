@@ -1,6 +1,20 @@
 import profile from './../../Assets/profile.svg'
 import './NavBar.scss'
+import { useEffect, useState } from 'react';
 const NavBar = ()=> {
+    const [theme, setTheme] = useState(false);
+    useEffect(() => {
+        if (!theme) {
+          document.body.style.backgroundColor = "#FFF";
+          document.body.style.color = "#000";
+        } else {
+          document.body.style.backgroundColor = "#1F2128";
+          document.body.style.color = "#FFF";
+        }
+      });
+    const toggleTheme = () => {
+        setTheme(!theme)
+    }
     return <nav className="navbar">
                 <div className="container-fluid">
                     <div className='searchBar'>
@@ -8,6 +22,7 @@ const NavBar = ()=> {
                         <input id="input" type="text" placeholder="Search or type"/>
                     </div>
                     <div className="float-end">
+                        <button onClick={toggleTheme} className="me-3">change Theme</button>
                         <i className="fa-regular fa-bell"></i>
                         &emsp;
                         <img src={profile}/>

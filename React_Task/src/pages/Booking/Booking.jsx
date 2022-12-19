@@ -14,7 +14,6 @@ const Booking = () => {
               data: doc.data()
             })))
         })
-        
     },[])
     
     const age = ["New", "Old"]
@@ -23,7 +22,6 @@ const Booking = () => {
                 <h1 className="m-3"> Booking </h1>
                 <Dropdown title={"age"} items={age}/>
                 <Dropdown title={"type"} items={type}/>
-
                 <div className="float-end me-5">
                     <button className="m-2 shadow btn"> <i className="fa-solid fa-border-all"></i></button>
                     <button style={{backgroundColor: "#A162F7"}} className="m-2 shadow btn"> <i className="fa-solid fa-sliders"></i></button>
