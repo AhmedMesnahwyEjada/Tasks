@@ -11,7 +11,7 @@ const StatisticsCard = ({type, title, measured, reverse, buttonBackgroundColor})
                     </div>
                     <div className={`d-flex float-end measured ${!reverse? 'ms-5' : 'me-4' }`} >{measured}</div>
                 </div>
-                <canvas id={type} style={{width:"100%"}} className="mt-3"></canvas>
+                <canvas id={type} className="mt-3"></canvas>
             </div>
 }
 export default StatisticsCard;

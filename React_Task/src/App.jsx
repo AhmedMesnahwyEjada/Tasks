@@ -1,6 +1,5 @@
 import "./App.scss";
 import { Route, Routes, useNavigate, redirect } from "react-router-dom";
-import HomePage from "./pages/HomePage/HomePage.jsx";
 import { useEffect } from "react";
 import UserForm from "./components/UserForm/UserForm";
 import Booking from "./pages/Booking/Booking";

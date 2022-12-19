@@ -15,7 +15,7 @@ const NavBar = ()=> {
                         <button onClick={() => dispatch(toggleTheme())} className="me-3 btn btn-primary">change Theme</button>
                         <i className="fa-regular fa-bell"></i>
                         &emsp;
-                        <h3 style={{display: 'inline-block'}}>{firstName}</h3>
+                        <h3 id="username">{firstName}</h3>
                         &emsp;
                         <img src={profile}/>
                     </div>
