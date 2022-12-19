@@ -6,13 +6,15 @@ import facebook from '../../Assets/facebook.svg'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import {db, auth} from './../../firebase'
 import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
-const UserForm = ({ type, setIsLoggedIn }) => {
+import { useDispatch } from 'react-redux'
+import { login } from '../../redux/user';
+const UserForm = ({ type }) => {
     const [firstName, setFirstname] = useState('');
     const [lastName, setLastname] = useState('');
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
-    const [RemmemberMe, setRemmemberMe] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const clearInputs = () => {
         const inputs = document.querySelectorAll('input')
         inputs.forEach(input => {
@@ -34,13 +36,16 @@ const UserForm = ({ type, setIsLoggedIn }) => {
             const user = await getDocs(emailQuery);
             if (user.docs.length === 0)
             {
-                await addDoc(collection(db,'Users'), {
+                const newUser = {
                     firstName: fName,
                     lastName: lName,
                     email: email,
                     password: password,
                     authProvider: 'Local'
-                })
+                }
+                await addDoc(collection(db,'Users'), newUser)
+                dispatch(login(newUser))
+                navigate('/')
             }
             else   alert("this email is alerady registered");
         }
@@ -52,26 +57,33 @@ const UserForm = ({ type, setIsLoggedIn }) => {
             const emailPasswordQuery = query(collection(db, 'Users'), where('email', '==', email), where('password', '==', password));
             const user = await getDocs(emailPasswordQuery)
             if (user.docs.length === 0)     alert('there is no user with these credentials')
-            else    navigate('/');
+            else{ 
+                const newUser = {
+                    firstName: user.docs[0]._document.data.value.mapValue.fields.firstName.stringValue,
+                    lastName: user.docs[0]._document.data.value.mapValue.fields.lastName.stringValue,
+                    email: user.docs[0]._document.data.value.mapValue.fields.email.stringValue,
+                }
+                dispatch(login(newUser))
+                navigate('/');
+            }    
         }
     }
     const googleProvider = new GoogleAuthProvider();
     const signupWithGoogle = async () => {
         try{
             const res = await signInWithPopup(auth, googleProvider)
-            const user = res.user
-            const q = query(collection(db, "Users"), where('id', '==', user.uid))
+            const user ={
+                firstName: res.user.displayName.split(" ")[0],
+                lastName: res.user.displayName.split(" ").at(-1),
+                email: res.user.email,
+            } 
+            const q = query(collection(db, "Users"), where('id', '==', res.user.uid))
             const users = await getDocs(q); 
             if (users.docs.length === 0)
             {
-                await addDoc(collection(db, 'Users'), {
-                    firstName: user.displayName.split(" ")[0],
-                    lastName: user.displayName.split(" ").at(-1),
-                    authProvider : 'Google',
-                    email: user.email
-                })
+                await addDoc(collection(db, 'Users'), user)
             }
-            setIsLoggedIn(true)
+            dispatch(login(user))
             navigate('/')
         }catch(error)
         {
@@ -102,7 +114,7 @@ const UserForm = ({ type, setIsLoggedIn }) => {
                 <input className="form-input" type="password" placeholder="Password" required value={Password} onChange={(e) => setPassword(e.target.value)}/>
             </div>
             <div className='flex-container'>
-                <input type="checkbox" className='checkBox' onChange={(e) => setRemmemberMe(e.target.checked)}/> 
+                <input type="checkbox" className='checkBox' /> 
                 <label > Remmember me</label>
                 <Link className='anchor right-side' to={'/forgotPassword'} >Forgot your password?</Link>
                 <button type='submit' className='btn'>{type === 'login'? 'Login' : 'Sign up'}</button>
