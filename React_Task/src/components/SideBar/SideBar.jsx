@@ -13,7 +13,7 @@ const SideBar = () => {
         </div>
         <br/>
         <ul className="h-100 w-100">
-            <li className="pb-3 border-0 ps-0" onClick={() => navigate('/dashboard')}><i className="fa-solid fa-border-all"></i>&nbsp;Dashboard</li>
+            <li className="pb-3 border-0 ps-0" onClick={() => navigate('/')}><i className="fa-solid fa-border-all"></i>&nbsp;Dashboard</li>
             <li className="pb-3 border-0 ps-0"><i className="fa-regular fa-life-ring"></i>&nbsp;Assets</li>
             <li className="pb-3 border-0 ps-0" onClick={() => navigate('/booking')}><i className="fa-solid fa-car"></i> &nbsp;Booking</li>
             <li className="pb-3 border-0 ps-0"><i className="fa-solid fa-bag-shopping"></i>&nbsp;Sell cars</li>

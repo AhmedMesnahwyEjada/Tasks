@@ -22,10 +22,9 @@ function App() {
   return (
     <div className="App d-flex flex-row h-100 w-100">
         <Routes>
-          <Route exact path="/dashboard" element={<Layout> <Dashboard /> </Layout>} />
           <Route exact path="/booking" element={<Layout> <Booking /> </Layout>} />
           <Route exact path="/messages" element={<Layout> <Messages /> </Layout> } />
-          <Route exact path="/" element={<Layout> <HomePage /> </Layout> } />
+          <Route exact path="/" element={<Layout> <Dashboard /> </Layout> } />
           <Route exact path="/signup" element={<UserForm type={"signup"} />} />
           <Route exact path="/login" element={<UserForm type={"login"} />} /> 
         </Routes>
