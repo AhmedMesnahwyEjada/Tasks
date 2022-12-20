@@ -14,7 +14,7 @@ const Booking = () => {
             setCars(querySnapshot.docs.map(doc => ({
               id: doc.id,
               data: doc.data()
-            })))
+            })).sort((a, b) => {return a.data.name.localeCompare(b.data.name)}))
         })
     },[])
     return <div className="w-100 h-80 booking">
