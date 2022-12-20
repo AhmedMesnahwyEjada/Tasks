@@ -1,6 +1,5 @@
 import './UserForm.scss'
 import {useNavigate, Link} from 'react-router-dom'
-import { useState } from 'react';
 import google from '../../Assets/google.svg'
 import facebook from '../../Assets/facebook.svg'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
@@ -10,10 +9,7 @@ import { useDispatch } from 'react-redux'
 import { login } from '../../redux/user';
 import { toggleTheme } from '../../redux/theme'
 const UserForm = ({ type }) => {
-    const [firstName, setFirstname] = useState('');
-    const [lastName, setLastname] = useState('');
-    const [Email, setEmail] = useState('');
-    const [Password, setPassword] = useState('');
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const clearInputs = () => {
@@ -22,75 +18,59 @@ const UserForm = ({ type }) => {
             input.value = ''
         });
     }
+
     const handleSubmit = async (event) =>{
-        event.preventDefault()
-        //call the firebase server create a new account if succeed redirect if not send error messaged
-        if (type === "signup")
-        {
-            const fName = event.target[0].value 
-            const lName = event.target[1].value
-            const email = event.target[2].value
-            const password = event.target[3].value
-            clearInputs();
-            const emailQuery = query(collection(db, 'Users'), where('email', '==', email));
-            // create new account
-            const user = await getDocs(emailQuery);
-            if (user.docs.length === 0)
+        try{
+            event.preventDefault()
+            if (type === "signup")
             {
-                const newUser = {
-                    firstName: fName,
-                    lastName: lName,
-                    email: email,
-                    password: password,
-                    authProvider: 'Local'
+                const [{value: firstName}, {value: lastName}, {value: email}, {value : password}] = event.target
+                clearInputs();
+                const users = await getDocs( query(collection(db, 'Users'), where('email', '==', email)) );
+                if (users.docs.length === 0) {
+                    const user = {firstName, lastName, email, password, authProvider: "Local"}
+                    await addDoc(collection(db,'Users'), user);
+                    dispatch(login(user))
+                    navigate("/")
                 }
-                await addDoc(collection(db,'Users'), newUser)
-                dispatch(login(newUser))
-                navigate('/')
+                else   alert("this email is alerady registered");
             }
-            else   alert("this email is alerady registered");
+            else if (type == "login") 
+            {
+                const [{value: email}, {value : password}] = event.target
+                clearInputs();
+                const user = await getDocs( query(collection(db, 'Users'), where('email', '==', email), where('password', '==', password)) );
+                if (user.docs.length === 0)     alert('there is no user with these credentials')
+                else{
+                    const {
+                        firstName : {stringValue: firstName},
+                        lastName : {stringValue : lastName},
+                        email : {stringValue: email}
+                    } = user.docs[0]._document.data.value.mapValue.fields
+                    const loggedUser = {firstName,  lastName,   email}
+                    dispatch(login(loggedUser))
+                    navigate('/');
+                }    
+            }
         }
-        else if (type == "login") 
-        {
-            const email = event.target[0].value
-            const password = event.target[1].value
-            clearInputs();
-            const emailPasswordQuery = query(collection(db, 'Users'), where('email', '==', email), where('password', '==', password));
-            const user = await getDocs(emailPasswordQuery)
-            if (user.docs.length === 0)     alert('there is no user with these credentials')
-            else{ 
-                const newUser = {
-                    firstName: user.docs[0]._document.data.value.mapValue.fields.firstName.stringValue,
-                    lastName: user.docs[0]._document.data.value.mapValue.fields.lastName.stringValue,
-                    email: user.docs[0]._document.data.value.mapValue.fields.email.stringValue,
-                }
-                dispatch(login(newUser))
-                navigate('/');
-            }    
-        }
+        catch(error)    {console.error("error: " + error)}
     }
+
     const googleProvider = new GoogleAuthProvider();
     const signupWithGoogle = async () => {
         try{
             const res = await signInWithPopup(auth, googleProvider)
-            const user ={
-                firstName: res.user.displayName.split(" ")[0],
-                lastName: res.user.displayName.split(" ").at(-1),
-                email: res.user.email,
-            } 
-            const q = query(collection(db, "Users"), where('id', '==', res.user.uid))
-            const users = await getDocs(q); 
-            if (users.docs.length === 0)
-            {
-                await addDoc(collection(db, 'Users'), user)
-            }
+            const {displayName, email} = res.user
+            const [firstName, lastName] = [displayName.split(" ")[0], displayName.split(" ").at(-1)]
+            const user = {firstName, lastName, email, authProvider: "Google"}
+            const users = await getDocs( query(collection(db, "Users"), where('email', '==', email)) ); 
+            if (users.docs.length === 0)    await addDoc(collection(db,'Users'), user)
             dispatch(login(user))
-            navigate('/')
-        }catch(error)
-        {
-            console.log("error:" + error)
+            navigate("/")
         }
+        catch(error)   {console.error("error:" + error)}
     }
+
     return <div className="signup">
         <h1>Get's Started.</h1>
         {type === 'signup' ? 
@@ -105,14 +85,14 @@ const UserForm = ({ type }) => {
                 {(type === 'signup') &&  
                 <div>
                     <label >First Name</label>
-                    <input className="form-input" type="text" placeholder="First Name" required  value={firstName} onChange={(e) => setFirstname(e.target.value)} /> 
+                    <input className="form-input" type="text" placeholder="First Name" required/> 
                     <label >Last Name</label>
-                    <input className="form-input" type="text" placeholder="Last Name" required value={lastName} onChange={(e) => setLastname(e.target.value)}/>  
+                    <input className="form-input" type="text" placeholder="Last Name" required/>  
                 </div>}             
                 <label >Email address</label>
-                <input className="form-input" type="email" placeholder="Email" required value={Email} onChange={(e) => setEmail(e.target.value)}/> 
+                <input className="form-input" type="email" placeholder="Email" required /> 
                 <label >Password</label>
-                <input className="form-input" type="password" placeholder="Password" required value={Password} onChange={(e) => setPassword(e.target.value)}/>
+                <input className="form-input" type="password" placeholder="Password" required />
             </div>
             <div className='flex-container mt-2'>
                 <div className='row'>
