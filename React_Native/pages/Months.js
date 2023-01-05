@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import {toggleLanguage} from '../redux/language';
 import CustomButton from '../components/CustomButton';
 import textsFile from '../assets/texts.json';
+import AddForm from '../components/AddForm';
 const Months = () => {
   const [alertVisable, setAlertVisable] = useState(false);
   const [newMonth, setNewMonth] = useState(
@@ -70,6 +71,29 @@ const Months = () => {
     dispatch(removeMonth({id}));
   };
   const changeLanguage = () => dispatch(toggleLanguage());
+
+  const buttons = [
+    {index: 1, text: texts['add'], handleOnPress: handleAddMonth},
+    {index: 2, text: texts['cancel'], handleOnPress: handleCancle},
+  ];
+  const textInputs = [
+    {
+      index: 1,
+      placeholder: texts['month-place-holder'],
+      keyboardType: 'numeric',
+      value: newMonth,
+      onChangeText: setNewMonth,
+      maxLength: 2,
+    },
+    {
+      index: 2,
+      placeholder: texts['value-place-holder'],
+      keyboardType: 'numeric',
+      value: newYear,
+      onChangeText: setNewYear,
+      maxLength: 4,
+    },
+  ];
   return (
     <View style={{backgroundColor: '#ecdca7ab', flex: 1, paddingBottom: 10}}>
       <FlatList
@@ -150,48 +174,11 @@ const Months = () => {
         visible={alertVisable}
         animationType="fade"
         onRequestClose={() => setAlertVisable(false)}>
-        <View
-          style={{
-            padding: 16,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flex: 1,
-            backgroundColor: '#eeeeee',
-          }}>
-          <Text style={{fontWeight: 'bold'}}>{texts['add-month']}</Text>
-          <TextInput
-            style={styles.newExpenseInput}
-            placeholder={texts['month-place-holder']}
-            keyboardType="numeric"
-            value={newMonth}
-            maxLength={2}
-            onChangeText={setNewMonth}
-          />
-          <TextInput
-            style={styles.newExpenseInput}
-            placeholder={texts['year-place-holder']}
-            keyboardType="numeric"
-            maxLength={4}
-            value={newYear}
-            onChangeText={setNewYear}
-          />
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: '100%',
-              paddingHorizontal: 100,
-              marginTop: 15,
-            }}>
-            <Pressable onPress={handleAddMonth} style={styles.customButton}>
-              <Text style={styles.customButtonText}>{texts['add']}</Text>
-            </Pressable>
-            <Pressable onPress={handleCancle} style={styles.customButton}>
-              <Text style={styles.customButtonText}>{texts['cancel']}</Text>
-            </Pressable>
-          </View>
-        </View>
+        <AddForm
+          title={texts['add-month']}
+          buttons={buttons}
+          textInputs={textInputs}
+        />
       </Modal>
     </View>
   );

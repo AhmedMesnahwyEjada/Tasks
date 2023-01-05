@@ -1,12 +1,20 @@
 import {useEffect, useState} from 'react';
-import AddItem from './AddItem';
-import {TextInput, Text, View, FlatList, StyleSheet, Alert} from 'react-native';
+import {
+  TextInput,
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  Alert,
+  Modal,
+} from 'react-native';
 import CustomButton from './CustomButton';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {updateExpenses, updateTotalSpent} from '../redux/months';
 import textsFile from '../assets/texts.json';
-const AppWraper = ({route}) => {
+import AddForm from './AddForm';
+const ExpensesList = ({route}) => {
   const dispatch = useDispatch();
   const monthID = route.params.id;
   const language = useSelector(state => state.language.language);
@@ -17,7 +25,6 @@ const AppWraper = ({route}) => {
   const expenses = month.expenses || [];
   const totalSpent = month.totalSpent || 0;
   const navigation = useNavigation();
-
   useEffect(() => {
     const dummyValues = expenses.map(v => {
       return {id: v.id, value: 0};
@@ -137,6 +144,28 @@ const AppWraper = ({route}) => {
     calculateTotalSpent(updatedExpenses);
   };
 
+  const buttons = [
+    {index: 1, text: texts['add'], handleOnPress: handleAdd},
+    {index: 2, text: texts['cancel'], handleOnPress: handleCancle},
+  ];
+  const textInputs = [
+    {
+      index: 1,
+      placeholder: texts['expense-place-holder'],
+      keyboardType: 'default',
+      value: expenseTitle,
+      onChangeText: setExpenseTitle,
+      maxLength: 50,
+    },
+    {
+      index: 2,
+      placeholder: texts['value-place-holder'],
+      keyboardType: 'numeric',
+      value: expensePrice,
+      onChangeText: setExpensePrice,
+      maxLength: 7,
+    },
+  ];
   return (
     <View style={{backgroundColor: '#ecdca7ab', flex: 1, paddingBottom: 10}}>
       <Text
@@ -241,20 +270,16 @@ const AppWraper = ({route}) => {
           onPress={() => navigation.navigate('months')}
         />
       </View>
-      <AddItem
-        alertVisable={alertVisable}
-        expenseTitle={expenseTitle}
-        setExpenseTitle={setExpenseTitle}
-        expensePrice={expensePrice}
-        setExpensePrice={setExpensePrice}
-        handleAdd={handleAdd}
-        handleCancle={handleCancle}
-        newExpenseInputStyle={styles.newExpenseInput}
-        customButtonStyle={styles.customButton}
-        customButtonTextStyle={styles.customButtonText}
-        setAlertVisable={setAlertVisable}
-        texts={texts}
-      />
+      <Modal
+        visible={alertVisable}
+        animationType="slide"
+        onRequestClose={() => setAlertVisable(false)}>
+        <AddForm
+          title={texts['add-expense']}
+          textInputs={textInputs}
+          buttons={buttons}
+        />
+      </Modal>
     </View>
   );
 };
@@ -277,4 +302,4 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-export default AppWraper;
+export default ExpensesList;
