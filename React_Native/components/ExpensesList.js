@@ -14,6 +14,8 @@ import {useNavigation} from '@react-navigation/native';
 import {updateExpenses, updateTotalSpent} from '../redux/months';
 import textsFile from '../assets/texts.json';
 import AddForm from './AddForm';
+import Line from './Line';
+import ExpensesFooter from './ExpensesFooter';
 const ExpensesList = ({route}) => {
   const dispatch = useDispatch();
   const monthID = route.params.id;
@@ -168,15 +170,7 @@ const ExpensesList = ({route}) => {
   ];
   return (
     <View style={{backgroundColor: '#ecdca7ab', flex: 1, paddingBottom: 10}}>
-      <Text
-        style={{
-          fontSize: 30,
-          margin: 'auto',
-          textAlign: 'center',
-          color: 'black',
-        }}>
-        {texts['list-of-expenses']}
-      </Text>
+      <Text style={styles.title}>{texts['list-of-expenses']}</Text>
       <FlatList
         keyboardShouldPersistTaps="always"
         style={{marginBottom: 'auto'}}
@@ -209,6 +203,7 @@ const ExpensesList = ({route}) => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
+                marginBottom: 10,
               }}>
               <CustomButton
                 buttonStyle={styles.customButton}
@@ -229,47 +224,17 @@ const ExpensesList = ({route}) => {
                 onPress={onRemovePress.bind(this, item.id)}
               />
             </View>
-            <View
-              style={{
-                marginTop: 5,
-                borderBottomColor: 'black',
-                borderBottomWidth: StyleSheet.hairlineWidth,
-                alignSelf: 'stretch',
-              }}
-            />
+            <Line width={StyleSheet.hairlineWidth} />
           </View>
         )}></FlatList>
-      <View
-        style={{
-          borderBottomColor: 'black',
-          borderBottomWidth: 5,
-          alignSelf: 'stretch',
-        }}
+      <Line width={5} />
+      <ExpensesFooter
+        totalSpentText={texts['total-spent']}
+        totalSpent={totalSpent}
+        addExpenseButtonText={texts['add-expense']}
+        setAlertVisable={setAlertVisable}
+        monthPageButtonText={texts['months-page']}
       />
-      <Text
-        style={{
-          fontSize: 25,
-          alignSelf: 'center',
-          padding: 10,
-          color: '#350c0c',
-          fontWeight: 'bold',
-        }}>
-        {`${texts['total-spent']} : ${totalSpent}`}
-      </Text>
-      <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-        <CustomButton
-          buttonStyle={styles.customButton}
-          textStyle={styles.customButtonText}
-          title={texts['add-expense']}
-          onPress={setAlertVisable.bind(this, true)}
-        />
-        <CustomButton
-          buttonStyle={styles.customButton}
-          textStyle={styles.customButtonText}
-          title={texts['months-page']}
-          onPress={() => navigation.navigate('months')}
-        />
-      </View>
       <Modal
         visible={alertVisable}
         animationType="slide"
@@ -285,6 +250,12 @@ const ExpensesList = ({route}) => {
 };
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 30,
+    margin: 'auto',
+    textAlign: 'center',
+    color: 'black',
+  },
   newExpenseInput: {
     borderWidth: 2,
     borderColor: 'gray',

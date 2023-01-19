@@ -117,15 +117,9 @@ const Months = () => {
               <View
                 style={{
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
+                  justifyContent: 'space-around',
                   width: '80%',
                 }}>
-                <CustomButton
-                  buttonStyle={styles.customButton}
-                  textStyle={styles.customButtonText}
-                  title={texts['navigate']}
-                  onPress={navigate.bind(this, item.id)}
-                />
                 <CustomButton
                   buttonStyle={styles.customButton}
                   textStyle={styles.customButtonText}
