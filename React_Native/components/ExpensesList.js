@@ -165,7 +165,7 @@ const ExpensesList = ({route}) => {
       keyboardType: 'numeric',
       value: expensePrice,
       onChangeText: setExpensePrice,
-      maxLength: 7,
+      maxLength: 6,
     },
   ];
   return (

@@ -6,7 +6,6 @@ import {
   Pressable,
   StyleSheet,
   Modal,
-  TextInput,
   Alert,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -16,6 +15,10 @@ import {toggleLanguage} from '../redux/language';
 import CustomButton from '../components/CustomButton';
 import textsFile from '../assets/texts.json';
 import AddForm from '../components/AddForm';
+
+const backgroundColorDark = '#4e0d3a';
+const backgroundColorMid = '#5d1049';
+const backgroundColorLight = '#720D5D';
 const Months = () => {
   const [alertVisable, setAlertVisable] = useState(false);
   const [newMonth, setNewMonth] = useState(
@@ -24,6 +27,10 @@ const Months = () => {
   const [newYear, setNewYear] = useState(new Date().getFullYear().toString());
   const months = useSelector(state => state.months.months);
   const language = useSelector(state => state.language.language);
+  const rowStyle =
+    language === 'english'
+      ? {flexDirection: 'row'}
+      : {flexDirection: 'row-reverse'};
   const texts = language === 'english' ? textsFile.english : textsFile.arabic;
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -32,7 +39,7 @@ const Months = () => {
       title: `Months`,
       headerTintColor: '#ffffff',
       headerStyle: {
-        backgroundColor: '#045858',
+        backgroundColor: backgroundColorDark,
         justifyContent: 'center',
         alignItems: 'center',
       },
@@ -95,61 +102,46 @@ const Months = () => {
     },
   ];
   return (
-    <View style={{backgroundColor: '#ecdca7ab', flex: 1, paddingBottom: 10}}>
+    <View
+      style={{backgroundColor: backgroundColorMid, flex: 1, paddingBottom: 10}}>
       <FlatList
-        style={{marginBottom: 'auto'}}
+        style={{marginBottom: 'auto', padding: 10}}
         data={months}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <Pressable onPress={() => navigate(item.id)}>
-            <View
-              style={{
+          <Pressable
+            onPress={() => navigate(item.id)}
+            style={[
+              {
                 alignItems: 'center',
                 padding: 10,
-                height: 100,
                 justifyContent: 'space-between',
-              }}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: '#3C2A21',
-                }}>{`${texts['month-title']}: ${item.month}/${item.year}      ${texts['total-spent']}: ${item.totalSpent}`}</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  width: '80%',
-                }}>
-                <CustomButton
-                  buttonStyle={styles.customButton}
-                  textStyle={styles.customButtonText}
-                  title={texts['remove-month']}
-                  onPress={onRemovePress.bind(this, item.id)}
-                />
-              </View>
-              <View
-                style={{
-                  marginTop: 5,
-                  borderBottomColor: 'black',
-                  borderBottomWidth: StyleSheet.hairlineWidth,
-                  alignSelf: 'stretch',
-                }}
-              />
-            </View>
+                backgroundColor: backgroundColorLight,
+                marginTop: 10,
+                borderRadius: 10,
+              },
+              rowStyle,
+            ]}>
+            <Text
+              style={{
+                fontSize: 18,
+                color: '#ffffff',
+              }}>{`${texts['month-title']}: ${item.month}/${item.year}     ${texts['total-spent']}: ${item.totalSpent}`}</Text>
+            <CustomButton
+              buttonStyle={styles.deleteButton}
+              textStyle={styles.deletButtonText}
+              title={texts['remove-month']}
+              onPress={onRemovePress.bind(this, item.id)}
+            />
           </Pressable>
         )}></FlatList>
       <View
         style={{
-          borderBottomColor: 'black',
-          borderBottomWidth: 5,
-          alignSelf: 'stretch',
-        }}
-      />
-      <View
-        style={{
           flexDirection: 'row',
           justifyContent: 'space-around',
-          marginTop: 15,
+          marginVertical: 15,
+          padding: 20,
+          backgroundColor: backgroundColorDark,
         }}>
         <CustomButton
           buttonStyle={styles.customButton}
@@ -187,12 +179,24 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   customButton: {
-    backgroundColor: '#43435f',
+    backgroundColor: backgroundColorLight,
     padding: 10,
     borderRadius: 7,
   },
   customButtonText: {
     fontWeight: 'bold',
+    color: 'white',
+  },
+  deleteButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: backgroundColorDark,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deletButtonText: {
+    fontSize: 20,
     color: 'white',
   },
 });
