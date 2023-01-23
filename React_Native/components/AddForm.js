@@ -32,20 +32,22 @@ const AddForm = ({title, textInputs, buttons}) => {
   );
 };
 const styles = StyleSheet.create({
-  title: {fontWeight: 'bold'},
+  title: {fontWeight: 'bold', color: '#442c2e'},
   textInputsView: {
     padding: 16,
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor: '#f4f7df',
+    backgroundColor: '#FEEAE6',
   },
   customeInput: {
     borderWidth: 2,
-    borderColor: 'gray',
+    borderRadius: 20,
+    borderColor: '#442c2e',
     margin: 5,
     width: 200,
     textAlign: 'center',
+    color: '#442c2e',
   },
   buttonsView: {
     flexDirection: 'row',
@@ -56,13 +58,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   customButton: {
-    backgroundColor: '#43435f',
+    backgroundColor: '#FEDBD0',
     padding: 10,
     borderRadius: 7,
   },
   customButtonText: {
     fontWeight: 'bold',
-    color: 'white',
+    color: '#442c2e',
   },
 });
 

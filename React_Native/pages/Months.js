@@ -15,10 +15,11 @@ import {toggleLanguage} from '../redux/language';
 import CustomButton from '../components/CustomButton';
 import textsFile from '../assets/texts.json';
 import AddForm from '../components/AddForm';
+import Header from '../components/Header';
 
-const backgroundColorDark = '#4e0d3a';
-const backgroundColorMid = '#5d1049';
-const backgroundColorLight = '#720D5D';
+const backgroundColorDark = '#232F34';
+const backgroundColorMid = '#344955';
+const backgroundColorLight = '#4A6572';
 const Months = () => {
   const [alertVisable, setAlertVisable] = useState(false);
   const [newMonth, setNewMonth] = useState(
@@ -36,13 +37,7 @@ const Months = () => {
   const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({
-      title: `Months`,
-      headerTintColor: '#ffffff',
-      headerStyle: {
-        backgroundColor: backgroundColorDark,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
+      headerShown: false,
     });
   }, []);
   const navigate = id => {
@@ -94,7 +89,7 @@ const Months = () => {
     },
     {
       index: 2,
-      placeholder: texts['value-place-holder'],
+      placeholder: texts['year-place-holder'],
       keyboardType: 'numeric',
       value: newYear,
       onChangeText: setNewYear,
@@ -104,6 +99,7 @@ const Months = () => {
   return (
     <View
       style={{backgroundColor: backgroundColorMid, flex: 1, paddingBottom: 10}}>
+      <Header title={'Months'} />
       <FlatList
         style={{marginBottom: 'auto', padding: 10}}
         data={months}
@@ -157,14 +153,21 @@ const Months = () => {
         />
       </View>
       <Modal
+        transparent={true}
         visible={alertVisable}
         animationType="fade"
         onRequestClose={() => setAlertVisable(false)}>
+        <Pressable
+          style={{flex: 0.8, backgroundColor: '#000000c2'}}
+          onPress={() => setAlertVisable(false)}></Pressable>
         <AddForm
           title={texts['add-month']}
           buttons={buttons}
           textInputs={textInputs}
         />
+        <Pressable
+          style={{flex: 0.8, backgroundColor: '#000000c2'}}
+          onPress={() => setAlertVisable(false)}></Pressable>
       </Modal>
     </View>
   );

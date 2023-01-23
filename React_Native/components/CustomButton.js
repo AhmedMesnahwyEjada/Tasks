@@ -1,9 +1,17 @@
-import {Pressable, Text} from 'react-native';
+import {Pressable, Text, Image} from 'react-native';
 
-const CustomButton = ({buttonStyle, title, textStyle, onPress}) => {
+const CustomButton = ({
+  buttonStyle,
+  title,
+  textStyle,
+  onPress,
+  icon,
+  iconStyle,
+}) => {
   return (
     <Pressable style={buttonStyle} onPress={onPress}>
-      <Text style={textStyle}>{title}</Text>
+      {icon && <Image source={icon} style={iconStyle} />}
+      {title && <Text style={textStyle}>{title}</Text>}
     </Pressable>
   );
 };

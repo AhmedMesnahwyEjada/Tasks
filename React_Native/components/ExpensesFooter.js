@@ -1,16 +1,13 @@
 import {View, Text, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import CustomButton from './CustomButton';
 const ExpensesFooter = ({
   totalSpentText,
   totalSpent,
   setAlertVisable,
   addExpenseButtonText,
-  monthPageButtonText,
 }) => {
-  const navigation = useNavigation();
   return (
-    <>
+    <View style={{marginVertical: 10}}>
       <Text style={styles.totalSpent}>
         {`${totalSpentText} : ${totalSpent}`}
       </Text>
@@ -21,14 +18,8 @@ const ExpensesFooter = ({
           title={addExpenseButtonText}
           onPress={setAlertVisable.bind(this, true)}
         />
-        <CustomButton
-          buttonStyle={styles.customButton}
-          textStyle={styles.customButtonText}
-          title={monthPageButtonText}
-          onPress={() => navigation.navigate('months')}
-        />
       </View>
-    </>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -36,17 +27,25 @@ const styles = StyleSheet.create({
     fontSize: 25,
     alignSelf: 'center',
     padding: 10,
-    color: '#350c0c',
+    backgroundColor: '#232F34',
+    width: '100%',
+    color: '#FFFFFF',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
-  buttonsView: {flexDirection: 'row', justifyContent: 'space-evenly'},
+  buttonsView: {
+    backgroundColor: '#232F34',
+    paddingHorizontal: 50,
+    paddingVertical: 10,
+  },
   customButton: {
-    backgroundColor: '#43435f',
+    backgroundColor: '#4A6572',
     padding: 10,
     borderRadius: 7,
   },
   customButtonText: {
     fontWeight: 'bold',
+    textAlign: 'center',
     color: 'white',
   },
 });

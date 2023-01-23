@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
   Modal,
+  Pressable,
 } from 'react-native';
 import CustomButton from './CustomButton';
 import {useSelector, useDispatch} from 'react-redux';
@@ -14,8 +15,12 @@ import {useNavigation} from '@react-navigation/native';
 import {updateExpenses, updateTotalSpent} from '../redux/months';
 import textsFile from '../assets/texts.json';
 import AddForm from './AddForm';
-import Line from './Line';
 import ExpensesFooter from './ExpensesFooter';
+import Header from './Header';
+
+const backgroundColorDark = '#232F34';
+const backgroundColorMid = '#344955';
+const backgroundColorLight = '#4A6572';
 const ExpensesList = ({route}) => {
   const dispatch = useDispatch();
   const monthID = route.params.id;
@@ -27,22 +32,29 @@ const ExpensesList = ({route}) => {
   const expenses = month.expenses || [];
   const totalSpent = month.totalSpent || 0;
   const navigation = useNavigation();
+  const [shownExpenses, setShownExpenses] = useState([]);
   useEffect(() => {
     const dummyValues = expenses.map(v => {
       return {id: v.id, value: 0};
     });
     setValues(dummyValues);
+    setShownExpenses(expenses);
     calculateTotalSpent(expenses);
     navigation.setOptions({
-      title: `${texts['month-title']}: ${month.month}/${month.year}`,
-      headerTintColor: '#ffffff',
-      headerStyle: {
-        backgroundColor: '#045858',
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
+      headerShown: false,
     });
   }, []);
+  const onExpensesChange = updatedExpenses => {
+    dispatch(updateExpenses({id: monthID, expenses: updatedExpenses}));
+    calculateTotalSpent(updatedExpenses);
+    setShownExpenses(shownExpenses =>
+      [...shownExpenses].map(expense => {
+        for (const element of updatedExpenses)
+          if (element.id === expense.id) return element;
+        return expense;
+      }),
+    );
+  };
 
   const [values, setValues] = useState([]);
   const handleValueChange = (newValue, id) => {
@@ -70,8 +82,7 @@ const ExpensesList = ({route}) => {
       }
       return e;
     });
-    dispatch(updateExpenses({id: monthID, expenses: updatedExpenses}));
-    calculateTotalSpent(updatedExpenses);
+    onExpensesChange(updatedExpenses);
     handleValueChange(0, id);
   };
   const calculateTotalSpent = ex => {
@@ -114,18 +125,16 @@ const ExpensesList = ({route}) => {
       0,
     );
     const defalutValue = expensePrice >= 0 ? expensePrice : 0;
-    const updatedExpenses = [
-      ...expenses,
-      {
-        id: maxID + 1,
-        title: expenseTitle,
-        totalPrice: parseFloat(defalutValue),
-      },
-    ];
+    const newExpense = {
+      id: maxID + 1,
+      title: expenseTitle,
+      totalPrice: parseFloat(defalutValue),
+    };
+    const updatedExpenses = [...expenses, newExpense];
     const updatedValues = [...values, {id: maxID + 1, value: 0}];
-    dispatch(updateExpenses({id: monthID, expenses: updatedExpenses}));
+    setShownExpenses(shownExpenses => [...shownExpenses, newExpense]);
+    onExpensesChange(updatedExpenses);
     setValues(updatedValues);
-    calculateTotalSpent(updatedExpenses);
     handleCancle();
   };
   const onRemovePress = id => {
@@ -135,15 +144,22 @@ const ExpensesList = ({route}) => {
     ]);
   };
   const handleRemove = id => {
-    const updatedExpenses = expenses.filter(expense => {
+    const updatedExpenses = [...expenses].filter(expense => {
       return expense.id !== id;
     });
     const updatedValues = values.filter(value => {
       return value.id !== id;
     });
-    dispatch(updateExpenses({id: monthID, expenses: updatedExpenses}));
+    onExpensesChange(updatedExpenses);
     setValues(updatedValues);
-    calculateTotalSpent(updatedExpenses);
+  };
+
+  const search = keyword => {
+    setShownExpenses(() => {
+      return [...expenses].filter(ex => {
+        return ex.title.toLowerCase().includes(keyword.toLowerCase());
+      });
+    });
   };
 
   const buttons = [
@@ -169,33 +185,30 @@ const ExpensesList = ({route}) => {
     },
   ];
   return (
-    <View style={{backgroundColor: '#ecdca7ab', flex: 1, paddingBottom: 10}}>
+    <View
+      style={{backgroundColor: backgroundColorMid, flex: 1, paddingBottom: 10}}>
+      <Header
+        search={search}
+        title={`${month.month}/${month.year}`}
+        onBack={() => navigation.goBack()}
+      />
       <Text style={styles.title}>{texts['list-of-expenses']}</Text>
       <FlatList
         keyboardShouldPersistTaps="always"
         style={{marginBottom: 'auto'}}
-        data={expenses}
+        data={shownExpenses}
         renderItem={({item}) => (
           <View
             style={{
-              alignItems: 'center',
-              padding: 10,
+              alignItems: 'flex-start',
+              padding: 15,
+              margin: 10,
+              backgroundColor: backgroundColorLight,
+              borderRadius: 20,
             }}>
-            <Text style={{fontSize: 20, color: '#3C2A21', fontWeight: 'bold'}}>
-              {item.title}
+            <Text style={{fontSize: 25, color: '#FFFFFF', fontWeight: 'bold'}}>
+              {`${item.title}          ${item.totalPrice}`}
             </Text>
-            <Text style={{fontSize: 20, color: '#211b44', fontWeight: 'bold'}}>
-              {item.totalPrice}
-            </Text>
-            <TextInput
-              value={values?.find(v => v.id === item.id)?.value || null}
-              onChangeText={value => handleValueChange(value, item.id)}
-              placeholder={texts['money-place-holder']}
-              style={styles.newExpenseInput}
-              keyboardType="numeric"
-              maxLength={5}
-              onSubmitEditing={updateMoney.bind(this, item.id, 'spend')}
-            />
             <View
               style={{
                 flex: 1,
@@ -203,8 +216,18 @@ const ExpensesList = ({route}) => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                marginBottom: 10,
               }}>
+              <TextInput
+                value={values?.find(v => v.id === item.id)?.value || null}
+                onChangeText={value => handleValueChange(value, item.id)}
+                placeholder={texts['money-place-holder']}
+                style={styles.newExpenseInput}
+                placeholderTextColor={'#FFFFFF'}
+                keyboardType="numeric"
+                maxLength={5}
+                cursorColor={backgroundColorDark}
+                onSubmitEditing={updateMoney.bind(this, item.id, 'spend')}
+              />
               <CustomButton
                 buttonStyle={styles.customButton}
                 textStyle={styles.customButtonText}
@@ -224,26 +247,30 @@ const ExpensesList = ({route}) => {
                 onPress={onRemovePress.bind(this, item.id)}
               />
             </View>
-            <Line width={StyleSheet.hairlineWidth} />
           </View>
         )}></FlatList>
-      <Line width={5} />
       <ExpensesFooter
         totalSpentText={texts['total-spent']}
         totalSpent={totalSpent}
         addExpenseButtonText={texts['add-expense']}
         setAlertVisable={setAlertVisable}
-        monthPageButtonText={texts['months-page']}
       />
       <Modal
         visible={alertVisable}
+        transparent={true}
         animationType="slide"
         onRequestClose={() => setAlertVisable(false)}>
+        <Pressable
+          style={{flex: 0.8, backgroundColor: '#000000c2'}}
+          onPress={() => setAlertVisable(false)}></Pressable>
         <AddForm
           title={texts['add-expense']}
           textInputs={textInputs}
           buttons={buttons}
         />
+        <Pressable
+          style={{flex: 0.8, backgroundColor: '#000000c2'}}
+          onPress={() => setAlertVisable(false)}></Pressable>
       </Modal>
     </View>
   );
@@ -254,22 +281,27 @@ const styles = StyleSheet.create({
     fontSize: 30,
     margin: 'auto',
     textAlign: 'center',
-    color: 'black',
+    color: '#FFFFFF',
   },
   newExpenseInput: {
     borderWidth: 2,
-    borderColor: 'gray',
+    borderColor: backgroundColorDark,
+    color: '#FFFFFF',
     margin: 5,
-    width: 200,
+    width: 150,
     textAlign: 'center',
   },
   customButton: {
-    backgroundColor: '#43435f',
-    padding: 10,
-    borderRadius: 7,
+    backgroundColor: backgroundColorDark,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   customButtonText: {
     fontWeight: 'bold',
+    fontSize: 20,
     color: 'white',
   },
 });
