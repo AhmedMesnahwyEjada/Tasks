@@ -1,8 +1,10 @@
 import {View, Text} from 'react-native';
 import SearchBar from './SearchBar';
 import {useSelector} from 'react-redux';
-import leftArrowIcon from '../assets/leftArrow.png';
 import CustomButton from './CustomButton';
+import globalStyle from '../assets/styles';
+
+const backgroundColorDark = globalStyle.backgroundColorDark;
 const Header = ({search, title, onBack}) => {
   const language = useSelector(state => state.language.language);
   return (
@@ -12,7 +14,7 @@ const Header = ({search, title, onBack}) => {
           justifyContent: 'flex-start',
           alignItems: 'stretch',
           height: '8%',
-          backgroundColor: '#232F34',
+          backgroundColor: backgroundColorDark,
         },
         {flexDirection: language === 'english' ? 'row' : 'row-reverse'},
       ]}>

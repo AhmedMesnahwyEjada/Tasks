@@ -1,5 +1,8 @@
 import {View, Text, StyleSheet} from 'react-native';
 import CustomButton from './CustomButton';
+import globalStyle from '../assets/styles';
+const backgroundColorDark = globalStyle.backgroundColorDark;
+const backgroundColorLight = globalStyle.backgroundColorLight;
 const ExpensesFooter = ({
   totalSpentText,
   totalSpent,
@@ -27,19 +30,19 @@ const styles = StyleSheet.create({
     fontSize: 25,
     alignSelf: 'center',
     padding: 10,
-    backgroundColor: '#232F34',
+    backgroundColor: backgroundColorDark,
     width: '100%',
     color: '#FFFFFF',
     fontWeight: 'bold',
     textAlign: 'center',
   },
   buttonsView: {
-    backgroundColor: '#232F34',
+    backgroundColor: backgroundColorDark,
     paddingHorizontal: 50,
     paddingVertical: 10,
   },
   customButton: {
-    backgroundColor: '#4A6572',
+    backgroundColor: backgroundColorLight,
     padding: 10,
     borderRadius: 7,
   },

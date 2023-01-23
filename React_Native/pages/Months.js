@@ -16,10 +16,11 @@ import CustomButton from '../components/CustomButton';
 import textsFile from '../assets/texts.json';
 import AddForm from '../components/AddForm';
 import Header from '../components/Header';
+import globalStyle from '../assets/styles';
 
-const backgroundColorDark = '#232F34';
-const backgroundColorMid = '#344955';
-const backgroundColorLight = '#4A6572';
+const backgroundColorDark = globalStyle.backgroundColorDark;
+const backgroundColorMid = globalStyle.backgroundColorMid;
+const backgroundColorLight = globalStyle.backgroundColorLight;
 const Months = () => {
   const [alertVisable, setAlertVisable] = useState(false);
   const [newMonth, setNewMonth] = useState(

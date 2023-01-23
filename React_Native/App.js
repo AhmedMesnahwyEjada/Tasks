@@ -4,11 +4,10 @@ import ExpensesList from './components/ExpensesList';
 import Months from './pages/Months';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import globalStyle from './assets/styles';
 const App = () => {
   const Stack = createNativeStackNavigator();
-  const backgroundColorDark = '#232F34';
-  const backgroundColorMid = '#344955';
-  const backgroundColorLight = '#4A6572';
+  const backgroundColorDark = globalStyle.backgroundColorDark;
   return (
     <Provider store={store}>
       <NavigationContainer>

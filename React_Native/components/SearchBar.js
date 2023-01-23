@@ -3,6 +3,9 @@ import CustomButton from './CustomButton';
 import searchIcon from '../assets/search.png';
 import {useSelector} from 'react-redux';
 import {useState} from 'react';
+import globalStyle from '../assets/styles';
+
+const backgroundColorLight = globalStyle.backgroundColorLight;
 const SearchBar = ({search}) => {
   const language = useSelector(state => state.language.language);
   const [value, setValue] = useState('');
@@ -38,7 +41,7 @@ const SearchBar = ({search}) => {
           {
             flex: 7,
             color: '#ffffff',
-            backgroundColor: '#4A6572',
+            backgroundColor: backgroundColorLight,
             padding: 5,
             fontSize: 25,
           },
@@ -51,7 +54,7 @@ const SearchBar = ({search}) => {
           justifyContent: 'center',
           padding: 5,
           flex: 1,
-          backgroundColor: '#4A6572',
+          backgroundColor: backgroundColorLight,
         }}
         icon={searchIcon}
         iconStyle={{height: 20, width: 20}}
