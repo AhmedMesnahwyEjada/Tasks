@@ -150,6 +150,11 @@ const ExpensesList = ({route}) => {
     const updatedValues = values.filter(value => {
       return value.id !== id;
     });
+    setShownExpenses(shownExpenses =>
+      [...shownExpenses].filter(expense => {
+        return expense.id !== id;
+      }),
+    );
     onExpensesChange(updatedExpenses);
     setValues(updatedValues);
   };
