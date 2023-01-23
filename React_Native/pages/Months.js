@@ -99,7 +99,7 @@ const Months = () => {
   return (
     <View
       style={{backgroundColor: backgroundColorMid, flex: 1, paddingBottom: 10}}>
-      <Header title={'Months'} />
+      <Header title={texts['months-title']} />
       <FlatList
         style={{marginBottom: 'auto', padding: 10}}
         data={months}
