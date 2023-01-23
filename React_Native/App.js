@@ -13,12 +13,7 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            headerTintColor: '#ffffff',
-            headerStyle: {
-              backgroundColor: backgroundColorDark,
-              justifyContent: 'center',
-              alignItems: 'center',
-            },
+            headerShown: false,
           }}>
           <Stack.Screen name="months" component={Months} />
           <Stack.Screen name="monthDetails" component={ExpensesList} />

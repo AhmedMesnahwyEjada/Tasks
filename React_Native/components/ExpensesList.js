@@ -41,9 +41,6 @@ const ExpensesList = ({route}) => {
     setValues(dummyValues);
     setShownExpenses(expenses);
     calculateTotalSpent(expenses);
-    navigation.setOptions({
-      headerShown: false,
-    });
   }, []);
   const onExpensesChange = updatedExpenses => {
     dispatch(updateExpenses({id: monthID, expenses: updatedExpenses}));

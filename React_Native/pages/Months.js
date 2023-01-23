@@ -36,11 +36,6 @@ const Months = () => {
   const texts = language === 'english' ? textsFile.english : textsFile.arabic;
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  useEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, []);
   const navigate = id => {
     navigation.navigate('monthDetails', {id});
   };
