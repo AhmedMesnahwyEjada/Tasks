@@ -8,8 +8,13 @@ import {
 import {Text, StyleSheet} from 'react-native';
 import {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-const MobileVerification = ({language, theme, route, text}) => {
+import {useSelector} from 'react-redux';
+import texts from '../assets/language.json';
+const MobileVerification = ({route}) => {
   const navigation = useNavigation();
+  const language = useSelector(state => state.language.language);
+  const theme = useSelector(state => state.theme.theme);
+  const text = texts[language];
   const rowStyle =
     language === 'english'
       ? {flexDirection: 'row'}

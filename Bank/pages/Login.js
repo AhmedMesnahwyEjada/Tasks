@@ -6,7 +6,9 @@ import {
   Image,
   StatusBar,
   Alert,
+  ScrollView,
 } from 'react-native';
+import texts from '../assets/language.json';
 import background from '../assets/background.png';
 import lockImage from '../assets/lock.png';
 import atImage from '../assets/at.png';
@@ -19,11 +21,20 @@ import {useEffect, useState} from 'react';
 import FingerprintModal from '../components/FingerprintModal';
 import {useNavigation} from '@react-navigation/native';
 import {getUser} from '../axios/Users';
-const Login = ({language, setLanguage, theme, text}) => {
+import {useSelector, useDispatch} from 'react-redux';
+import {login} from '../redux/user';
+import {toggleLanguage} from '../redux/language';
+const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [modalVisibility, setModalVisibility] = useState(false);
   const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const language = useSelector(state => state.language.language);
+  const loggedIn = useSelector(state => state.user.loggedIn);
+  const user = useSelector(state => state.user.user);
+  const text = texts[language];
+  const theme = useSelector(state => state.theme.theme);
   const rowStyle = language === 'english' ? 'row' : 'row-reverse';
   const navigation = useNavigation();
   const toggleModalVisible = () => {
@@ -31,27 +42,35 @@ const Login = ({language, setLanguage, theme, text}) => {
       return !modalVisibility;
     });
   };
-  const toggleLanguage = () => {
-    setLanguage(language => {
-      return language === 'english' ? 'arabic' : 'english';
-    });
+  const changeLanguage = () => {
+    dispatch(toggleLanguage());
   };
   const signupNavigation = () => {
     navigation.navigate('Signup');
   };
-  const login = async () => {
-    const userData = {mobileNumber: mobileNumber, password: password};
-    const loggedIn = await getUser(userData);
-    if (loggedIn) navigation.navigate('Home', userData);
-    else Alert.alert('Invalid Mobile or Password');
+  const logIn = async () => {
+    try {
+      const userData = await getUser({
+        mobileNumber: mobileNumber,
+        password: password,
+      });
+      if (userData) {
+        dispatch(login(userData));
+        navigation.navigate('Home');
+      } else Alert.alert('Invalid Mobile or Password');
+    } catch (err) {
+      console.log(err);
+      Alert.alert('Error while logging in please try again later');
+    }
   };
   useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
+    if (loggedIn) navigation.navigate('Home', user);
   });
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar backgroundColor="transparent" translucent={true} />
       <ImageBackground source={background} style={styles.image}>
         <View style={styles.mainView}>
@@ -60,7 +79,7 @@ const Login = ({language, setLanguage, theme, text}) => {
               title={text['language']}
               style={styles.languageButton}
               titleStyle={styles.languageButtonTitle}
-              onPress={toggleLanguage}
+              onPress={() => changeLanguage()}
             />
             <Image source={logo} />
           </View>
@@ -120,7 +139,7 @@ const Login = ({language, setLanguage, theme, text}) => {
             }}>
             <CustomButton
               title={text['login']}
-              onPress={login}
+              onPress={logIn}
               style={[
                 styles.loginButton,
                 language === 'english' ? {marginEnd: 30} : {marginStart: 30},
@@ -178,15 +197,15 @@ const Login = ({language, setLanguage, theme, text}) => {
             {text['copyright']}
           </Text>
         </View>
+        <FingerprintModal
+          theme={theme}
+          language={language}
+          modalVisibility={modalVisibility}
+          toggleModalVisible={toggleModalVisible}
+          text={text}
+        />
       </ImageBackground>
-      <FingerprintModal
-        theme={theme}
-        language={language}
-        modalVisibility={modalVisibility}
-        toggleModalVisible={toggleModalVisible}
-        text={text}
-      />
-    </View>
+    </ScrollView>
   );
 };
 

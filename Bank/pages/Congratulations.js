@@ -1,10 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
 import {useEffect} from 'react';
 import {ImageBackground, View, Image, Text, Pressable} from 'react-native';
+import {useSelector} from 'react-redux';
+import texts from '../assets/language.json';
 import congratulationsCover from '../assets/congratulations.png';
 import logo from '../assets/logo.png';
-const Congratulations = ({language, text}) => {
+const Congratulations = () => {
   const navigation = useNavigation();
+  const language = useSelector(state => state.language.language);
+  const text = texts[language];
   useEffect(() => {
     navigation.setOptions({
       headerShown: false,

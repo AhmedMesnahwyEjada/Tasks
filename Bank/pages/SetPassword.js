@@ -3,10 +3,18 @@ import InputField from '../components/InputField';
 import PageWrapper from '../components/PageWrapper';
 import lockIcon from '../assets/lock.png';
 import showPasswordIcon from '../assets/showPassword.png';
-import {View, StyleSheet, Text, Pressable, Image} from 'react-native';
+import {View, StyleSheet, Text, Pressable, Image, Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
 import {createUser} from '../axios/Users';
-const SetPassword = ({theme, language, text, route}) => {
+import {login} from '../redux/user';
+import texts from '../assets/language.json';
+const SetPassword = ({route}) => {
+  const navigation = useNavigation();
+  const language = useSelector(state => state.language.language);
+  const theme = useSelector(state => state.theme.theme);
+  const dispatch = useDispatch();
+  const text = texts[language];
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -25,7 +33,6 @@ const SetPassword = ({theme, language, text, route}) => {
       regex: /([@#$%^&+!=])/,
     },
   ];
-  const navigation = useNavigation();
   useEffect(() => {
     setCirclesEnabled(circlesEnabled => {
       return circlesEnabled.map((circleEnabled, index) => {
@@ -53,11 +60,18 @@ const SetPassword = ({theme, language, text, route}) => {
     );
   };
   const submit = async () => {
-    navigation.navigate('Congratulations');
-    createUser({
-      mobileNumber: mobileNumber,
-      password: password,
-    });
+    try {
+      const user = {
+        mobileNumber: mobileNumber,
+        password: password,
+      };
+      await createUser(user);
+      dispatch(login(user));
+      navigation.navigate('Congratulations');
+    } catch (err) {
+      console.log(err);
+      Alert.alert('user not created please try again later');
+    }
   };
   const rowStyle =
     language === 'english'

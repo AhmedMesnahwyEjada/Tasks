@@ -1,4 +1,4 @@
-import {Modal, View, Image, StyleSheet, Text} from 'react-native';
+import {Modal, View, Image, StyleSheet, Text, Pressable} from 'react-native';
 import fingerprintCircle from '../assets/fingerprintCircle.png';
 import CustomButton from './CustomButton';
 const FingerprintModal = ({
@@ -13,8 +13,11 @@ const FingerprintModal = ({
       statusBarTranslucent={true}
       visible={modalVisibility}
       transparent={true}
+      animationType={'fade'}
       onDismiss={toggleModalVisible}>
-      <View style={{flex: 2, backgroundColor: 'rgba(28, 36, 55, 0.77)'}}></View>
+      <Pressable
+        style={{flex: 2, backgroundColor: 'rgba(28, 36, 55, 0.77)'}}
+        onPress={toggleModalVisible}></Pressable>
       <View
         style={[
           styles.fingerprintModal,

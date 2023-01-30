@@ -12,9 +12,9 @@ const getUser = async userData => {
       response.data[key].mobileNumber === userData.mobileNumber &&
       response.data[key].password === userData.password
     )
-      return true;
+      return response.data[key];
   }
-  return false;
+  return null;
 };
 
 export {createUser, getUser};
