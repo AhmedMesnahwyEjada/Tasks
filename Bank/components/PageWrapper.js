@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import CustomButton from './CustomButton';
 import logo from '../assets/logo.png';
 import logoGreen from '../assets/logoGreen.png';
@@ -55,7 +55,7 @@ const PageWrapper = ({
         />
         <Image source={theme === 'light' ? logoGreen : logo} />
       </View>
-      <View style={styles.body}>
+      <ScrollView style={styles.body}>
         <Text
           style={[
             styles.title,
@@ -65,7 +65,7 @@ const PageWrapper = ({
         </Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
         {children}
-      </View>
+      </ScrollView>
       <CustomButton
         title={buttonText}
         style={styles.button}
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '100%',
-    flex: 1,
+    height: '7%',
     backgroundColor: '#007236',
     borderRadius: 15,
     justifyContent: 'center',
