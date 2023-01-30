@@ -33,8 +33,8 @@ const App = () => {
       route={route}
     />
   );
-  const SetPasswordWrapper = () => (
-    <SetPassword text={text} language={language} theme={theme} />
+  const SetPasswordWrapper = ({route}) => (
+    <SetPassword text={text} language={language} theme={theme} route={route} />
   );
   const CongratulationsWrapper = () => (
     <Congratulations text={text} language={language} />

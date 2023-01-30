@@ -22,7 +22,8 @@ const MobileVerification = ({language, theme, route, text}) => {
     else setNextButtonDisabled(true);
   });
   const navigateToSetPasswrod = () => {
-    if (!nextButtonDisabled) navigation.navigate('SetPassword');
+    if (!nextButtonDisabled)
+      navigation.navigate('SetPassword', {mobileNumber: mobileNumber});
   };
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,

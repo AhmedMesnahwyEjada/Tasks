@@ -5,13 +5,15 @@ import lockIcon from '../assets/lock.png';
 import showPasswordIcon from '../assets/showPassword.png';
 import {View, StyleSheet, Text, Pressable, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-const SetPassword = ({theme, language, text}) => {
+import {createUser} from '../axios/Users';
+const SetPassword = ({theme, language, text, route}) => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [circlesEnabled, setCirclesEnabled] = useState(Array(5).fill(false));
   const [passwordType, setPasswordType] = useState('password');
   const [confirmPasswordType, setConfirmPasswordType] = useState('password');
+  const {mobileNumber} = route.params;
   const checks = [
     {text: text['lower-case'], index: 0, regex: /([a-z])/},
     {text: text['upper-case'], index: 1, regex: /([A-Z])/},
@@ -50,8 +52,12 @@ const SetPassword = ({theme, language, text}) => {
       confirmPasswordType === 'password' ? 'text' : 'password',
     );
   };
-  const submit = () => {
+  const submit = async () => {
     navigation.navigate('Congratulations');
+    createUser({
+      mobileNumber: mobileNumber,
+      password: password,
+    });
   };
   const rowStyle =
     language === 'english'

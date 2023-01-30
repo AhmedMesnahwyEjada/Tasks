@@ -5,6 +5,7 @@ import {
   ImageBackground,
   Image,
   StatusBar,
+  Alert,
 } from 'react-native';
 import background from '../assets/background.png';
 import lockImage from '../assets/lock.png';
@@ -17,9 +18,12 @@ import CheckBox from '@react-native-community/checkbox';
 import {useEffect, useState} from 'react';
 import FingerprintModal from '../components/FingerprintModal';
 import {useNavigation} from '@react-navigation/native';
+import {getUser} from '../axios/Users';
 const Login = ({language, setLanguage, theme, text}) => {
   const [rememberMe, setRememberMe] = useState(false);
   const [modalVisibility, setModalVisibility] = useState(false);
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [password, setPassword] = useState('');
   const rowStyle = language === 'english' ? 'row' : 'row-reverse';
   const navigation = useNavigation();
   const toggleModalVisible = () => {
@@ -34,6 +38,12 @@ const Login = ({language, setLanguage, theme, text}) => {
   };
   const signupNavigation = () => {
     navigation.navigate('Signup');
+  };
+  const login = async () => {
+    const userData = {mobileNumber: mobileNumber, password: password};
+    const loggedIn = await getUser(userData);
+    if (loggedIn) navigation.navigate('Home', userData);
+    else Alert.alert('Invalid Mobile or Password');
   };
   useEffect(() => {
     navigation.setOptions({
@@ -56,6 +66,8 @@ const Login = ({language, setLanguage, theme, text}) => {
           </View>
           <Text style={styles.mainText}>{text['main-text']}</Text>
           <InputField
+            value={mobileNumber}
+            onValueChange={setMobileNumber}
             style={styles.usernameView}
             titleStyle={styles.usernameText}
             inputStyle={styles.usernameInput}
@@ -66,6 +78,8 @@ const Login = ({language, setLanguage, theme, text}) => {
             icon={atImage}
           />
           <InputField
+            value={password}
+            onValueChange={setPassword}
             style={styles.passwordView}
             titleStyle={styles.passwordText}
             inputStyle={styles.passwordInput}
@@ -106,6 +120,7 @@ const Login = ({language, setLanguage, theme, text}) => {
             }}>
             <CustomButton
               title={text['login']}
+              onPress={login}
               style={[
                 styles.loginButton,
                 language === 'english' ? {marginEnd: 30} : {marginStart: 30},
