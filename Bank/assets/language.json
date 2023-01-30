@@ -38,7 +38,10 @@
         "special-charchter" : "Special charchter",
         "congratulations-title" : "Congratulations",
         "congratulations-subtitle" : "You have successfully registered in NBE online banking service",
-        "congratulations-button" : "Finish"
+        "congratulations-button" : "Finish",
+        "good-morning" : "Good Morning",
+        "logout" : "Log Out",
+        "dark-mode" : "Dark Mode"
     },
     "arabic" : {
         "language": "EN",
@@ -79,6 +82,9 @@
         "special-charchter" : "رمز",
         "congratulations-title" : "مبروك",
         "congratulations-subtitle" : "دلوقتي تقدر تستخدم الخدمات الالكترونية للبنك الاهلي المصري",
-        "congratulations-button" : "انهاء"
+        "congratulations-button" : "انهاء",
+        "good-morning" : "صباح الخير",
+        "logout" : "تسجيل الخروج",
+        "dark-mode" : "الوضع المظلم"
     }
 }

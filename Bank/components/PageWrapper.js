@@ -1,8 +1,7 @@
 import {useEffect} from 'react';
 import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import CustomButton from './CustomButton';
-import logo from '../assets/logo.png';
-import logoGreen from '../assets/logoGreen.png';
+import Header from './Header';
 import {useNavigation} from '@react-navigation/native';
 const PageWrapper = ({
   theme,
@@ -15,16 +14,12 @@ const PageWrapper = ({
   onButtonClick,
   buttonDisabled,
 }) => {
-  const rowStyle = language === 'english' ? 'row' : 'row-reverse';
   const navigation = useNavigation();
-  const backButton = () => {
-    navigation.goBack();
-  };
   useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
-  });
+  }, []);
   return (
     <View
       style={[
@@ -33,28 +28,7 @@ const PageWrapper = ({
           ? {backgroundColor: '#E5E5E5'}
           : {backgroundColor: '#1c2125'},
       ]}>
-      <View
-        style={{
-          flexDirection: rowStyle,
-          justifyContent: 'space-between',
-          alignItems: 'stretch',
-        }}>
-        <CustomButton
-          onPress={backButton}
-          title={language === 'english' ? '<' : '>'}
-          titleStyle={[
-            styles.backButtonText,
-            theme === 'light' ? {color: '#FFFFFF'} : {color: '#007236'},
-          ]}
-          style={[
-            styles.backButton,
-            theme === 'dark'
-              ? {backgroundColor: '#FFFFFF'}
-              : {backgroundColor: '#007236'},
-          ]}
-        />
-        <Image source={theme === 'light' ? logoGreen : logo} />
-      </View>
+      <Header type={1} />
       <ScrollView style={styles.body}>
         <Text
           style={[

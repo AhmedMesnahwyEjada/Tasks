@@ -15,7 +15,7 @@ const Congratulations = () => {
     });
   }, []);
   const finish = () => {
-    navigation.navigate('Login');
+    navigation.navigate('Home');
   };
   return (
     <View

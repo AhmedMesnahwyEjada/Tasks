@@ -25,7 +25,7 @@ const MobileVerification = ({route}) => {
   useEffect(() => {
     if (value.length === 5) setNextButtonDisabled(false);
     else setNextButtonDisabled(true);
-  });
+  }, [value]);
   const navigateToSetPasswrod = () => {
     if (!nextButtonDisabled)
       navigation.navigate('SetPassword', {mobileNumber: mobileNumber});

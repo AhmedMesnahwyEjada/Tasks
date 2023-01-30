@@ -3,7 +3,6 @@ import {
   Text,
   View,
   ImageBackground,
-  Image,
   StatusBar,
   Alert,
   ScrollView,
@@ -12,7 +11,6 @@ import texts from '../assets/language.json';
 import background from '../assets/background.png';
 import lockImage from '../assets/lock.png';
 import atImage from '../assets/at.png';
-import logo from '../assets/logo.png';
 import fingerprintLogo from '../assets/fingerprint.png';
 import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
@@ -23,7 +21,7 @@ import {useNavigation} from '@react-navigation/native';
 import {getUser} from '../axios/Users';
 import {useSelector, useDispatch} from 'react-redux';
 import {login} from '../redux/user';
-import {toggleLanguage} from '../redux/language';
+import Header from '../components/Header';
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [modalVisibility, setModalVisibility] = useState(false);
@@ -42,9 +40,6 @@ const Login = () => {
       return !modalVisibility;
     });
   };
-  const changeLanguage = () => {
-    dispatch(toggleLanguage());
-  };
   const signupNavigation = () => {
     navigation.navigate('Signup');
   };
@@ -56,7 +51,7 @@ const Login = () => {
       });
       if (userData) {
         dispatch(login(userData));
-        navigation.navigate('Home');
+        navigation.navigate('Home', user);
       } else Alert.alert('Invalid Mobile or Password');
     } catch (err) {
       console.log(err);
@@ -67,22 +62,17 @@ const Login = () => {
     navigation.setOptions({
       headerShown: false,
     });
+    console.log('login');
+  }, []);
+  useEffect(() => {
     if (loggedIn) navigation.navigate('Home', user);
-  });
+  }, []);
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="transparent" translucent={true} />
       <ImageBackground source={background} style={styles.image}>
         <View style={styles.mainView}>
-          <View style={styles.header}>
-            <CustomButton
-              title={text['language']}
-              style={styles.languageButton}
-              titleStyle={styles.languageButtonTitle}
-              onPress={() => changeLanguage()}
-            />
-            <Image source={logo} />
-          </View>
+          <Header type={3} />
           <Text style={styles.mainText}>{text['main-text']}</Text>
           <InputField
             value={mobileNumber}
@@ -225,22 +215,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  languageButton: {
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 40,
-    height: 40,
-    borderRadius: 10,
-  },
-  languageButtonTitle: {
-    color: 'green',
-    fontWeight: 'bold',
-  },
   usernameView: {
     backgroundColor: 'rgba(0,0,0,0.3)',
     borderRadius: 10,
