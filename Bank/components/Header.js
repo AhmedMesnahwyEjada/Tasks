@@ -46,6 +46,7 @@ const Header = ({type}) => {
   const Menu = () => {
     const [menuVisability, setModalVisability] = useState(false);
     const user = useSelector(state => state.user.user);
+    const fontColor = theme === 'light' ? '#000' : '#FFF';
     const toggleMenu = () => {
       setModalVisability(modalVisability => {
         return !modalVisability;
@@ -55,18 +56,15 @@ const Header = ({type}) => {
       <>
         <View style={{flexDirection: rowStyle}}>
           <Pressable onPress={toggleMenu}>
-            <Image source={menu} style={styles.backButton} />
+            <Image
+              source={menu}
+              style={[styles.backButton, {color: fontColor}]}
+            />
           </Pressable>
-          <Image
-            source={userImage}
-            style={[
-              styles.backButton,
-              language === 'english' ? {marginRight: 10} : {marginLeft: 10},
-            ]}
-          />
+          <Image source={userImage} style={styles.backButton} />
           <View style={{flexDirection: 'column'}}>
-            <Text>{text['good-morning']}</Text>
-            <Text>{user.Name}</Text>
+            <Text style={{color: fontColor}}>{text['good-morning']}</Text>
+            <Text style={{color: fontColor}}>{user.Name}</Text>
           </View>
         </View>
         <Image
@@ -118,6 +116,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 10,
+    marginHorizontal: 5,
   },
   backButtonText: {
     fontSize: 20,

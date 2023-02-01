@@ -1,23 +1,27 @@
 import {Modal, View, Image, StyleSheet, Text, Pressable} from 'react-native';
+import {useSelector} from 'react-redux';
+import texts from '../assets/language.json';
 import fingerprintCircle from '../assets/fingerprintCircle.png';
 import CustomButton from './CustomButton';
 const FingerprintModal = ({
   modalVisibility,
   toggleModalVisible,
-  text,
-  theme,
-  language,
+  subtitle,
+  onApproval,
 }) => {
+  const language = useSelector(state => state.language.language);
+  const theme = useSelector(state => state.theme.theme);
+  const text = texts[language];
   return (
     <Modal
       statusBarTranslucent={true}
       visible={modalVisibility}
       transparent={true}
       animationType={'fade'}
-      onDismiss={toggleModalVisible}>
+      onRequestClose={toggleModalVisible}>
       <Pressable
         style={{flex: 2, backgroundColor: 'rgba(28, 36, 55, 0.77)'}}
-        onPress={toggleModalVisible}></Pressable>
+        onPress={onApproval}></Pressable>
       <View
         style={[
           styles.fingerprintModal,
@@ -37,7 +41,7 @@ const FingerprintModal = ({
             {marginHorizontal: 20, marginBottom: 10},
             theme === 'light' ? {color: '#1C2437'} : {color: '#ffffff'},
           ]}>
-          {text['fingerprint-subtitle']}
+          {subtitle}
         </Text>
         <Image source={fingerprintCircle} style={{alignSelf: 'center'}} />
         <Text style={{alignSelf: 'center', marginTop: 10, color: '#B7B7B7'}}>

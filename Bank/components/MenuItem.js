@@ -13,8 +13,7 @@ const MenuItem = ({icon, title, onPress}) => {
         flexDirection: rowStyle,
         width: '100%',
         borderRadius: 20,
-        borderWidth: 3,
-        marginVertical: 10,
+        marginVertical: 5,
       }}
       onPress={onPress}>
       <View
@@ -26,7 +25,7 @@ const MenuItem = ({icon, title, onPress}) => {
         }}>
         <Image source={icon} />
       </View>
-      <Text style={{margin: 10, color: textColor}}>{title}</Text>
+      <Text style={{fontSize: 15, margin: 10, color: textColor}}>{title}</Text>
     </Pressable>
   );
 };

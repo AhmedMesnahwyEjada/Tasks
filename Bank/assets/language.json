@@ -41,7 +41,18 @@
         "congratulations-button" : "Finish",
         "good-morning" : "Good Morning",
         "logout" : "Log Out",
-        "dark-mode" : "Dark Mode"
+        "account-summary" : "Account Summary",
+        "open-deposits" : "Open Certificates and Deposits",
+        "payment-services" : "Payment Services",
+        "cards-services" : "Cards Services",
+        "hard-token" : "Hard Token",
+        "offers" : "Offers",
+        "customer-service" : "Customer Service",
+        "calculators" : "Calculators",
+        "dark-mode" : "Dark Mode",
+        "balance" : "Balance",
+        "balance-hidden" : "Press here to show balance",
+        "show-balance-subtitle" : "Show balance with your fingerprint"
     },
     "arabic" : {
         "language": "EN",
@@ -85,6 +96,17 @@
         "congratulations-button" : "انهاء",
         "good-morning" : "صباح الخير",
         "logout" : "تسجيل الخروج",
-        "dark-mode" : "الوضع المظلم"
+        "account-summary" : "ملخص الحساب",
+        "open-deposits" : "الشهادات والودائع",
+        "payment-services" : "خدمات الدفع",
+        "cards-services" : "خدمات الكروت",
+        "hard-token" : "جهاز رموز الأمان",
+        "offers" : "العروض",
+        "customer-service" : "خدمة العملاء",
+        "calculators" : "حاسبة القروض",
+        "dark-mode" : "الوضع المظلم",
+        "balance" : "الرصيد",
+        "balance-hidden" : "اضغط هنا لروئية الرصيد",
+        "show-balance-subtitle" : "اظهر رصيدك باستخدام البصمة"
     }
 }

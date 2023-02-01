@@ -25,14 +25,13 @@ import Header from '../components/Header';
 const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [modalVisibility, setModalVisibility] = useState(false);
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [password, setPassword] = useState('');
+  const [mobileNumber, setMobileNumber] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.language);
-  const loggedIn = useSelector(state => state.user.loggedIn);
   const user = useSelector(state => state.user.user);
-  const text = texts[language];
   const theme = useSelector(state => state.theme.theme);
+  const text = texts[language];
   const rowStyle = language === 'english' ? 'row' : 'row-reverse';
   const navigation = useNavigation();
   const toggleModalVisible = () => {
@@ -43,18 +42,18 @@ const Login = () => {
   const signupNavigation = () => {
     navigation.navigate('Signup');
   };
-  const logIn = async () => {
+  const logIn = async type => {
     try {
       const userData = await getUser({
-        mobileNumber: mobileNumber,
-        password: password,
+        mobileNumber:
+          type === 'credentials' ? mobileNumber : user?.mobileNumber,
+        password: type === 'credentials' ? password : user?.password,
       });
       if (userData) {
         dispatch(login(userData));
         navigation.navigate('Home', user);
       } else Alert.alert('Invalid Mobile or Password');
     } catch (err) {
-      console.log(err);
       Alert.alert('Error while logging in please try again later');
     }
   };
@@ -62,11 +61,8 @@ const Login = () => {
     navigation.setOptions({
       headerShown: false,
     });
-    console.log('login');
   }, []);
-  useEffect(() => {
-    if (loggedIn) navigation.navigate('Home', user);
-  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="transparent" translucent={true} />
@@ -129,7 +125,7 @@ const Login = () => {
             }}>
             <CustomButton
               title={text['login']}
-              onPress={logIn}
+              onPress={logIn.bind(this, 'credentials')}
               style={[
                 styles.loginButton,
                 language === 'english' ? {marginEnd: 30} : {marginStart: 30},
@@ -188,11 +184,10 @@ const Login = () => {
           </Text>
         </View>
         <FingerprintModal
-          theme={theme}
-          language={language}
           modalVisibility={modalVisibility}
           toggleModalVisible={toggleModalVisible}
-          text={text}
+          subtitle={text['fingerprint-subtitle']}
+          onApproval={logIn.bind(this, 'fingerprint')}
         />
       </ImageBackground>
     </ScrollView>
@@ -206,6 +201,7 @@ const styles = StyleSheet.create({
   mainView: {
     padding: 20,
     paddingTop: 50,
+    paddingBottom: 130,
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
