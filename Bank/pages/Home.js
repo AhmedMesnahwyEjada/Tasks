@@ -1,14 +1,18 @@
 import {useNavigation} from '@react-navigation/native';
 import {useEffect} from 'react';
-import {View, Text, ImageBackground, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import texts from '../assets/language.json';
-import balanceImage from '../assets/balance.png';
 import fingerprintLogo from '../assets/fingerprint.png';
 import Header from '../components/Header';
-import CustomButton from '../components/CustomButton';
 import {useState} from 'react';
 import FingerprintModal from '../components/FingerprintModal';
+import CustomButton from '../components/CustomButton';
+import Card from '../components/Card';
+import cash from '../assets/cash.png';
+import utilities from '../assets/utilities.png';
+import history from '../assets/history.png';
+import cards from '../assets/cards.png';
 const Home = () => {
   const navigation = useNavigation();
   const language = useSelector(state => state.language.language);
@@ -20,6 +24,7 @@ const Home = () => {
       ? {flexDirection: 'row'}
       : {flexDirection: 'row-reverse'};
   const backgroundColor = theme === 'light' ? '#E5E5E5' : '#1c2125';
+  const fontColor = theme === 'light' ? {color: '#000'} : {color: '#F7F7F7'};
   const [fingerprintVisability, setFingerprintVisibilty] = useState(false);
   const [balanceText, setBalanceText] = useState(text['balance-hidden']);
   const [balanceFont, setBalanceFont] = useState(20);
@@ -42,13 +47,7 @@ const Home = () => {
         backgroundColor: backgroundColor,
       }}>
       <Header type={2} />
-      <ImageBackground
-        source={balanceImage}
-        style={{
-          backgroundColor: 'green',
-          borderRadius: 20,
-          marginTop: 30,
-        }}>
+      <Card>
         <View
           style={[
             rowStyle,
@@ -70,7 +69,60 @@ const Home = () => {
         <Text style={[styles.balance, {fontSize: balanceFont}]}>
           {balanceText}
         </Text>
-      </ImageBackground>
+      </Card>
+      <View
+        style={[rowStyle, {marginTop: 30, justifyContent: 'space-between'}]}>
+        <CustomButton
+          icon={cash}
+          title={text['accounts']}
+          iconStyle={[
+            styles.midButton,
+            {
+              backgroundColor: 'rgba(0, 201, 116, 0.15)',
+            },
+          ]}
+          style={{flexDirection: 'column-reverse'}}
+          titleStyle={[fontColor, {alignSelf: 'center'}]}
+        />
+        <CustomButton
+          icon={cards}
+          title={text['cards']}
+          onPress={navigation.navigate.bind(this, 'Cards')}
+          iconStyle={[
+            styles.midButton,
+            {
+              backgroundColor: 'rgba(0, 173, 248, 0.15)',
+            },
+          ]}
+          style={{flexDirection: 'column-reverse'}}
+          titleStyle={[fontColor, {alignSelf: 'center'}]}
+        />
+        <CustomButton
+          icon={utilities}
+          title={text['utilities']}
+          iconStyle={[
+            styles.midButton,
+            {
+              backgroundColor: 'rgba(246, 167, 33, 0.15)',
+            },
+          ]}
+          style={{flexDirection: 'column-reverse'}}
+          titleStyle={[fontColor, {alignSelf: 'center'}]}
+        />
+        <CustomButton
+          icon={history}
+          title={text['history']}
+          onPress={navigation.navigate.bind(this, 'History')}
+          iconStyle={[
+            styles.midButton,
+            {
+              backgroundColor: 'rgba(255, 0, 46, 0.15)',
+            },
+          ]}
+          style={{flexDirection: 'column-reverse'}}
+          titleStyle={[fontColor, {alignSelf: 'center'}]}
+        />
+      </View>
       <FingerprintModal
         modalVisibility={fingerprintVisability}
         toggleModalVisible={setFingerprintVisibilty.bind(this, false)}
@@ -94,6 +146,15 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     color: '#F7F7F7',
     fontWeight: 'bold',
+  },
+  midButton: {
+    padding: 15,
+    borderRadius: 10,
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
   },
 });
 export default Home;

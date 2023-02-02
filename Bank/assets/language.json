@@ -52,7 +52,11 @@
         "dark-mode" : "Dark Mode",
         "balance" : "Balance",
         "balance-hidden" : "Press here to show balance",
-        "show-balance-subtitle" : "Show balance with your fingerprint"
+        "show-balance-subtitle" : "Show balance with your fingerprint",
+        "accounts" : "Accounts",
+        "cards" : "Cards",
+        "utilities" : "Utilities",
+        "history" : "History"
     },
     "arabic" : {
         "language": "EN",
@@ -107,6 +111,10 @@
         "dark-mode" : "الوضع المظلم",
         "balance" : "الرصيد",
         "balance-hidden" : "اضغط هنا لروئية الرصيد",
-        "show-balance-subtitle" : "اظهر رصيدك باستخدام البصمة"
+        "show-balance-subtitle" : "اظهر رصيدك باستخدام البصمة",
+        "accounts" : "الحسابات",
+        "cards" : "الكروت",
+        "utilities" : "الخدمات",
+        "history" : "السجل"
     }
 }

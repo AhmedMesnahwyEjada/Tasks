@@ -1,6 +1,14 @@
-import {Pressable, Text, Image} from 'react-native';
+import {Pressable, Text, Image, View} from 'react-native';
 
-const CustomButton = ({style, title, titleStyle, icon, onPress, disabled}) => {
+const CustomButton = ({
+  style,
+  title,
+  titleStyle,
+  icon,
+  onPress,
+  disabled,
+  iconStyle,
+}) => {
   return (
     <Pressable
       style={[style, disabled ? {backgroundColor: 'gray'} : {}]}
@@ -9,7 +17,11 @@ const CustomButton = ({style, title, titleStyle, icon, onPress, disabled}) => {
       {title !== undefined ? (
         <Text style={titleStyle}>{title}</Text>
       ) : undefined}
-      {icon !== undefined ? <Image source={icon} /> : undefined}
+      {icon !== undefined ? (
+        <View style={iconStyle}>
+          <Image source={icon} />
+        </View>
+      ) : undefined}
     </Pressable>
   );
 };

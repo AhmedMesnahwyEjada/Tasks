@@ -44,17 +44,18 @@ const Login = () => {
   };
   const logIn = async type => {
     try {
+      if (type === 'fingerprint' && !user)
+        throw new Error('There is no user Registered ');
       const userData = await getUser({
-        mobileNumber:
-          type === 'credentials' ? mobileNumber : user?.mobileNumber,
-        password: type === 'credentials' ? password : user?.password,
+        mobileNumber: type === 'credentials' ? mobileNumber : user.mobileNumber,
+        password: type === 'credentials' ? password : user.password,
       });
       if (userData) {
         dispatch(login(userData));
         navigation.navigate('Home', user);
-      } else Alert.alert('Invalid Mobile or Password');
+      } else throw new Error('Invalid Mobile number or Password');
     } catch (err) {
-      Alert.alert('Error while logging in please try again later');
+      Alert.alert(err);
     }
   };
   useEffect(() => {
