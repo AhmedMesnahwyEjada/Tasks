@@ -69,7 +69,6 @@ const SetPassword = ({route}) => {
       dispatch(login(user));
       navigation.navigate('Congratulations');
     } catch (err) {
-      console.log(err);
       Alert.alert('user not created please try again later');
     }
   };

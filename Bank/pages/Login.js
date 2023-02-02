@@ -18,7 +18,7 @@ import CheckBox from '@react-native-community/checkbox';
 import {useEffect, useState} from 'react';
 import FingerprintModal from '../components/FingerprintModal';
 import {useNavigation} from '@react-navigation/native';
-import {getUser} from '../axios/Users';
+import {getUser, getUserByID} from '../axios/Users';
 import {useSelector, useDispatch} from 'react-redux';
 import {login} from '../redux/user';
 import Header from '../components/Header';
@@ -43,20 +43,19 @@ const Login = () => {
     navigation.navigate('Signup');
   };
   const logIn = async type => {
-    try {
-      if (type === 'fingerprint' && !user)
-        throw new Error('There is no user Registered ');
-      const userData = await getUser({
-        mobileNumber: type === 'credentials' ? mobileNumber : user.mobileNumber,
-        password: type === 'credentials' ? password : user.password,
+    let userData = undefined;
+    if (type === 'fingerprint' && !user)
+      return Alert.alert('There is no user Registered ');
+    else if (type === 'fingerprint') userData = await getUserByID(user.id);
+    else
+      userData = await getUser({
+        mobileNumber: mobileNumber,
+        password: password,
       });
-      if (userData) {
-        dispatch(login(userData));
-        navigation.navigate('Home', user);
-      } else throw new Error('Invalid Mobile number or Password');
-    } catch (err) {
-      Alert.alert(err);
-    }
+    if (userData) {
+      dispatch(login(userData));
+      navigation.navigate('Home', user);
+    } else Alert.alert('Invalid Mobile number or Password');
   };
   useEffect(() => {
     navigation.setOptions({

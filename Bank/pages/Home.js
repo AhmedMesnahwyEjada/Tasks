@@ -9,10 +9,12 @@ import {useState} from 'react';
 import FingerprintModal from '../components/FingerprintModal';
 import CustomButton from '../components/CustomButton';
 import Card from '../components/Card';
+import History from './History';
 import cash from '../assets/cash.png';
 import utilities from '../assets/utilities.png';
 import history from '../assets/history.png';
 import cards from '../assets/cards.png';
+import BeneficiariesMini from '../components/BeneficiariesMini';
 const Home = () => {
   const navigation = useNavigation();
   const language = useSelector(state => state.language.language);
@@ -34,9 +36,7 @@ const Home = () => {
     setFingerprintVisibilty(false);
   };
   useEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
+    navigation.setOptions({headerShown: false});
   }, []);
   return (
     <View
@@ -87,7 +87,7 @@ const Home = () => {
         <CustomButton
           icon={cards}
           title={text['cards']}
-          onPress={navigation.navigate.bind(this, 'Cards')}
+          onPress={navigation.navigate.bind(navigation.navigate, 'Cards')}
           iconStyle={[
             styles.midButton,
             {
@@ -112,7 +112,7 @@ const Home = () => {
         <CustomButton
           icon={history}
           title={text['history']}
-          onPress={navigation.navigate.bind(this, 'History')}
+          onPress={navigation.navigate.bind(navigation.navigate, 'History')}
           iconStyle={[
             styles.midButton,
             {
@@ -123,6 +123,8 @@ const Home = () => {
           titleStyle={[fontColor, {alignSelf: 'center'}]}
         />
       </View>
+      <BeneficiariesMini />
+      <History type={'mini'} />
       <FingerprintModal
         modalVisibility={fingerprintVisability}
         toggleModalVisible={setFingerprintVisibilty.bind(this, false)}

@@ -56,7 +56,9 @@
         "accounts" : "Accounts",
         "cards" : "Cards",
         "utilities" : "Utilities",
-        "history" : "History"
+        "history" : "History",
+        "view-all" : "View All",
+        "send-money" : "Send Money"
     },
     "arabic" : {
         "language": "EN",
@@ -115,6 +117,8 @@
         "accounts" : "الحسابات",
         "cards" : "الكروت",
         "utilities" : "الخدمات",
-        "history" : "السجل"
+        "history" : "السجل",
+        "view-all" : "اظهر الكل",
+        "send-money" : "تحويل"
     }
 }
