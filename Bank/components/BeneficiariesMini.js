@@ -31,7 +31,7 @@ const BeneficiariesMini = () => {
         <Text style={[fontColor, {fontSize: 25, fontWeight: 'bold'}]}>
           {text['send-money']}
         </Text>
-        <CustomButton title={text['view-all']} />
+        <CustomButton title={text['view-all']} titleStyle={fontColor} />
       </View>
       <FlatList
         horizontal={true}
@@ -67,7 +67,7 @@ const BeneficiariesMini = () => {
                   }}
                 />
               </View>
-              <Text style={[fontColor, {marginBottom: 10}]}>{item.fName}</Text>
+              <Text style={{marginBottom: 10}}>{item.fName}</Text>
             </View>
           );
         }}
