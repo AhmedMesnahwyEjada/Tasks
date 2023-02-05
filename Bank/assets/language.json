@@ -58,7 +58,12 @@
         "utilities" : "Utilities",
         "history" : "History",
         "view-all" : "View All",
-        "send-money" : "Send Money"
+        "send-money" : "Send Money",
+        "home" : "Home",
+        "transfer" : "Transfer",
+        "beneficiaries" : "Beneficiaries",
+        "atm" : "Atms",
+        "air-pay" : "Air Pay"
     },
     "arabic" : {
         "language": "EN",
@@ -119,6 +124,11 @@
         "utilities" : "الخدمات",
         "history" : "السجل",
         "view-all" : "اظهر الكل",
-        "send-money" : "تحويل"
+        "send-money" : "تحويل",
+        "home" : "الرئيسية",
+        "transfer" :      "تحويل",
+        "beneficiaries" : "المستفيدون",
+        "atm" :           "مواقع السحب",
+        "air-pay" :       "الدفع ب NFC"
     }
 }

@@ -29,60 +29,62 @@ const History = ({type}) => {
     getHistoryData();
   }, []);
   return (
-    <View
-      style={
-        type !== 'mini'
-          ? {
-              padding: 20,
-              paddingTop: 50,
-              flex: 1,
-              backgroundColor: backgroundColor,
-            }
-          : {flex: 1}
-      }>
+    <View style={{flex: 1}}>
       {type !== 'mini' && <Header type={2} />}
       <View
-        style={[
-          rowStyle,
-          {
-            marginTop: 20,
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          },
-        ]}>
-        <Text style={[fontColor, {fontSize: 25, fontWeight: 'bold'}]}>
-          {text['history']}
-        </Text>
-        {type === 'mini' && (
-          <CustomButton
-            title={text['view-all']}
-            titleStyle={fontColor}
-            onPress={navigation.navigate.bind(navigation.navigate, 'History')}
-          />
-        )}
+        style={
+          type !== 'mini'
+            ? {
+                flex: 1,
+                paddingHorizontal: 20,
+                backgroundColor: backgroundColor,
+              }
+            : {flex: 1}
+        }>
+        <View
+          style={[
+            rowStyle,
+            {
+              marginTop: 20,
+              paddingHorizontal: 10,
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            },
+          ]}>
+          <Text style={[fontColor, {fontSize: 25, fontWeight: 'bold'}]}>
+            {text['history']}
+          </Text>
+          {type === 'mini' && (
+            <CustomButton
+              title={text['view-all']}
+              titleStyle={fontColor}
+              onPress={navigation.navigate.bind(navigation.navigate, 'History')}
+            />
+          )}
+        </View>
+        <FlatList
+          data={history}
+          renderItem={({item, index}) => {
+            return (
+              <>
+                <HistoryItem
+                  beneficiaryID={item.beneficiaryID}
+                  amount={item.amount}
+                  date={item.date}
+                  key={index}
+                />
+                <View
+                  style={{
+                    marginTop: 10,
+                    borderBottomColor: '#bec0c9',
+                    borderBottomWidth: 2,
+                  }}
+                />
+              </>
+            );
+          }}
+        />
       </View>
-      <FlatList
-        data={history}
-        renderItem={({item, index}) => {
-          return (
-            <>
-              <HistoryItem
-                beneficiaryID={item.beneficiaryID}
-                amount={item.amount}
-                date={item.date}
-                key={index}
-              />
-              <View
-                style={{
-                  marginTop: 10,
-                  borderBottomColor: '#bec0c9',
-                  borderBottomWidth: 2,
-                }}
-              />
-            </>
-          );
-        }}
-      />
     </View>
   );
 };

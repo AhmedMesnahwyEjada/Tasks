@@ -26,7 +26,7 @@ const BeneficiariesMini = () => {
     getData();
   }, []);
   return (
-    <View style={{width: '100%', marginTop: 20}}>
+    <View style={{width: '100%', marginTop: 15}}>
       <View style={[rowStyle, {justifyContent: 'space-between'}]}>
         <Text style={[fontColor, {fontSize: 25, fontWeight: 'bold'}]}>
           {text['send-money']}
@@ -44,14 +44,14 @@ const BeneficiariesMini = () => {
                 backgroundColor: '#FFF',
                 margin: 5,
                 borderRadius: 15,
-                width: 90,
+                width: 75,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
               <View
                 style={{
-                  width: 50,
-                  height: 50,
+                  width: 35,
+                  height: 35,
                   padding: 10,
                   backgroundColor: '#FFF',
                   borderRadius: 10,
@@ -62,8 +62,8 @@ const BeneficiariesMini = () => {
                   source={{uri: item.imageUrl}}
                   style={{
                     resizeMode: 'contain',
-                    width: 40,
-                    height: 40,
+                    width: 30,
+                    height: 30,
                   }}
                 />
               </View>

@@ -9,7 +9,7 @@ import menu from '../assets/menu.png';
 import {useState} from 'react';
 import texts from '../assets/language.json';
 import {toggleLanguage} from '../redux/language';
-import {useNavigation, useNavigationBuilder} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import MenuModal from './MenuModal';
 
 const Header = ({type}) => {
@@ -17,6 +17,7 @@ const Header = ({type}) => {
   const language = useSelector(state => state.language.language);
   const theme = useSelector(state => state.theme.theme);
   const rowStyle = language === 'english' ? 'row' : 'row-reverse';
+  const backgroundColor = theme === 'light' ? '#E5E5E5' : '#1c2125';
   const text = texts[language];
   const BackHeader = () => {
     const navigation = useNavigation();
@@ -53,7 +54,15 @@ const Header = ({type}) => {
       });
     };
     return (
-      <>
+      <View
+        style={{
+          padding: 10,
+          paddingTop: 40,
+          flexDirection: rowStyle,
+          flex: 1,
+          justifyContent: 'space-between',
+          backgroundColor: backgroundColor,
+        }}>
         <View style={{flexDirection: rowStyle}}>
           <Pressable onPress={toggleMenu}>
             <Image
@@ -74,7 +83,7 @@ const Header = ({type}) => {
         <MenuModal toggleMenu={toggleMenu} menuVisability={menuVisability}>
           <BasicHeader />
         </MenuModal>
-      </>
+      </View>
     );
   };
   const BasicHeader = () => {

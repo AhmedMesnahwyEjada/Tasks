@@ -10,11 +10,12 @@ import FingerprintModal from '../components/FingerprintModal';
 import CustomButton from '../components/CustomButton';
 import Card from '../components/Card';
 import History from './History';
+import BeneficiariesMini from '../components/BeneficiariesMini';
+import Footer from '../components/Footer';
 import cash from '../assets/cash.png';
 import utilities from '../assets/utilities.png';
 import history from '../assets/history.png';
 import cards from '../assets/cards.png';
-import BeneficiariesMini from '../components/BeneficiariesMini';
 const Home = () => {
   const navigation = useNavigation();
   const language = useSelector(state => state.language.language);
@@ -39,98 +40,99 @@ const Home = () => {
     navigation.setOptions({headerShown: false});
   }, []);
   return (
-    <View
-      style={{
-        padding: 20,
-        paddingTop: 50,
-        flex: 1,
-        backgroundColor: backgroundColor,
-      }}>
+    <View style={{flex: 1, backgroundColor: backgroundColor}}>
       <Header type={2} />
-      <Card>
-        <View
-          style={[
-            rowStyle,
-            {
-              justifyContent: 'space-between',
-              marginHorizontal: 20,
-              marginVertical: 5,
-            },
-          ]}>
-          <Text style={{color: '#F7F7F7', alignSelf: 'center'}}>
-            {text['balance']}
+      <View
+        style={{
+          paddingHorizontal: 10,
+          flex: 1,
+        }}>
+        <Card>
+          <View
+            style={[
+              rowStyle,
+              {
+                justifyContent: 'space-between',
+                marginHorizontal: 20,
+                marginVertical: 5,
+              },
+            ]}>
+            <Text style={{color: '#F7F7F7', alignSelf: 'center'}}>
+              {text['balance']}
+            </Text>
+            <CustomButton
+              onPress={setFingerprintVisibilty.bind(this, balanceFont === 20)}
+              icon={fingerprintLogo}
+              style={styles.fingerprintButton}
+            />
+          </View>
+          <Text style={[styles.balance, {fontSize: balanceFont}]}>
+            {balanceText}
           </Text>
+        </Card>
+        <View
+          style={[rowStyle, {marginTop: 30, justifyContent: 'space-between'}]}>
           <CustomButton
-            onPress={setFingerprintVisibilty.bind(this, balanceFont === 20)}
-            icon={fingerprintLogo}
-            style={styles.fingerprintButton}
+            icon={cash}
+            title={text['accounts']}
+            iconStyle={[
+              styles.midButton,
+              {
+                backgroundColor: 'rgba(0, 201, 116, 0.15)',
+              },
+            ]}
+            style={{flexDirection: 'column-reverse'}}
+            titleStyle={[fontColor, {alignSelf: 'center'}]}
+          />
+          <CustomButton
+            icon={cards}
+            title={text['cards']}
+            onPress={() => navigation.navigate('Cards')}
+            iconStyle={[
+              styles.midButton,
+              {
+                backgroundColor: 'rgba(0, 173, 248, 0.15)',
+              },
+            ]}
+            style={{flexDirection: 'column-reverse'}}
+            titleStyle={[fontColor, {alignSelf: 'center'}]}
+          />
+          <CustomButton
+            icon={utilities}
+            title={text['utilities']}
+            iconStyle={[
+              styles.midButton,
+              {
+                backgroundColor: 'rgba(246, 167, 33, 0.15)',
+              },
+            ]}
+            style={{flexDirection: 'column-reverse'}}
+            titleStyle={[fontColor, {alignSelf: 'center'}]}
+          />
+          <CustomButton
+            icon={history}
+            title={text['history']}
+            onPress={() => navigation.navigate('History')}
+            iconStyle={[
+              styles.midButton,
+              {
+                backgroundColor: 'rgba(255, 0, 46, 0.15)',
+              },
+            ]}
+            style={{flexDirection: 'column-reverse'}}
+            titleStyle={[fontColor, {alignSelf: 'center'}]}
           />
         </View>
-        <Text style={[styles.balance, {fontSize: balanceFont}]}>
-          {balanceText}
-        </Text>
-      </Card>
-      <View
-        style={[rowStyle, {marginTop: 30, justifyContent: 'space-between'}]}>
-        <CustomButton
-          icon={cash}
-          title={text['accounts']}
-          iconStyle={[
-            styles.midButton,
-            {
-              backgroundColor: 'rgba(0, 201, 116, 0.15)',
-            },
-          ]}
-          style={{flexDirection: 'column-reverse'}}
-          titleStyle={[fontColor, {alignSelf: 'center'}]}
-        />
-        <CustomButton
-          icon={cards}
-          title={text['cards']}
-          onPress={navigation.navigate.bind(navigation.navigate, 'Cards')}
-          iconStyle={[
-            styles.midButton,
-            {
-              backgroundColor: 'rgba(0, 173, 248, 0.15)',
-            },
-          ]}
-          style={{flexDirection: 'column-reverse'}}
-          titleStyle={[fontColor, {alignSelf: 'center'}]}
-        />
-        <CustomButton
-          icon={utilities}
-          title={text['utilities']}
-          iconStyle={[
-            styles.midButton,
-            {
-              backgroundColor: 'rgba(246, 167, 33, 0.15)',
-            },
-          ]}
-          style={{flexDirection: 'column-reverse'}}
-          titleStyle={[fontColor, {alignSelf: 'center'}]}
-        />
-        <CustomButton
-          icon={history}
-          title={text['history']}
-          onPress={navigation.navigate.bind(navigation.navigate, 'History')}
-          iconStyle={[
-            styles.midButton,
-            {
-              backgroundColor: 'rgba(255, 0, 46, 0.15)',
-            },
-          ]}
-          style={{flexDirection: 'column-reverse'}}
-          titleStyle={[fontColor, {alignSelf: 'center'}]}
+        <BeneficiariesMini />
+        <History type={'mini'} />
+        <FingerprintModal
+          modalVisibility={fingerprintVisability}
+          toggleModalVisible={setFingerprintVisibilty.bind(this, false)}
+          onApproval={onFingerprintApproval}
+          subtitle={text['show-balance-subtitle']}
         />
       </View>
-      <BeneficiariesMini />
-      <History type={'mini'} />
-      <FingerprintModal
-        modalVisibility={fingerprintVisability}
-        toggleModalVisible={setFingerprintVisibilty.bind(this, false)}
-        onApproval={onFingerprintApproval}
-        subtitle={text['show-balance-subtitle']}
-      />
+      <Footer page={'home'} />
     </View>
   );
 };
