@@ -66,7 +66,8 @@
         "air-pay" : "Air Pay",
         "add" : "Add",
         "no-beneficiaries" : "No Beneficiaries",
-        "no-beneficiaries-subtitle" : "You don't have beneficiaries, Add some so you can send money"
+        "no-beneficiaries-subtitle" : "You don't have beneficiaries, Add some so you can send money",
+        "transaction-history" : "Transaction History"
     },
     "arabic" : {
         "language": "EN",
@@ -134,6 +135,8 @@
         "atm" :           "مواقع السحب",
         "air-pay" :       "الدفع ب NFC",
         "add" : "اضافة",
-        "no-beneficiaries" : "لا يوجد مستفيدين"
+        "no-beneficiaries" : "لا يوجد مستفيدين",
+        "transaction-history" : "سجل التحويلات"
+
     }
 }

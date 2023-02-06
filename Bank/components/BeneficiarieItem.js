@@ -6,7 +6,7 @@ import {getTransactionHistory} from '../axios/History';
 import CustomButton from './CustomButton';
 import dollarSign from '../assets/dollarSign.png';
 import phoneIcon from '../assets/phoneIcon.png';
-const BeneficiariesItem = ({type, item, index, id}) => {
+const BeneficiariesItem = ({type, item, id}) => {
   const navigation = useNavigation();
   const language = useSelector(state => state.language.language);
   const user = useSelector(state => state.user.user);
@@ -19,8 +19,7 @@ const BeneficiariesItem = ({type, item, index, id}) => {
       ? {justifyContent: 'flex-end'}
       : {justifyContent: 'flex-start'};
   const onPress = () => {
-    console.log(id);
-    //navigation.navigate(`TransactionHistory/${item.id}`);
+    navigation.navigate(`TransactionHistory`, id);
   };
   const RowType = () => {
     const [totalSent, setTotalSent] = useState(0);
@@ -68,7 +67,6 @@ const BeneficiariesItem = ({type, item, index, id}) => {
     return (
       <Pressable
         onPress={onPress}
-        key={index}
         style={{
           backgroundColor: '#FFF',
           margin: 5,

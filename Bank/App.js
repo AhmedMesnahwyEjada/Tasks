@@ -12,11 +12,13 @@ import Home from './pages/Home';
 import Cards from './pages/Cards';
 import History from './pages/History';
 import Beneficiaries from './pages/Beneficiaries';
+import TransactionHistory from './pages/TransactionHistory';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
   const MobileVerificationWrapper = ({route}) => <MobileVerification route={route} />;
   const SetPasswordWrapper = ({route}) => <SetPassword route={route} />;
+  const TransactionHistoryWrapper = ({route}) => <TransactionHistory route={route} />;
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -27,6 +29,7 @@ const App = () => {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Cards" component={Cards} />
           <Stack.Screen name="History" component={History} />
+          <Stack.Screen name="TransactionHistory" component={TransactionHistoryWrapper} />
           <Stack.Screen name="Beneficiaries" component={Beneficiaries} />
           <Stack.Screen name="SignupVerification" component={MobileVerificationWrapper} />
           <Stack.Screen name="Congratulations" component={Congratulations} />

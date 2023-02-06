@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
-import {View, Text, Image, FlatList} from 'react-native';
+import {View, Text, Image, FlatList, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {getBeneficiaries} from '../axios/Beneficiaries';
 import texts from '../assets/language.json';
@@ -35,7 +35,8 @@ const Beneficiaries = () => {
   }, []);
   const EmptyBeneficiaries = () => {
     return (
-      <View
+      <Pressable
+        onPress={() => navigation.navigate('AddBeneficiary')}
         style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 100}}>
         <Image source={emptyBeneficiaries} />
         <Text style={[fontColor, {fontSize: 25, marginVertical: 10}]}>
@@ -44,7 +45,7 @@ const Beneficiaries = () => {
         <Text style={[fontColor, {fontSize: 15, width: 250, textAlign: 'center'}]}>
           {text['no-beneficiaries-subtitle']}
         </Text>
-      </View>
+      </Pressable>
     );
   };
   return (
@@ -109,7 +110,7 @@ const Beneficiaries = () => {
           renderItem={({item, index}) => {
             const id = Object.keys(item)[0];
             return (
-              <BeneficiariesItem item={item[id]} id={id} index={index} type={showType} />
+              <BeneficiariesItem item={item[id]} id={id} key={index} type={showType} />
             );
           }}
         />
