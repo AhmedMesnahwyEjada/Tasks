@@ -4,9 +4,7 @@ import {Alert} from 'react-native';
 const baseUrl = 'https://cardashboard-9db0c-default-rtdb.firebaseio.com/';
 const getBeneficiary = async (id, userID) => {
   try {
-    const response = await axios.get(
-      `${baseUrl}/beneficiaries/${userID}/${id}.json`,
-    );
+    const response = await axios.get(`${baseUrl}/beneficiaries/${userID}/${id}.json`);
     return response.data;
   } catch {
     Alert.alert('error in getting the beneficiary');
@@ -22,7 +20,13 @@ const addBeneficiary = async (beneficiary, userID) => {
 const getBeneficiaries = async userID => {
   try {
     const response = await axios.get(`${baseUrl}/beneficiaries/${userID}.json`);
-    return response.data ? Object.values(response.data) : [];
+    const responseData = [];
+    for (const [key, data] of Object.entries(response.data)) {
+      const obj = {};
+      obj[key] = data;
+      responseData.push(obj);
+    }
+    return response.data ? responseData : [];
   } catch {
     Alert.alert('error in getting the beneficiaries');
   }

@@ -54,6 +54,7 @@ const Login = () => {
       });
     if (userData) {
       dispatch(login(userData));
+      setModalVisibility(false);
       navigation.navigate('Home', user);
     } else Alert.alert('Invalid Mobile number or Password');
   };
@@ -94,8 +95,7 @@ const Login = () => {
             theme={theme}
             icon={lockImage}
           />
-          <View
-            style={{flexDirection: rowStyle, justifyContent: 'space-between'}}>
+          <View style={{flexDirection: rowStyle, justifyContent: 'space-between'}}>
             <View
               style={{
                 flexDirection: rowStyle,
@@ -156,9 +156,7 @@ const Login = () => {
                 textDecorationLine: 'underline',
                 fontWeight: 'bold',
               }}
-              style={
-                language === 'english' ? {marginLeft: 10} : {marginRight: 10}
-              }
+              style={language === 'english' ? {marginLeft: 10} : {marginRight: 10}}
             />
           </View>
         </View>

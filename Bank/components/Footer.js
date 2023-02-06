@@ -14,9 +14,7 @@ const Footer = ({page}) => {
   const theme = useSelector(state => state.theme.theme);
   const text = texts[language];
   const rowStyle =
-    language === 'english'
-      ? {flexDirection: 'row'}
-      : {flexDirection: 'row-reverse'};
+    language === 'english' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'};
   const backgroundColorBottom = theme === 'light' ? '#FFFFFF' : '#151A21';
   const backgroundColor = theme === 'light' ? '#E5E5E5' : '#1c2125';
   const backgroundColorHoverd = 'rgba(0, 114, 54, 1)';
@@ -26,6 +24,7 @@ const Footer = ({page}) => {
       style={[
         {
           paddingVertical: 10,
+          paddingHorizontal: 5,
           backgroundColor: backgroundColorBottom,
           width: '100%',
           borderTopStartRadius: 15,
@@ -38,8 +37,7 @@ const Footer = ({page}) => {
         style={[
           styles.bottomButton,
           {
-            backgroundColor:
-              page === 'home' ? backgroundColorHoverd : backgroundColor,
+            backgroundColor: page === 'home' ? backgroundColorHoverd : backgroundColor,
           },
         ]}
         title={text['home']}
@@ -49,8 +47,7 @@ const Footer = ({page}) => {
         iconStyle={[
           styles.bottomButtonIcon,
           {
-            backgroundColor:
-              page === 'home' ? backgroundColorHoverd : backgroundColor,
+            backgroundColor: page === 'home' ? backgroundColorHoverd : backgroundColor,
           },
         ]}
       />
@@ -66,9 +63,7 @@ const Footer = ({page}) => {
           styles.bottomButton,
           {
             backgroundColor:
-              page === 'beneficiaries'
-                ? backgroundColorHoverd
-                : backgroundColor,
+              page === 'beneficiaries' ? backgroundColorHoverd : backgroundColor,
           },
         ]}
         title={text['beneficiaries']}

@@ -19,5 +19,16 @@ const getHistory = async userID => {
     Alert.alert('error in getting the history');
   }
 };
+const getTransactionHistory = async (userID, beneficiaryID) => {
+  try {
+    const history = await getHistory(userID);
+    const response = [];
+    for (historyItem of history)
+      historyItem.beneficiaryID === beneficiaryID ? response.push(historyItem) : null;
+    return response;
+  } catch {
+    Alert.alert('error in getting transaction history');
+  }
+};
 
-export {addTransaction, getHistory};
+export {addTransaction, getHistory, getTransactionHistory};

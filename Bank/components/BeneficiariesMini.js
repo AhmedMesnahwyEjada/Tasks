@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 import {getBeneficiaries} from '../axios/Beneficiaries';
 import texts from '../assets/language.json';
 import CustomButton from './CustomButton';
+import BeneficiariesItem from './BeneficiarieItem';
 
 const BeneficiariesMini = () => {
   const language = useSelector(state => state.language.language);
@@ -12,15 +13,12 @@ const BeneficiariesMini = () => {
   const text = texts[language];
   const fontColor = theme === 'light' ? {color: '#000'} : {color: '#F7F7F7'};
   const rowStyle =
-    language === 'english'
-      ? {flexDirection: 'row'}
-      : {flexDirection: 'row-reverse'};
+    language === 'english' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'};
   const [beneficiaries, setBeneficiaries] = useState([
-    {imageUrl: undefined, fName: undefined},
+    {key: {imageUrl: undefined, fName: undefined}},
   ]);
   const getData = async () => {
-    const data = await getBeneficiaries(user.id);
-    setBeneficiaries(data);
+    setBeneficiaries(await getBeneficiaries(user.id));
   };
   useEffect(() => {
     getData();
@@ -35,41 +33,10 @@ const BeneficiariesMini = () => {
       </View>
       <FlatList
         horizontal={true}
-        data={beneficiaries}
+        data={beneficiaries.slice(0, 10)}
         renderItem={({item, index}) => {
-          return (
-            <View
-              key={index}
-              style={{
-                backgroundColor: '#FFF',
-                margin: 5,
-                borderRadius: 15,
-                width: 75,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View
-                style={{
-                  width: 35,
-                  height: 35,
-                  padding: 10,
-                  backgroundColor: '#FFF',
-                  borderRadius: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Image
-                  source={{uri: item.imageUrl}}
-                  style={{
-                    resizeMode: 'contain',
-                    width: 30,
-                    height: 30,
-                  }}
-                />
-              </View>
-              <Text style={{marginBottom: 10}}>{item.fName}</Text>
-            </View>
-          );
+          const id = Object.keys(item)[0];
+          return <BeneficiariesItem item={item[id]} id={id} index={index} type={1} />;
         }}
       />
     </View>

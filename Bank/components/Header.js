@@ -49,6 +49,7 @@ const Header = ({type, pageTitle}) => {
     const user = useSelector(state => state.user.user);
     const fontColor = theme === 'light' ? '#000' : '#FFF';
     const toggleMenu = () => {
+      console.log('toggle');
       setModalVisability(modalVisability => {
         return !modalVisability;
       });
@@ -65,10 +66,7 @@ const Header = ({type, pageTitle}) => {
         }}>
         <View style={{flexDirection: rowStyle}}>
           <Pressable onPress={toggleMenu}>
-            <Image
-              source={menu}
-              style={[styles.backButton, {color: fontColor}]}
-            />
+            <Image source={menu} style={[styles.backButton, {color: fontColor}]} />
           </Pressable>
           <Image source={userImage} style={styles.backButton} />
           <View style={{flexDirection: 'column'}}>
@@ -76,10 +74,7 @@ const Header = ({type, pageTitle}) => {
             <Text style={{color: fontColor}}>{user.Name}</Text>
           </View>
         </View>
-        <Image
-          source={bell}
-          style={[styles.backButton, {backgroundColor: '#FFFFFF'}]}
-        />
+        <Image source={bell} style={[styles.backButton, {backgroundColor: '#FFFFFF'}]} />
         <MenuModal
           toggleMenu={toggleMenu}
           menuVisability={menuVisability}

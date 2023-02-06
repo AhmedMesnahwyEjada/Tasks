@@ -63,7 +63,10 @@
         "transfer" : "Transfer",
         "beneficiaries" : "Beneficiaries",
         "atm" : "Atms",
-        "air-pay" : "Air Pay"
+        "air-pay" : "Air Pay",
+        "add" : "Add",
+        "no-beneficiaries" : "No Beneficiaries",
+        "no-beneficiaries-subtitle" : "You don't have beneficiaries, Add some so you can send money"
     },
     "arabic" : {
         "language": "EN",
@@ -129,6 +132,8 @@
         "transfer" :      "تحويل",
         "beneficiaries" : "المستفيدون",
         "atm" :           "مواقع السحب",
-        "air-pay" :       "الدفع ب NFC"
+        "air-pay" :       "الدفع ب NFC",
+        "add" : "اضافة",
+        "no-beneficiaries" : "لا يوجد مستفيدين"
     }
 }
