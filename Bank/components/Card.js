@@ -1,6 +1,6 @@
 import {ImageBackground} from 'react-native';
 import cardImage from '../assets/card.png';
-const Card = ({children}) => {
+const Card = ({children, height}) => {
   return (
     <ImageBackground
       source={cardImage}
@@ -8,6 +8,7 @@ const Card = ({children}) => {
         backgroundColor: 'green',
         borderRadius: 20,
         marginTop: 30,
+        height: height,
       }}>
       {children}
     </ImageBackground>

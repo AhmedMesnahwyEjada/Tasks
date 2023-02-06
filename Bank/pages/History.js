@@ -29,7 +29,7 @@ const History = ({type}) => {
     getHistoryData();
   }, []);
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 10}}>
       {type !== 'mini' && <Header type={2} />}
       <View
         style={

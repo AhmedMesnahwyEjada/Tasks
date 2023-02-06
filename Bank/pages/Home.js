@@ -27,7 +27,7 @@ const Home = () => {
       ? {flexDirection: 'row'}
       : {flexDirection: 'row-reverse'};
   const backgroundColor = theme === 'light' ? '#E5E5E5' : '#1c2125';
-  const fontColor = theme === 'light' ? {color: '#000'} : {color: '#F7F7F7'};
+  const fontColor = theme === 'light' ? {color: '#1C2437'} : {color: '#F7F7F7'};
   const [fingerprintVisability, setFingerprintVisibilty] = useState(false);
   const [balanceText, setBalanceText] = useState(text['balance-hidden']);
   const [balanceFont, setBalanceFont] = useState(20);
@@ -41,12 +41,8 @@ const Home = () => {
   }, []);
   return (
     <View style={{flex: 1, backgroundColor: backgroundColor}}>
-      <Header type={2} />
-      <View
-        style={{
-          paddingHorizontal: 10,
-          flex: 1,
-        }}>
+      <Header type={2} pageTitle={'Customer Service'} />
+      <View style={{paddingHorizontal: 10, flex: 1}}>
         <Card>
           <View
             style={[

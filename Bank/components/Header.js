@@ -12,7 +12,7 @@ import {toggleLanguage} from '../redux/language';
 import {useNavigation} from '@react-navigation/native';
 import MenuModal from './MenuModal';
 
-const Header = ({type}) => {
+const Header = ({type, pageTitle}) => {
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.language);
   const theme = useSelector(state => state.theme.theme);
@@ -80,7 +80,10 @@ const Header = ({type}) => {
           source={bell}
           style={[styles.backButton, {backgroundColor: '#FFFFFF'}]}
         />
-        <MenuModal toggleMenu={toggleMenu} menuVisability={menuVisability}>
+        <MenuModal
+          toggleMenu={toggleMenu}
+          menuVisability={menuVisability}
+          pageTitle={pageTitle}>
           <BasicHeader />
         </MenuModal>
       </View>

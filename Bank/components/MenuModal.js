@@ -17,7 +17,7 @@ import darkMode from '../assets/darkMode.png';
 import userImage from '../assets/userImage.png';
 
 import {toggleTheme} from '../redux/theme';
-const MenuModal = ({toggleMenu, menuVisability, children}) => {
+const MenuModal = ({toggleMenu, menuVisability, children, pageTitle}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.language);
@@ -100,6 +100,7 @@ const MenuModal = ({toggleMenu, menuVisability, children}) => {
                     title={item.title}
                     icon={item.icon}
                     onPress={item.onPress}
+                    hovered={item.title === pageTitle}
                   />
                 );
               })}
