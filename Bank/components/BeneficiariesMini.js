@@ -5,8 +5,10 @@ import {getBeneficiaries} from '../axios/Beneficiaries';
 import texts from '../assets/language.json';
 import CustomButton from './CustomButton';
 import BeneficiariesItem from './BeneficiarieItem';
+import {useNavigation} from '@react-navigation/native';
 
 const BeneficiariesMini = () => {
+  const navigation = useNavigation();
   const language = useSelector(state => state.language.language);
   const theme = useSelector(state => state.theme.theme);
   const user = useSelector(state => state.user.user);
@@ -19,6 +21,9 @@ const BeneficiariesMini = () => {
   ]);
   const getData = async () => {
     setBeneficiaries(await getBeneficiaries(user.id));
+  };
+  const navigateToTransaction = id => {
+    navigation.navigate(`TransactionHistory`, id);
   };
   useEffect(() => {
     getData();
@@ -36,7 +41,15 @@ const BeneficiariesMini = () => {
         data={beneficiaries.slice(0, 10)}
         renderItem={({item, index}) => {
           const id = Object.keys(item)[0];
-          return <BeneficiariesItem item={item[id]} id={id} index={index} type={1} />;
+          return (
+            <BeneficiariesItem
+              item={item[id]}
+              id={id}
+              index={index}
+              type={1}
+              onPress={navigateToTransaction.bind(this, id)}
+            />
+          );
         }}
       />
     </View>

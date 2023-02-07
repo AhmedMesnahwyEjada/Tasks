@@ -29,6 +29,9 @@ const Beneficiaries = () => {
   const getData = async () => {
     setBeneficiaries(await getBeneficiaries(user.id));
   };
+  const navigateToTransaction = id => {
+    navigation.navigate(`TransactionHistory`, id);
+  };
   useEffect(() => {
     navigation.setOptions({headerShown: false});
     getData();
@@ -110,7 +113,13 @@ const Beneficiaries = () => {
           renderItem={({item, index}) => {
             const id = Object.keys(item)[0];
             return (
-              <BeneficiariesItem item={item[id]} id={id} key={index} type={showType} />
+              <BeneficiariesItem
+                item={item[id]}
+                id={id}
+                key={index}
+                type={showType}
+                onPress={navigateToTransaction.bind(this, id)}
+              />
             );
           }}
         />

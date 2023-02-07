@@ -52,7 +52,13 @@ const Footer = ({page}) => {
         ]}
       />
       <CustomButton
-        style={[styles.bottomButton, {backgroundColor: backgroundColor}]}
+        style={[
+          styles.bottomButton,
+          {
+            backgroundColor:
+              page === 'transfer' ? backgroundColorHoverd : backgroundColor,
+          },
+        ]}
         title={text['transfer']}
         titleStyle={[fontColor, {fontSize: 10}]}
         icon={transfer}

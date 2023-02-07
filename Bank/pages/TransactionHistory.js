@@ -30,6 +30,9 @@ const TransactionHistory = ({route}) => {
     setBeneficiary(await getBeneficiary(id, user.id));
     console.log(beneficiary);
   };
+  const navigateToTransfer = () => {
+    navigation.navigate(`Transfer`, {id: id, ...beneficiary});
+  };
   useEffect(() => {
     navigation.setOptions({headerShown: false});
     getHistory();
@@ -38,7 +41,12 @@ const TransactionHistory = ({route}) => {
     <View style={{flex: 1, backgroundColor: backgroundColor}}>
       <Header type={2} pageTitle={'beneficiaries'} />
       <View style={{flex: 1, padding: 20}}>
-        <BeneficiariesItem type={2} item={beneficiary} id={id} />
+        <BeneficiariesItem
+          type={2}
+          item={beneficiary}
+          id={id}
+          onPress={navigateToTransfer}
+        />
         <View style={{flex: 7}}>
           <Text style={[fontColor, {fontSize: 25, marginBottom: 15}]}>
             {text['transaction-history']}

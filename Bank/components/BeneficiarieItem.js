@@ -6,7 +6,7 @@ import {getTransactionHistory} from '../axios/History';
 import CustomButton from './CustomButton';
 import dollarSign from '../assets/dollarSign.png';
 import phoneIcon from '../assets/phoneIcon.png';
-const BeneficiariesItem = ({type, item, id}) => {
+const BeneficiariesItem = ({type, item, id, onPress}) => {
   const navigation = useNavigation();
   const language = useSelector(state => state.language.language);
   const user = useSelector(state => state.user.user);
@@ -18,9 +18,6 @@ const BeneficiariesItem = ({type, item, id}) => {
     language === 'english'
       ? {justifyContent: 'flex-end'}
       : {justifyContent: 'flex-start'};
-  const onPress = () => {
-    navigation.navigate(`TransactionHistory`, id);
-  };
   const RowType = () => {
     const [totalSent, setTotalSent] = useState(0);
     const getTotalSent = async () => {

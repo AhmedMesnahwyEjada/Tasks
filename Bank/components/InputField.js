@@ -15,11 +15,12 @@ const InputField = ({
 }) => {
   return (
     <View style={style}>
-      <View
-        style={{flexDirection: language === 'english' ? 'row' : 'row-reverse'}}>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Image source={icon} />
-        </View>
+      <View style={{flexDirection: language === 'english' ? 'row' : 'row-reverse'}}>
+        {icon && (
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Image source={icon} />
+          </View>
+        )}
         <View style={{flex: 4}}>
           <Text style={titleStyle}>{title}</Text>
           <TextInput
@@ -27,9 +28,7 @@ const InputField = ({
             keyboardType={type}
             style={[
               inputStyle,
-              language === 'english'
-                ? {textAlign: 'left'}
-                : {textAlign: 'right'},
+              language === 'english' ? {textAlign: 'left'} : {textAlign: 'right'},
             ]}
             secureTextEntry={type == 'password' ? true : false}
             value={value}
