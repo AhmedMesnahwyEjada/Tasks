@@ -63,6 +63,7 @@ const Footer = ({page}) => {
         titleStyle={[fontColor, {fontSize: 10}]}
         icon={transfer}
         iconStyle={styles.bottomButtonIcon}
+        onPress={() => navigation.navigate('Transfer', {id: undefined})}
       />
       <CustomButton
         style={[

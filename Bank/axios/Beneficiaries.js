@@ -10,6 +10,14 @@ const getBeneficiary = async (id, userID) => {
     Alert.alert('error in getting the beneficiary');
   }
 };
+const deleteBeneficiary = async (id, userID) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/beneficiaries/${userID}/${id}.json`);
+    return response.data;
+  } catch {
+    Alert.alert('error in deleteing the beneficiary');
+  }
+};
 const addBeneficiary = async (beneficiary, userID) => {
   try {
     await axios.post(`${baseUrl}/beneficiaries/${userID}.json`, beneficiary);
@@ -31,4 +39,4 @@ const getBeneficiaries = async userID => {
     Alert.alert('error in getting the beneficiaries');
   }
 };
-export {addBeneficiary, getBeneficiary, getBeneficiaries};
+export {addBeneficiary, getBeneficiary, getBeneficiaries, deleteBeneficiary};

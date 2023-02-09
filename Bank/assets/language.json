@@ -67,7 +67,11 @@
         "add" : "Add",
         "no-beneficiaries" : "No Beneficiaries",
         "no-beneficiaries-subtitle" : "You don't have beneficiaries, Add some so you can send money",
-        "transaction-history" : "Transaction History"
+        "transaction-history" : "Transaction History",
+        "edit" : "Edit",
+        "delete" : "Delete",
+        "ok" : "Ok",
+        "sure-delete" : "Are you sure you want to delete "
     },
     "arabic" : {
         "language": "EN",
@@ -136,7 +140,10 @@
         "air-pay" :       "الدفع ب NFC",
         "add" : "اضافة",
         "no-beneficiaries" : "لا يوجد مستفيدين",
-        "transaction-history" : "سجل التحويلات"
-
+        "transaction-history" : "سجل التحويلات",
+        "edit" : "تعديل",
+        "delete" : "حذف",
+        "ok" : "تمام",
+        "sure-delete" : "هل انت متاكد انك عاوز تمسح  "
     }
 }

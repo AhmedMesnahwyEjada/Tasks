@@ -15,9 +15,7 @@ const History = ({type}) => {
   const text = texts[language];
   const fontColor = theme === 'light' ? {color: '#000'} : {color: '#F7F7F7'};
   const rowStyle =
-    language === 'english'
-      ? {flexDirection: 'row'}
-      : {flexDirection: 'row-reverse'};
+    language === 'english' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'};
   const backgroundColor = theme === 'light' ? '#E5E5E5' : '#1c2125';
   const [history, setHistory] = useState([]);
   const getHistoryData = async () => {
@@ -63,7 +61,7 @@ const History = ({type}) => {
           )}
         </View>
         <FlatList
-          data={history}
+          data={type === 'mini' ? history.slice(0, 10) : history}
           renderItem={({item, index}) => {
             return (
               <>

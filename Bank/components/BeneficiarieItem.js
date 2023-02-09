@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 import {View, Image, Text, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
@@ -7,7 +6,6 @@ import CustomButton from './CustomButton';
 import dollarSign from '../assets/dollarSign.png';
 import phoneIcon from '../assets/phoneIcon.png';
 const BeneficiariesItem = ({type, item, id, onPress}) => {
-  const navigation = useNavigation();
   const language = useSelector(state => state.language.language);
   const user = useSelector(state => state.user.user);
   const rowStyle =
@@ -23,7 +21,7 @@ const BeneficiariesItem = ({type, item, id, onPress}) => {
     const getTotalSent = async () => {
       const history = await getTransactionHistory(user.id, id);
       let sum = 0;
-      for (historyItem of history) sum += historyItem['amount'];
+      for (historyItem of history) sum += parseFloat(historyItem['amount']);
       setTotalSent(sum);
     };
     useEffect(() => {

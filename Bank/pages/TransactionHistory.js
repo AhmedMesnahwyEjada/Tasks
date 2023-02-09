@@ -1,13 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, Alert} from 'react-native';
 import {useSelector} from 'react-redux';
 import {getTransactionHistory} from '../axios/History';
 import texts from '../assets/language.json';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import BeneficiariesItem from '../components/BeneficiarieItem';
-import {getBeneficiary} from '../axios/Beneficiaries';
+import {getBeneficiary, deleteBeneficiary} from '../axios/Beneficiaries';
+import BeneficiaryModal from '../components/BeneficiaryModal';
 const TransactionHistory = ({route}) => {
   const id = route.params;
   const navigation = useNavigation();
@@ -25,13 +26,27 @@ const TransactionHistory = ({route}) => {
   const [beneficiary, setBeneficiary] = useState([
     {key: {imageUrl: undefined, fName: undefined}},
   ]);
+  const [beneficiaryModalVisability, setBeneficiaryModalVisability] = useState(false);
+  const toggleModalVisible = () => {
+    setBeneficiaryModalVisability(visibility => {
+      return !visibility;
+    });
+  };
   const getHistory = async () => {
     setHistory(await getTransactionHistory(user.id, id));
     setBeneficiary(await getBeneficiary(id, user.id));
-    console.log(beneficiary);
   };
   const navigateToTransfer = () => {
     navigation.navigate(`Transfer`, {id: id, ...beneficiary});
+  };
+  const deleteData = async () => {
+    await deleteBeneficiary(id, user.id);
+  };
+  const deleteBeneficiaryConfirmation = () => {
+    Alert.alert(`${text['sure-delete']} ${beneficiary.fName}`, '', [
+      {text: text['ok'], onPress: deleteData},
+      {text: text['cancle'], onPress: ''},
+    ]);
   };
   useEffect(() => {
     navigation.setOptions({headerShown: false});
@@ -45,7 +60,7 @@ const TransactionHistory = ({route}) => {
           type={2}
           item={beneficiary}
           id={id}
-          onPress={navigateToTransfer}
+          onPress={setBeneficiaryModalVisability.bind(this, true)}
         />
         <View style={{flex: 7}}>
           <Text style={[fontColor, {fontSize: 25, marginBottom: 15}]}>
@@ -83,6 +98,14 @@ const TransactionHistory = ({route}) => {
         </View>
       </View>
       <Footer page={'beneficiaries'} />
+      <BeneficiaryModal
+        modalVisibility={beneficiaryModalVisability}
+        toggleModalVisible={toggleModalVisible}
+        beneficiary={beneficiary}
+        id={id}
+        transferPressed={navigateToTransfer}
+        deletePressed={deleteBeneficiaryConfirmation}
+      />
     </View>
   );
 };
