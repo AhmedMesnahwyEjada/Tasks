@@ -18,4 +18,19 @@ const getCards = async userID => {
     Alert.alert('error in getting the cards');
   }
 };
-export {getCard, getCards};
+const updateCard = async (cardNumber, userID, card) => {
+  try {
+    const cards = await axios.get(`${baseUrl}/cards/${userID}.json`);
+    for ([id, value] of Object.entries(cards.data)) {
+      if (value.number === cardNumber) {
+        const response = await axios.put(`${baseUrl}/cards/${userID}/${id}.json`, card);
+        return response;
+      }
+    }
+    return null;
+  } catch (err) {
+    console.log(err);
+    Alert.alert('error in updating the card');
+  }
+};
+export {getCard, getCards, updateCard};

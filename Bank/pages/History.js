@@ -20,7 +20,7 @@ const History = ({type}) => {
   const [history, setHistory] = useState([]);
   const getHistoryData = async () => {
     const historyData = await getHistory(user.id);
-    setHistory(historyData);
+    setHistory(historyData.reverse());
   };
   useEffect(() => {
     navigation.setOptions({headerShown: false});

@@ -16,10 +16,8 @@ const MobileVerification = ({route}) => {
   const theme = useSelector(state => state.theme.theme);
   const text = texts[language];
   const rowStyle =
-    language === 'english'
-      ? {flexDirection: 'row'}
-      : {flexDirection: 'row-reverse'};
-  const {mobileNumber} = route.params;
+    language === 'english' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'};
+  const {mobileNumber, type, transaction} = route.params;
   const [value, setValue] = useState('');
   const [nextButtonDisabled, setNextButtonDisabled] = useState(true);
   useEffect(() => {
@@ -27,8 +25,13 @@ const MobileVerification = ({route}) => {
     else setNextButtonDisabled(true);
   }, [value]);
   const navigateToSetPasswrod = () => {
-    if (!nextButtonDisabled)
-      navigation.navigate('SetPassword', {mobileNumber: mobileNumber});
+    if (!nextButtonDisabled) {
+      if (type === 1) navigation.navigate('SetPassword', {mobileNumber: mobileNumber});
+      else {
+        transaction();
+        navigation.navigate('Home');
+      }
+    }
   };
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,

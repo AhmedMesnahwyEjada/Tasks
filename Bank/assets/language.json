@@ -71,7 +71,12 @@
         "edit" : "Edit",
         "delete" : "Delete",
         "ok" : "Ok",
-        "sure-delete" : "Are you sure you want to delete "
+        "sure-delete" : "Are you sure you want to delete ",
+        "type-of-transfer": "Type of Transfer",
+        "transfer-from" : "Transfer From",
+        "transfer-to" : "Transaction To", 
+        "amount-to-transfer" : "Amount to Transfer",
+        "reason-to-transfer" : "Reason to Transfer"
     },
     "arabic" : {
         "language": "EN",
@@ -144,6 +149,11 @@
         "edit" : "تعديل",
         "delete" : "حذف",
         "ok" : "تمام",
-        "sure-delete" : "هل انت متاكد انك عاوز تمسح  "
+        "sure-delete" : "هل انت متاكد انك عاوز تمسح  ",
+        "type-of-transfer": "نوع التحويل",
+        "transfer-from" : "تحويل من ",
+        "transfer-to" : "تحويل الى", 
+        "amount-to-transfer" : "قيمة التحويل",
+        "reason-to-transfer" : "سبب التحويل"
     }
 }

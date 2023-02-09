@@ -20,7 +20,7 @@ const MobileNumber = () => {
   }, [mobileNumber]);
   const navigateToVerification = () => {
     if (!nextButtonDisabled)
-      navigation.navigate('SignupVerification', {mobileNumber: mobileNumber});
+      navigation.navigate('SignupVerification', {mobileNumber: mobileNumber, type: 1});
   };
   return (
     <PageWrapper
