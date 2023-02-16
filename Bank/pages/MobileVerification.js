@@ -17,7 +17,7 @@ const MobileVerification = ({route}) => {
   const text = texts[language];
   const rowStyle =
     language === 'english' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'};
-  const {mobileNumber, type, transaction} = route.params;
+  const {mobileNumber, type, operation} = route.params;
   const [value, setValue] = useState('');
   const [nextButtonDisabled, setNextButtonDisabled] = useState(true);
   useEffect(() => {
@@ -28,7 +28,7 @@ const MobileVerification = ({route}) => {
     if (!nextButtonDisabled) {
       if (type === 1) navigation.navigate('SetPassword', {mobileNumber: mobileNumber});
       else {
-        transaction();
+        operation();
         navigation.navigate('Home');
       }
     }

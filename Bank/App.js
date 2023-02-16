@@ -14,6 +14,7 @@ import History from './pages/History';
 import Beneficiaries from './pages/Beneficiaries';
 import TransactionHistory from './pages/TransactionHistory';
 import Transfer from './pages/Transfer';
+import AddBeneficiar from './pages/AddBeneficiar';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -31,6 +32,7 @@ const App = () => {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Cards" component={Cards} />
           <Stack.Screen name="History" component={History} />
+          <Stack.Screen name="AddBeneficiar" component={AddBeneficiar} />
           <Stack.Screen name="Transfer" component={TransferWrapper} />
           <Stack.Screen name="TransactionHistory" component={TransactionHistoryWrapper} />
           <Stack.Screen name="Beneficiaries" component={Beneficiaries} />

@@ -76,7 +76,14 @@
         "transfer-from" : "Transfer From",
         "transfer-to" : "Transaction To", 
         "amount-to-transfer" : "Amount to Transfer",
-        "reason-to-transfer" : "Reason to Transfer"
+        "reason-to-transfer" : "Reason to Transfer",
+        "add-beneficiar" : "Add Beneficiar",
+        "first-name" : "First Name",
+        "last-name" : "Last Name",
+        "bank-branch" : "Bank Branch",
+        "account-number" : "Account Number",
+        "phone-number" : "Phone Number",
+        "email" : "Email"
     },
     "arabic" : {
         "language": "EN",
@@ -154,6 +161,13 @@
         "transfer-from" : "تحويل من ",
         "transfer-to" : "تحويل الى", 
         "amount-to-transfer" : "قيمة التحويل",
-        "reason-to-transfer" : "سبب التحويل"
+        "reason-to-transfer" : "سبب التحويل",
+        "add-beneficiar" : "اضف مستفيد",
+        "first-name" : "الاسم الاول",
+        "last-name" : "الاسم الثانى",
+        "bank-branch" : "فرع البنك",
+        "account-number" : "رقم الحساب",
+        "phone-number" : "رقم التليفون",
+        "email" : "البريد الالكترونى"
     }
 }

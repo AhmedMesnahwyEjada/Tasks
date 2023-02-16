@@ -88,7 +88,7 @@ const Transfer = ({route}) => {
   const onClickSubmit = () => {
     navigation.navigate('SignupVerification', {
       type: 2,
-      transaction: doTransaction.bind(
+      operation: doTransaction.bind(
         this,
         cards,
         user.id,
@@ -115,12 +115,7 @@ const Transfer = ({route}) => {
     setBeneficiarySelected(undefined);
   }, [typeOfTransfer]);
   return (
-    <View
-      style={{
-        flex: 1,
-        paddingTop: 50,
-        backgroundColor: backgroundColor,
-      }}>
+    <View style={{flex: 1, paddingTop: 50, backgroundColor: backgroundColor}}>
       <Header type={1} pageTitle={'transfer'} />
       <ScrollView style={{flex: 1}}>
         <Text style={[fontColor, {fontSize: 30, marginTop: 20, marginHorizontal: 20}]}>

@@ -35,7 +35,7 @@ const BeneficiariesItem = ({type, item, id, onPress}) => {
           rowStyle,
         ]}>
         <Image
-          source={{uri: item.imageUrl}}
+          source={{uri: item?.imageUrl}}
           style={{resizeMode: 'contain', width: 50, height: 50, marginHorizontal: 10}}
         />
         <View style={{justifyContent: 'center'}}>

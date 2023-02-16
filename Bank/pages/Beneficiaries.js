@@ -39,7 +39,7 @@ const Beneficiaries = () => {
   const EmptyBeneficiaries = () => {
     return (
       <Pressable
-        onPress={() => navigation.navigate('AddBeneficiary')}
+        onPress={() => navigation.navigate('AddBeneficiar')}
         style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 100}}>
         <Image source={emptyBeneficiaries} />
         <Text style={[fontColor, {fontSize: 25, marginVertical: 10}]}>
@@ -93,7 +93,7 @@ const Beneficiaries = () => {
               title={text['add']}
               icon={addIcon}
               titleStyle={[{marginLeft: 10}, fontColor]}
-              onPress={() => navigation.navigate('AddBeneficiary')}
+              onPress={() => navigation.navigate('AddBeneficiar')}
               style={{
                 marginRight: language === 'arabic' ? 5 : 0,
                 flexDirection: 'row-reverse',
