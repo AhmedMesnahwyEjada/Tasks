@@ -1,13 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  Dimensions,
-  Image,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, FlatList, Dimensions, Image, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import {getCards} from '../axios/Cards';
 import texts from '../assets/language.json';
@@ -18,7 +11,8 @@ import Card from '../components/Card';
 import visa from '../assets/visa.png';
 import simCard from '../assets/simCard.png';
 import transmitIcon from '../assets/transmitIcon.png';
-const Cards = () => {
+import CustomButton from '../components/CustomButton';
+const Cards = ({type}) => {
   const navigation = useNavigation();
   const user = useSelector(state => state.user.user);
   const language = useSelector(state => state.language.language);
@@ -36,10 +30,40 @@ const Cards = () => {
     navigation.setOptions({headerShown: false});
     getData();
   });
+  const AirPay = () => {
+    return (
+      <View style={{marginTop: 10}}>
+        <View
+          style={{
+            borderRadius: 20,
+            borderWidth: 2,
+            borderStyle: 'dashed',
+            height: 200,
+            borderColor: 'green',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={[fontColor, {fontSize: 15}]}>{text['pick-card']}</Text>
+        </View>
+        <CustomButton
+          title={text['pay-now']}
+          style={{
+            backgroundColor: '#007236',
+            height: 40,
+            borderRadius: 20,
+            margin: 15,
+            justifyContent: 'center',
+          }}
+          disabled={true}
+          titleStyle={{color: 'white', alignSelf: 'center'}}
+        />
+      </View>
+    );
+  };
   return (
     <View style={{flex: 1, backgroundColor: backgroundColor}}>
-      <Header type={2} pageTitle={'Cards Services'} />
-      <View style={{flex: 1, padding: 15}}>
+      <Header type={2} pageTitle={text['cards-services']} />
+      <View style={{flex: 1, paddingHorizontal: 10}}>
         <Text style={[{fontSize: 25}, fontColor]}>{text['cards']}</Text>
         <FlatList
           horizontal={true}
@@ -110,9 +134,10 @@ const Cards = () => {
             );
           }}
         />
-        <History type={'mini'} />
+        {!type && <History type={'mini'} />}
+        {type && <AirPay />}
       </View>
-      <Footer page={'home'} />
+      <Footer page={!type ? 'home' : 'air'} />
     </View>
   );
 };

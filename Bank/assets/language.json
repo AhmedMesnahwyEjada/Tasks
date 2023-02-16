@@ -83,7 +83,9 @@
         "bank-branch" : "Bank Branch",
         "account-number" : "Account Number",
         "phone-number" : "Phone Number",
-        "email" : "Email"
+        "email" : "Email",
+        "pick-card" : "Touch & hold a card then drag it to this box",
+        "pay-now" : "Pay Now"
     },
     "arabic" : {
         "language": "EN",
@@ -168,6 +170,8 @@
         "bank-branch" : "فرع البنك",
         "account-number" : "رقم الحساب",
         "phone-number" : "رقم التليفون",
-        "email" : "البريد الالكترونى"
+        "email" : "البريد الالكترونى",
+        "pick-card" : "اختار واحد من الكروت واسحبه جوا المربع",
+        "pay-now" : "ادفع دلوقتى"
     }
 }

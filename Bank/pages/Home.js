@@ -23,9 +23,7 @@ const Home = () => {
   const text = texts[language];
   const user = useSelector(state => state.user.user);
   const rowStyle =
-    language === 'english'
-      ? {flexDirection: 'row'}
-      : {flexDirection: 'row-reverse'};
+    language === 'english' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'};
   const backgroundColor = theme === 'light' ? '#E5E5E5' : '#1c2125';
   const fontColor = theme === 'light' ? {color: '#1C2437'} : {color: '#F7F7F7'};
   const [fingerprintVisability, setFingerprintVisibilty] = useState(false);
@@ -41,7 +39,7 @@ const Home = () => {
   }, []);
   return (
     <View style={{flex: 1, backgroundColor: backgroundColor}}>
-      <Header type={2} pageTitle={'Customer Service'} />
+      <Header type={2} pageTitle={text['account-summary']} />
       <View style={{paddingHorizontal: 10, flex: 1}}>
         <Card>
           <View
@@ -53,21 +51,16 @@ const Home = () => {
                 marginVertical: 5,
               },
             ]}>
-            <Text style={{color: '#F7F7F7', alignSelf: 'center'}}>
-              {text['balance']}
-            </Text>
+            <Text style={{color: '#F7F7F7', alignSelf: 'center'}}>{text['balance']}</Text>
             <CustomButton
               onPress={setFingerprintVisibilty.bind(this, balanceFont === 20)}
               icon={fingerprintLogo}
               style={styles.fingerprintButton}
             />
           </View>
-          <Text style={[styles.balance, {fontSize: balanceFont}]}>
-            {balanceText}
-          </Text>
+          <Text style={[styles.balance, {fontSize: balanceFont}]}>{balanceText}</Text>
         </Card>
-        <View
-          style={[rowStyle, {marginTop: 30, justifyContent: 'space-between'}]}>
+        <View style={[rowStyle, {marginTop: 30, justifyContent: 'space-between'}]}>
           <CustomButton
             icon={cash}
             title={text['accounts']}

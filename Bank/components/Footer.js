@@ -87,9 +87,15 @@ const Footer = ({page}) => {
         iconStyle={styles.bottomButtonIcon}
       />
       <CustomButton
-        style={[styles.bottomButton, {backgroundColor: backgroundColor}]}
+        style={[
+          styles.bottomButton,
+          {
+            backgroundColor: page === 'air' ? backgroundColorHoverd : backgroundColor,
+          },
+        ]}
         title={text['air-pay']}
         titleStyle={[fontColor, {fontSize: 10}]}
+        onPress={() => navigation.navigate('AirPay')}
         icon={airPay}
         iconStyle={styles.bottomButtonIcon}
       />
