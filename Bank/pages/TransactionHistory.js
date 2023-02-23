@@ -37,6 +37,7 @@ const TransactionHistory = ({route}) => {
     setBeneficiary(await getBeneficiary(id, user.id));
   };
   const navigateToTransfer = () => {
+    setBeneficiaryModalVisability(false);
     navigation.navigate(`Transfer`, {id: id, ...beneficiary});
   };
   const deleteData = async () => {
