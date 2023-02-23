@@ -85,7 +85,8 @@
         "phone-number" : "Phone Number",
         "email" : "Email",
         "pick-card" : "Touch & hold a card then drag it to this box",
-        "pay-now" : "Pay Now"
+        "pay-now" : "Pay Now",
+        "air-payment" : "Air Payment"
     },
     "arabic" : {
         "language": "EN",
@@ -172,6 +173,7 @@
         "phone-number" : "رقم التليفون",
         "email" : "البريد الالكترونى",
         "pick-card" : "اختار واحد من الكروت واسحبه جوا المربع",
-        "pay-now" : "ادفع دلوقتى"
+        "pay-now" : "ادفع دلوقتى",
+        "air-payment" : "الدفع الهوائى"
     }
 }

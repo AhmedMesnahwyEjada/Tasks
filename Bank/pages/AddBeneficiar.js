@@ -105,8 +105,8 @@ const AddBeneficiar = () => {
           onPress={getImage}
           style={{
             backgroundColor: inputBackgroundColor,
-            width: 80,
-            height: 80,
+            width: 100,
+            height: 100,
             borderRadius: 20,
             justifyContent: 'center',
             alignItems: 'center',
@@ -114,7 +114,10 @@ const AddBeneficiar = () => {
             marginVertical: 10,
           }}>
           {image ? (
-            <Image style={{width: 80, height: 80}} source={{uri: image?.uri}} />
+            <Image
+              style={{width: 100, height: 100, borderRadius: 5}}
+              source={{uri: image?.uri}}
+            />
           ) : (
             <Image style={{resizeMode: 'center'}} source={cameraIcon} />
           )}

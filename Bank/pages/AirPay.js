@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import Cards from './Cards';
 
 const AirPay = () => {

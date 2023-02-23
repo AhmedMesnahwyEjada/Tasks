@@ -1,8 +1,18 @@
 import {useNavigation} from '@react-navigation/native';
-import {useEffect, useState} from 'react';
-import {View, Text, FlatList, Dimensions, Image, StyleSheet} from 'react-native';
+import {useEffect, useState, useRef} from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  Dimensions,
+  Image,
+  StyleSheet,
+  Animated,
+  PanResponder,
+} from 'react-native';
 import {useSelector} from 'react-redux';
-import {getCards} from '../axios/Cards';
+import {getCards, updateCard} from '../axios/Cards';
+import {addTransaction} from '../axios/History';
 import texts from '../assets/language.json';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -12,6 +22,7 @@ import visa from '../assets/visa.png';
 import simCard from '../assets/simCard.png';
 import transmitIcon from '../assets/transmitIcon.png';
 import CustomButton from '../components/CustomButton';
+import FingerprintModal from '../components/FingerprintModal';
 const Cards = ({type}) => {
   const navigation = useNavigation();
   const user = useSelector(state => state.user.user);
@@ -23,18 +34,103 @@ const Cards = ({type}) => {
   const WINDOW_WIDTH = Dimensions.get('screen').width;
   const WINDOW_HEIGHT = Dimensions.get('screen').height;
   const [cards, setCards] = useState([]);
-  const getData = async () => {
-    setCards(await getCards(user.id));
+  const pans = useRef([]).current;
+  const panResponders = useRef([]).current;
+  const [selected, setSelected] = useState(-1);
+  const [buttonEnabled, setButtonEnabled] = useState(false);
+  const createResponder = index => {
+    const pan = new Animated.ValueXY({x: 0, y: 0});
+    return [
+      PanResponder.create({
+        onMoveShouldSetPanResponder: () => true,
+        onPanResponderGrant: () => {
+          pan.setOffset({x: pan.x._value, y: pan.y._value});
+        },
+        onPanResponderMove: (_, gesture) => {
+          pan.setValue({x: gesture.dx, y: gesture.dy});
+        },
+        onPanResponderRelease: () => {
+          pan.flattenOffset();
+          if (pan.y._value >= WINDOW_HEIGHT * 0.2) {
+            Animated.spring(pan, {
+              toValue: {x: WINDOW_WIDTH * 0.1 * !index, y: WINDOW_HEIGHT * 0.3},
+              duration: 100,
+              useNativeDriver: true,
+            }).start();
+            setSelected(index);
+          } else {
+            Animated.spring(pan, {
+              toValue: {x: 0, y: 0},
+              duration: 100,
+              useNativeDriver: true,
+            }).start();
+            setSelected(-1);
+          }
+        },
+      }),
+      pan,
+    ];
   };
+  const getData = async () => {
+    const cardData = await getCards(user.id);
+    setCards(
+      cardData.map(card => {
+        return {key: card.number, value: `${card.number} - $${card.balance}`, ...card};
+      }),
+    );
+    for ([index, _] of cardData.entries()) {
+      const [responder, pan] = createResponder(index);
+      pans.push(pan);
+      panResponders.push(responder);
+    }
+  };
+  useEffect(() => {
+    setButtonEnabled(selected === -1 ? false : true);
+  }, [selected]);
   useEffect(() => {
     navigation.setOptions({headerShown: false});
     getData();
-  });
+  }, []);
   const AirPay = () => {
+    const [modalVisibility, setModalVisibility] = useState(false);
+    const toggleModalVisible = () => {
+      setModalVisibility(modalVisibility => {
+        return !modalVisibility;
+      });
+    };
+    const doTransaction = async (cards, id, amount, beneficiarySelected, details) => {
+      const date = new Date();
+      const {key, value, ...cardValues} = cards.filter(
+        card => card.number === cards[selected].number,
+      )[0];
+      await updateCard(key, id, {
+        ...cardValues,
+        balance: cardValues.balance - parseFloat(amount),
+      });
+      await addTransaction(
+        {
+          amount: amount,
+          beneficiaryID: beneficiarySelected,
+          date: `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`,
+          details: details,
+        },
+        id,
+      );
+      navigation.navigate('Home');
+    };
     return (
-      <View style={{marginTop: 10}}>
+      <View
+        style={{
+          marginTop: 10,
+          position: 'absolute',
+          width: WINDOW_WIDTH * 0.9,
+          top: WINDOW_HEIGHT * 0.35,
+          left: WINDOW_WIDTH * 0.05,
+        }}>
         <View
           style={{
+            elevation: -1,
+            zIndex: -1,
             borderRadius: 20,
             borderWidth: 2,
             borderStyle: 'dashed',
@@ -54,8 +150,22 @@ const Cards = ({type}) => {
             margin: 15,
             justifyContent: 'center',
           }}
-          disabled={true}
+          disabled={!buttonEnabled}
           titleStyle={{color: 'white', alignSelf: 'center'}}
+          onPress={toggleModalVisible}
+        />
+        <FingerprintModal
+          modalVisibility={modalVisibility}
+          toggleModalVisible={toggleModalVisible}
+          subtitle={text['air-payment']}
+          onApproval={doTransaction.bind(
+            this,
+            cards,
+            user.id,
+            1000,
+            '-NNH3M1s2n2hXFIUVBI1',
+            'Air Pay',
+          )}
         />
       </View>
     );
@@ -68,6 +178,7 @@ const Cards = ({type}) => {
         <FlatList
           horizontal={true}
           data={cards}
+          ItemSeparatorComponent={() => <View style={{width: 5}}></View>}
           renderItem={({item, index}) => {
             return (
               <View
@@ -75,9 +186,11 @@ const Cards = ({type}) => {
                 style={{
                   width: WINDOW_WIDTH * 0.85,
                   height: WINDOW_HEIGHT * 0.27,
-                  marginRight: 10,
                 }}>
-                <Card height={180}>
+                <Card
+                  height={180}
+                  pan={type ? pans[index] : null}
+                  panResponder={type ? panResponders[index] : null}>
                   <View
                     style={[
                       {
