@@ -16,6 +16,7 @@ import cash from '../assets/cash.png';
 import utilities from '../assets/utilities.png';
 import history from '../assets/history.png';
 import cards from '../assets/cards.png';
+import {getCards} from '../axios/Cards';
 const Home = () => {
   const navigation = useNavigation();
   const language = useSelector(state => state.language.language);
@@ -29,13 +30,19 @@ const Home = () => {
   const [fingerprintVisability, setFingerprintVisibilty] = useState(false);
   const [balanceText, setBalanceText] = useState(text['balance-hidden']);
   const [balanceFont, setBalanceFont] = useState(20);
+  const [balance, setBalance] = useState(0);
   const onFingerprintApproval = () => {
-    setBalanceText(`$${user.balance}`);
+    setBalanceText(`$${balance}`);
     setBalanceFont(35);
     setFingerprintVisibilty(false);
   };
+  const getCardsData = async () => {
+    const cardsData = await getCards(user.id);
+    setBalance(cardsData.reduce((accumulator, value) => value.balance + accumulator, 0));
+  };
   useEffect(() => {
     navigation.setOptions({headerShown: false});
+    getCardsData();
   }, []);
   return (
     <View style={{flex: 1, backgroundColor: backgroundColor}}>
