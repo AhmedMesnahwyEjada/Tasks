@@ -38,7 +38,7 @@ const BeneficiariesMini = () => {
       </View>
       <FlatList
         horizontal={true}
-        data={beneficiaries.slice(0, 10)}
+        data={beneficiaries.slice(0, 5)}
         renderItem={({item, index}) => {
           const id = Object.keys(item)[0];
           return (

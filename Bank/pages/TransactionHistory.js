@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
-import {View, Text, FlatList, Alert} from 'react-native';
+import {View, Text, FlatList, Alert, RefreshControl} from 'react-native';
 import {useSelector} from 'react-redux';
 import {getTransactionHistory} from '../axios/History';
 import texts from '../assets/language.json';
@@ -27,14 +27,17 @@ const TransactionHistory = ({route}) => {
     {key: {imageUrl: undefined, fName: undefined}},
   ]);
   const [beneficiaryModalVisability, setBeneficiaryModalVisability] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const toggleModalVisible = () => {
     setBeneficiaryModalVisability(visibility => {
       return !visibility;
     });
   };
   const getHistory = async () => {
-    setHistory(await getTransactionHistory(user.id, id));
+    setRefreshing(true);
+    setHistory((await getTransactionHistory(user.id, id)).reverse());
     setBeneficiary(await getBeneficiary(id, user.id));
+    setRefreshing(false);
   };
   const navigateToTransfer = () => {
     setBeneficiaryModalVisability(false);
@@ -69,6 +72,9 @@ const TransactionHistory = ({route}) => {
           </Text>
           <FlatList
             data={history}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={getHistory} />
+            }
             renderItem={({item, index}) => {
               return (
                 <View key={index}>

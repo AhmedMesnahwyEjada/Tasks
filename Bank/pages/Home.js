@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, RefreshControl} from 'react-native';
 import {useSelector} from 'react-redux';
 import texts from '../assets/language.json';
 import fingerprintLogo from '../assets/fingerprint.png';
@@ -31,6 +31,7 @@ const Home = () => {
   const [balanceText, setBalanceText] = useState(text['balance-hidden']);
   const [balanceFont, setBalanceFont] = useState(20);
   const [balance, setBalance] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
   const onFingerprintApproval = () => {
     setBalanceText(`$${balance}`);
     setBalanceFont(35);
@@ -40,6 +41,12 @@ const Home = () => {
     const cardsData = await getCards(user.id);
     setBalance(cardsData.reduce((accumulator, value) => value.balance + accumulator, 0));
   };
+  const onRefreshing = async () => {
+    setRefreshing(true);
+    await getCardsData();
+    if (balanceText !== text['balance-hidden']) onFingerprintApproval();
+    setRefreshing(false);
+  };
   useEffect(() => {
     navigation.setOptions({headerShown: false});
     getCardsData();
@@ -47,7 +54,11 @@ const Home = () => {
   return (
     <View style={{flex: 1, backgroundColor: backgroundColor}}>
       <Header type={2} pageTitle={text['account-summary']} />
-      <View style={{paddingHorizontal: 10, flex: 1}}>
+      <ScrollView
+        style={{paddingHorizontal: 10, flex: 1}}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefreshing} />
+        }>
         <Card>
           <View
             style={[
@@ -127,7 +138,7 @@ const Home = () => {
           onApproval={onFingerprintApproval}
           subtitle={text['show-balance-subtitle']}
         />
-      </View>
+      </ScrollView>
       <Footer page={'home'} />
     </View>
   );

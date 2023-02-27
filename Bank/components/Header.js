@@ -49,7 +49,6 @@ const Header = ({type, pageTitle}) => {
     const user = useSelector(state => state.user.user);
     const fontColor = theme === 'light' ? '#000' : '#FFF';
     const toggleMenu = () => {
-      console.log('toggle');
       setModalVisability(modalVisability => {
         return !modalVisability;
       });

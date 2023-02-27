@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, RefreshControl} from 'react-native';
 import {useSelector} from 'react-redux';
 import texts from '../assets/language.json';
 import {getHistory} from '../axios/History';
@@ -19,9 +19,12 @@ const History = ({type}) => {
     language === 'english' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'};
   const backgroundColor = theme === 'light' ? '#E5E5E5' : '#1c2125';
   const [history, setHistory] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
   const getHistoryData = async () => {
+    setRefreshing(true);
     const historyData = await getHistory(user.id);
     setHistory(historyData.reverse());
+    setRefreshing(false);
   };
   useEffect(() => {
     navigation.setOptions({headerShown: false});
@@ -61,9 +64,8 @@ const History = ({type}) => {
             />
           )}
         </View>
-        <FlatList
-          data={type === 'mini' ? history.slice(0, 5) : history}
-          renderItem={({item, index}) => {
+        {type === 'mini' ? (
+          history.slice(0, 5).map((item, index) => {
             return (
               <>
                 <HistoryItem
@@ -81,8 +83,34 @@ const History = ({type}) => {
                 />
               </>
             );
-          }}
-        />
+          })
+        ) : (
+          <FlatList
+            data={history}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={getHistoryData} />
+            }
+            renderItem={({item, index}) => {
+              return (
+                <>
+                  <HistoryItem
+                    beneficiaryID={item.beneficiaryID}
+                    amount={item.amount}
+                    date={item.date}
+                    key={index}
+                  />
+                  <View
+                    style={{
+                      marginTop: 10,
+                      borderBottomColor: '#bec0c9',
+                      borderBottomWidth: 2,
+                    }}
+                  />
+                </>
+              );
+            }}
+          />
+        )}
       </View>
       {type !== 'mini' && <Footer page={'home'} />}
     </View>

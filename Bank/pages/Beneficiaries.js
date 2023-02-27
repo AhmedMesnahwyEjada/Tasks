@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
-import {View, Text, Image, FlatList, Pressable} from 'react-native';
+import {View, Text, Image, FlatList, Pressable, RefreshControl} from 'react-native';
 import {useSelector} from 'react-redux';
 import {getBeneficiaries} from '../axios/Beneficiaries';
 import texts from '../assets/language.json';
@@ -26,8 +26,11 @@ const Beneficiaries = () => {
   const fontColor = theme === 'light' ? {color: '#1C2437'} : {color: '#F7F7F7'};
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [showType, setShowType] = useState(1);
+  const [refreshing, setRefreshing] = useState(false);
   const getData = async () => {
+    setRefreshing(true);
     setBeneficiaries(await getBeneficiaries(user.id));
+    setRefreshing(false);
   };
   const navigateToTransaction = id => {
     navigation.navigate(`TransactionHistory`, id);
@@ -109,6 +112,7 @@ const Beneficiaries = () => {
           key={showType ? 4 : 1}
           data={beneficiaries}
           numColumns={showType ? 4 : 1}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={getData} />}
           ListEmptyComponent={<EmptyBeneficiaries />}
           renderItem={({item, index}) => {
             const id = Object.keys(item)[0];
