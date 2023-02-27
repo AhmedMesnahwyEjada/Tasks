@@ -7,6 +7,7 @@ import {getHistory} from '../axios/History';
 import CustomButton from '../components/CustomButton';
 import Header from '../components/Header';
 import HistoryItem from '../components/HistoryItem';
+import Footer from '../components/Footer';
 const History = ({type}) => {
   const navigation = useNavigation();
   const language = useSelector(state => state.language.language);
@@ -61,7 +62,7 @@ const History = ({type}) => {
           )}
         </View>
         <FlatList
-          data={type === 'mini' ? history.slice(0, 10) : history}
+          data={type === 'mini' ? history.slice(0, 5) : history}
           renderItem={({item, index}) => {
             return (
               <>
@@ -83,6 +84,7 @@ const History = ({type}) => {
           }}
         />
       </View>
+      {type !== 'mini' && <Footer page={'home'} />}
     </View>
   );
 };
