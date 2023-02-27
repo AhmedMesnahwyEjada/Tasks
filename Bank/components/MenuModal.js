@@ -1,4 +1,4 @@
-import {Modal, View, Pressable, Image, Text} from 'react-native';
+import {Modal, View, Pressable, Image, Text, Switch} from 'react-native';
 import texts from '../assets/language.json';
 import {useNavigation} from '@react-navigation/native';
 import {logout} from '../redux/user';
@@ -23,8 +23,7 @@ const MenuModal = ({toggleMenu, menuVisability, children, pageTitle}) => {
   const language = useSelector(state => state.language.language);
   const theme = useSelector(state => state.theme.theme);
   const user = useSelector(state => state.user.user);
-  const backgroundColor =
-    theme === 'light' ? '#F1F3FB' : 'rgba(0, 50, 24, 0.91)';
+  const backgroundColor = theme === 'light' ? '#F1F3FB' : 'rgba(0, 50, 24, 0.91)';
   const fontColor = theme === 'light' ? '#000' : '#fff';
   const rowStyle = language === 'english' ? 'row' : 'row-reverse';
   const text = texts[language];
@@ -55,16 +54,28 @@ const MenuModal = ({toggleMenu, menuVisability, children, pageTitle}) => {
       icon: menu4,
       onPress: navigation.navigate.bind(navigation.navigate, 'Cards'),
     },
-    {id: 5, title: text['hard-token'], icon: menu5, onPress: changeTheme},
-    {id: 6, title: text['offers'], icon: menu6, onPress: changeTheme},
+    {id: 5, title: text['hard-token'], icon: menu5, onPress: null},
+    {id: 6, title: text['offers'], icon: menu6, onPress: null},
     {
       id: 7,
       title: text['customer-service'],
       icon: menu7,
-      onPress: changeTheme,
+      onPress: null,
     },
-    {id: 8, title: text['calculators'], icon: menu8, onPress: changeTheme},
-    {id: 9, title: text['dark-mode'], icon: darkMode, onPress: changeTheme},
+    {id: 8, title: text['calculators'], icon: menu8, onPress: null},
+    {
+      id: 9,
+      title: text['dark-mode'],
+      icon: darkMode,
+      onPress: null,
+      extraComponent: (
+        <Switch
+          style={{marginLeft: 'auto'}}
+          onValueChange={changeTheme}
+          value={theme === 'dark' ? true : false}
+        />
+      ),
+    },
   ];
 
   return (
@@ -100,8 +111,9 @@ const MenuModal = ({toggleMenu, menuVisability, children, pageTitle}) => {
                     title={item.title}
                     icon={item.icon}
                     onPress={item.onPress}
-                    hovered={item.title === pageTitle}
-                  />
+                    hovered={item.title === pageTitle}>
+                    {item.extraComponent}
+                  </MenuItem>
                 );
               })}
             </View>
@@ -111,8 +123,7 @@ const MenuModal = ({toggleMenu, menuVisability, children, pageTitle}) => {
                 style={{
                   borderRadius: 20,
                   padding: 10,
-                  backgroundColor:
-                    theme === 'light' ? '#FFF' : 'rgba(0, 102, 49, 0.91)',
+                  backgroundColor: theme === 'light' ? '#FFF' : 'rgba(0, 102, 49, 0.91)',
                   flexDirection: rowStyle,
                 }}>
                 <Image source={userImage} />

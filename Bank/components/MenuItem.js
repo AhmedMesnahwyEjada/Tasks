@@ -1,7 +1,7 @@
 import {Pressable, Text, Image, View} from 'react-native';
 import {useSelector} from 'react-redux';
 
-const MenuItem = ({icon, title, onPress, hovered}) => {
+const MenuItem = ({children, icon, title, onPress, hovered}) => {
   const language = useSelector(state => state.language.language);
   const theme = useSelector(state => state.theme.theme);
   const textColor = theme === 'light' ? '#000' : '#FFF';
@@ -36,6 +36,7 @@ const MenuItem = ({icon, title, onPress, hovered}) => {
         }}>
         {title}
       </Text>
+      {children}
     </Pressable>
   );
 };
