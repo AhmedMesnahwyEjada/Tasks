@@ -1,9 +1,18 @@
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
-import {View, Text, FlatList, Alert, RefreshControl} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Alert,
+  RefreshControl,
+  Pressable,
+  Image,
+} from 'react-native';
 import {useSelector} from 'react-redux';
 import {getTransactionHistory} from '../axios/History';
 import texts from '../assets/language.json';
+import emptyHistory from '../assets/emptyHistory.png';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import BeneficiariesItem from '../components/BeneficiarieItem';
@@ -56,6 +65,21 @@ const TransactionHistory = ({route}) => {
     navigation.setOptions({headerShown: false});
     getHistory();
   }, []);
+  const EmptyHistory = () => {
+    return (
+      <Pressable
+        onPress={navigateToTransfer}
+        style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 100}}>
+        <Image source={emptyHistory} />
+        <Text style={[fontColor, {fontSize: 25, marginVertical: 10}]}>
+          {text['no-history']}
+        </Text>
+        <Text style={[fontColor, {fontSize: 15, width: 250, textAlign: 'center'}]}>
+          {text['no-history-subtitle']}
+        </Text>
+      </Pressable>
+    );
+  };
   return (
     <View style={{flex: 1, backgroundColor: backgroundColor}}>
       <Header type={2} pageTitle={'beneficiaries'} />
@@ -75,6 +99,7 @@ const TransactionHistory = ({route}) => {
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={getHistory} />
             }
+            ListEmptyComponent={<Text>LOL</Text>}
             renderItem={({item, index}) => {
               return (
                 <View key={index}>
