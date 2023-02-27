@@ -99,7 +99,7 @@ const TransactionHistory = ({route}) => {
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={getHistory} />
             }
-            ListEmptyComponent={<Text>LOL</Text>}
+            ListEmptyComponent={<EmptyHistory />}
             renderItem={({item, index}) => {
               return (
                 <View key={index}>

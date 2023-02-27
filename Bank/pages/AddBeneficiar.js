@@ -76,7 +76,7 @@ const AddBeneficiar = () => {
         accountNumber: accountNumber,
         phoneNumber: phoneNumber,
         email: email,
-        imageUrl: image.uri,
+        imageUrl: image?.uri,
       },
       userID,
     );
@@ -85,7 +85,6 @@ const AddBeneficiar = () => {
     navigation.setOptions({headerShown: false});
   }, []);
   useEffect(() => {
-    console.log(fName, accountNumber);
     if (fName !== '' && accountNumber !== '') setButtonAvaliability(true);
   }, [fName, accountNumber]);
   const styles = StyleSheet.create({
