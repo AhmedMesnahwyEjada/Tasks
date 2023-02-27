@@ -3,6 +3,8 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {Image, ScrollView, View, Pressable, StyleSheet} from 'react-native';
+import {getStorage, ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage';
+import {app} from '../firebase/index';
 import {addBeneficiary} from '../axios/Beneficiaries';
 import cameraIcon from '../assets/cameraIcon.png';
 import texts from '../assets/language.json';
@@ -12,6 +14,7 @@ import InputField from '../components/InputField';
 import Footer from '../components/Footer';
 const AddBeneficiar = () => {
   const navigation = useNavigation();
+  const storage = getStorage(app);
   const user = useSelector(state => state.user.user);
   const language = useSelector(state => state.language.language);
   const theme = useSelector(state => state.theme.theme);
@@ -33,10 +36,26 @@ const AddBeneficiar = () => {
     try {
       const result = await launchImageLibrary({mediaType: 'photo'});
       setImage(result['assets'][0]);
-      const {uri} = result['assets'][0];
-      const filename = uri.substring(uri.lastIndexOf('/') + 1);
-      const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
-      const response = await uploadBytes(ref(storage, filename), uploadUri);
+      const imageData = result['assets'][0];
+      const response = await fetch(imageData.uri.replace('file:///', 'file:/'));
+      const blobImage = await response.blob();
+      const storageRef = ref(storage, `${imageData.fileName}`);
+      const uploadTask = uploadBytesResumable(storageRef, blobImage);
+      await uploadTask.on(
+        'state_changed',
+        snapshot => {
+          console.log('uploading');
+        },
+        error => {
+          alert('something gone wrong');
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+            console.log(downloadURL);
+            setImage(downloadURL);
+          });
+        },
+      );
     } catch (err) {
       console.log(err);
     }
@@ -76,7 +95,7 @@ const AddBeneficiar = () => {
         accountNumber: accountNumber,
         phoneNumber: phoneNumber,
         email: email,
-        imageUrl: image?.uri,
+        imageUrl: image,
       },
       userID,
     );

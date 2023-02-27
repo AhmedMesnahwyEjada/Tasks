@@ -54,6 +54,7 @@ const TransactionHistory = ({route}) => {
   };
   const deleteData = async () => {
     await deleteBeneficiary(id, user.id);
+    navigation.navigate('Beneficiaries');
   };
   const deleteBeneficiaryConfirmation = () => {
     Alert.alert(`${text['sure-delete']} ${beneficiary.fName}`, '', [

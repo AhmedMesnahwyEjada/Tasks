@@ -29,8 +29,6 @@ const App = () => {
           pan.y._value <= 100
         ) {
           state = false;
-          // setState(true);
-          console.log('zero', state);
           Animated.spring(pan, {
             toValue: {x: 0, y: 10},
             duration: 100,
@@ -38,7 +36,6 @@ const App = () => {
           }).start();
         } else {
           state = true;
-          console.log('one', state);
           Animated.spring(pan, {
             toValue: {x: -100, y: -100},
             duration: 100,

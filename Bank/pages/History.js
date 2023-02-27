@@ -67,12 +67,11 @@ const History = ({type}) => {
         {type === 'mini' ? (
           history.slice(0, 5).map((item, index) => {
             return (
-              <>
+              <View key={index} style={{flex: 1}}>
                 <HistoryItem
                   beneficiaryID={item.beneficiaryID}
                   amount={item.amount}
                   date={item.date}
-                  key={index}
                 />
                 <View
                   style={{
@@ -81,7 +80,7 @@ const History = ({type}) => {
                     borderBottomWidth: 2,
                   }}
                 />
-              </>
+              </View>
             );
           })
         ) : (
@@ -92,12 +91,11 @@ const History = ({type}) => {
             }
             renderItem={({item, index}) => {
               return (
-                <>
+                <View key={index}>
                   <HistoryItem
                     beneficiaryID={item.beneficiaryID}
                     amount={item.amount}
                     date={item.date}
-                    key={index}
                   />
                   <View
                     style={{
@@ -106,7 +104,7 @@ const History = ({type}) => {
                       borderBottomWidth: 2,
                     }}
                   />
-                </>
+                </View>
               );
             }}
           />

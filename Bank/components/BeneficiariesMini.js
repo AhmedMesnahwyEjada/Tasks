@@ -25,6 +25,9 @@ const BeneficiariesMini = () => {
   const navigateToTransaction = id => {
     navigation.navigate(`TransactionHistory`, id);
   };
+  const navigateToBeneficiaries = () => {
+    navigation.navigate(`Beneficiaries`);
+  };
   useEffect(() => {
     getData();
   }, []);
@@ -34,7 +37,11 @@ const BeneficiariesMini = () => {
         <Text style={[fontColor, {fontSize: 25, fontWeight: 'bold'}]}>
           {text['send-money']}
         </Text>
-        <CustomButton title={text['view-all']} titleStyle={fontColor} />
+        <CustomButton
+          title={text['view-all']}
+          titleStyle={fontColor}
+          onPress={navigateToBeneficiaries}
+        />
       </View>
       <FlatList
         horizontal={true}
