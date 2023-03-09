@@ -51,6 +51,9 @@ const Home = () => {
     navigation.setOptions({headerShown: false});
     getCardsData();
   }, []);
+  useEffect(() => {
+    if (balanceText[0] !== '$') setBalanceText(text['balance-hidden']);
+  }, [language]);
   return (
     <View style={{flex: 1, backgroundColor: backgroundColor}}>
       <Header type={2} pageTitle={text['account-summary']} />

@@ -88,7 +88,9 @@
         "email" : "Email",
         "pick-card" : "Touch & hold a card then drag it to this box",
         "pay-now" : "Pay Now",
-        "air-payment" : "Air Payment"
+        "air-payment" : "Air Payment",
+        "touch-sensor"  :"touch sensor",
+        "fingerprint-error" : "error"
     },
     "arabic" : {
         "language": "EN",
@@ -178,6 +180,8 @@
         "email" : "البريد الالكترونى",
         "pick-card" : "اختار واحد من الكروت واسحبه جوا المربع",
         "pay-now" : "ادفع دلوقتى",
-        "air-payment" : "الدفع الهوائى"
+        "air-payment" : "الدفع الهوائى",
+        "touch-sensor"  :"المس مستشعر البصمة"
+        ,"fingerprint-error" : "خطأ"
     }
 }
