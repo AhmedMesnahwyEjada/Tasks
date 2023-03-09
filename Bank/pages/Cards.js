@@ -178,6 +178,11 @@ const Cards = ({type}) => {
         <FlatList
           horizontal={true}
           data={cards}
+          onScroll={() => {
+            pans.forEach(pan => {
+              pan.setValue({x: 0, y: 0});
+            });
+          }}
           ItemSeparatorComponent={() => <View style={{width: 5}}></View>}
           renderItem={({item, index}) => {
             return (

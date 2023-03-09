@@ -1,10 +1,11 @@
-import {ImageBackground, Animated, Platform} from 'react-native';
+import {ImageBackground, Animated} from 'react-native';
 import cardImage from '../assets/card.png';
 const Card = ({children, height, pan, panResponder}) => {
   const Children = () => {
     return (
       <ImageBackground
         source={cardImage}
+        imageStyle={{borderRadius: 20}}
         style={{
           backgroundColor: 'green',
           borderRadius: 20,
@@ -21,7 +22,6 @@ const Card = ({children, height, pan, panResponder}) => {
     <Animated.View
       style={[
         {
-          flex: 1,
           position: 'absolute',
           transform: [{translateX: pan.x}, {translateY: pan.y}],
         },
