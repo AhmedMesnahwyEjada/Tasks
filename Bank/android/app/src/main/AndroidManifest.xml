@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.bank">
+    
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
       android:name=".MainApplication"
@@ -22,5 +24,8 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+      <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyAJYL7Sn0WUvWeh2A02QAWD3i9zwFCWPVo"/>
     </application>
 </manifest>

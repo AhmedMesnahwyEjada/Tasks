@@ -1,5 +1,4 @@
 import {initializeApp} from 'firebase/app';
-import {getStorage} from 'firebase/storage';
 const firebaseConfig = {
   apiKey: 'AIzaSyA-87LgdfNGt-Rlaye_OxXRCX2ayQdkVTs',
   authDomain: 'cardashboard-9db0c.firebaseapp.com',

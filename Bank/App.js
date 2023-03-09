@@ -16,6 +16,7 @@ import TransactionHistory from './pages/TransactionHistory';
 import Transfer from './pages/Transfer';
 import AddBeneficiar from './pages/AddBeneficiar';
 import AirPay from './pages/AirPay';
+import Map from './pages/Map';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -35,6 +36,7 @@ const App = () => {
           <Stack.Screen name="History" component={History} />
           <Stack.Screen name="AddBeneficiar" component={AddBeneficiar} />
           <Stack.Screen name="AirPay" component={AirPay} />
+          <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="Transfer" component={TransferWrapper} />
           <Stack.Screen name="TransactionHistory" component={TransactionHistoryWrapper} />
           <Stack.Screen name="Beneficiaries" component={Beneficiaries} />

@@ -80,7 +80,13 @@ const Footer = ({page}) => {
         iconStyle={styles.bottomButtonIcon}
       />
       <CustomButton
-        style={[styles.bottomButton, {backgroundColor: backgroundColor}]}
+        style={[
+          styles.bottomButton,
+          {
+            backgroundColor: page === 'map' ? backgroundColorHoverd : backgroundColor,
+          },
+        ]}
+        onPress={() => navigation.navigate('Map')}
         title={text['atm']}
         titleStyle={[fontColor, {fontSize: 10}]}
         icon={atm}
