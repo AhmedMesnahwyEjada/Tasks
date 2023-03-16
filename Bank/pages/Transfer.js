@@ -18,6 +18,10 @@ const Transfer = ({route}) => {
   const theme = useSelector(state => state.theme.theme);
   const backgroundColor = theme === 'light' ? '#E5E5E5' : '#1c2125';
   const fontColor = theme === 'light' ? {color: '#1C2437'} : {color: '#F7F7F7'};
+  const typeData = [
+    {key: 1, value: 'Between Accounts'},
+    {key: 2, value: 'To beneficiary'},
+  ];
   const text = texts[language];
   const [cards, setCards] = useState([]);
   const [cardsFiltered, setCardsFiltered] = useState([]);
@@ -26,11 +30,7 @@ const Transfer = ({route}) => {
   const [details, setDetails] = useState('');
   const [cardSelected, setCardSelected] = useState(cards[0]);
   const [beneficiarySelected, setBeneficiarySelected] = useState(route.params);
-  const typeData = [
-    {key: 1, value: 'Between Accounts'},
-    {key: 2, value: 'To beneficiary'},
-  ];
-  const [typeOfTransfer, setTypeOfTransfer] = useState(typeData[0]);
+  const [typeOfTransfer, setTypeOfTransfer] = useState(typeData[0].key);
   const getCardsData = async () => {
     const cardsData = await getCards(user.id);
     setCards(
@@ -126,6 +126,7 @@ const Transfer = ({route}) => {
           <SelectList
             setSelected={val => setTypeOfTransfer(val)}
             data={typeData}
+            defaultOption={typeData[0]}
             boxStyles={{borderWidth: 0, marginHorizontal: -10}}
           />
         </View>

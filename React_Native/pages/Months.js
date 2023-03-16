@@ -28,19 +28,19 @@ const Months = () => {
   );
   const [newYear, setNewYear] = useState(new Date().getFullYear().toString());
   const months = useSelector(state => state.months.months);
+  const dispatch = useDispatch();
   const language = useSelector(state => state.language.language);
   const rowStyle =
     language === 'english'
       ? {flexDirection: 'row'}
       : {flexDirection: 'row-reverse'};
   const texts = language === 'english' ? textsFile.english : textsFile.arabic;
-  const dispatch = useDispatch();
   const navigation = useNavigation();
   const navigate = id => {
     navigation.navigate('monthDetails', {id});
   };
   const handleAddMonth = () => {
-    if (newMonth < 1 || newMonth > 12 || newYear < 2023) {
+    if (newMonth < 1 || newMonth > 12 || newYear < 2000) {
       Alert.alert(texts['invalid-month'], '', [{text: texts['ok']}]);
     } else if (
       months.filter(month => {
@@ -60,7 +60,7 @@ const Months = () => {
     setAlertVisable(false);
   };
   const onRemovePress = id => {
-    Alert.alert(texts['remove-month'], '', [
+    Alert.alert(texts['remove-month-alert'], '', [
       {text: texts['yes'], onPress: handleRemoveMonth.bind(this, id)},
       {text: texts['no']},
     ]);

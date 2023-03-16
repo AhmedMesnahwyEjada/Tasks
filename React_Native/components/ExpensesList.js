@@ -12,7 +12,13 @@ import {
 import CustomButton from './CustomButton';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {updateExpenses, updateTotalSpent} from '../redux/months';
+import {
+  updateExpenses,
+  updateTotalSpent,
+  createHistory,
+  addHistory,
+  removeHistory,
+} from '../redux/months';
 import textsFile from '../assets/texts.json';
 import AddForm from './AddForm';
 import ExpensesFooter from './ExpensesFooter';
@@ -71,8 +77,10 @@ const ExpensesList = ({route}) => {
   const updateMoney = (id, type) => {
     let value = parseFloat(values.find(v => v.id === id).value) || 0;
     value = type === 'spend' ? value : -value;
+    let expenseTitle = null;
     const updatedExpenses = expenses.map(e => {
       if (e.id === id) {
+        expenseTitle = e.title;
         return {
           ...e,
           totalPrice: Math.max(e.totalPrice + value, 0),
@@ -81,6 +89,16 @@ const ExpensesList = ({route}) => {
       return e;
     });
     onExpensesChange(updatedExpenses);
+    dispatch(
+      addHistory({
+        id: `${monthID}_${expenseTitle}`,
+        history: {
+          details: '',
+          amount: value,
+          date: new Date(Date.now()).toLocaleString(),
+        },
+      }),
+    );
     handleValueChange(0, id);
   };
   const calculateTotalSpent = ex => {
@@ -132,16 +150,17 @@ const ExpensesList = ({route}) => {
     const updatedValues = [...values, {id: maxID + 1, value: 0}];
     setShownExpenses(shownExpenses => [...shownExpenses, newExpense]);
     onExpensesChange(updatedExpenses);
+    dispatch(createHistory({id: `${monthID}_${expenseTitle}`}));
     setValues(updatedValues);
     handleCancle();
   };
-  const onRemovePress = id => {
+  const onRemovePress = (id, title) => {
     Alert.alert(texts['remove-item-alert'], '', [
-      {text: texts['yes'], onPress: handleRemove.bind(this, id)},
+      {text: texts['yes'], onPress: handleRemove.bind(this, id, title)},
       {text: texts['no']},
     ]);
   };
-  const handleRemove = id => {
+  const handleRemove = (id, title) => {
     const updatedExpenses = [...expenses].filter(expense => {
       return expense.id !== id;
     });
@@ -154,6 +173,7 @@ const ExpensesList = ({route}) => {
       }),
     );
     onExpensesChange(updatedExpenses);
+    dispatch(removeHistory({id: `${monthID}_${title}`}));
     setValues(updatedValues);
   };
 
@@ -201,7 +221,13 @@ const ExpensesList = ({route}) => {
         style={{marginBottom: 'auto'}}
         data={shownExpenses}
         renderItem={({item}) => (
-          <View
+          <Pressable
+            onPress={() =>
+              navigation.navigate('history', {
+                id: `${monthID}_${item.title}`,
+                title: item.title,
+              })
+            }
             style={{
               alignItems: 'flex-start',
               padding: 15,
@@ -247,10 +273,10 @@ const ExpensesList = ({route}) => {
                 buttonStyle={styles.customButton}
                 textStyle={styles.customButtonText}
                 title={texts['remove-item']}
-                onPress={onRemovePress.bind(this, item.id)}
+                onPress={onRemovePress.bind(this, item.id, item.title)}
               />
             </View>
-          </View>
+          </Pressable>
         )}></FlatList>
       <ExpensesFooter
         totalSpentText={texts['total-spent']}

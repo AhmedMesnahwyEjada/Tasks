@@ -27,7 +27,12 @@
         "invalid-month" : "This month is invalid",
         "ok" : "OK",
         "yes" : "Yes",
-        "no" : "No"
+        "no" : "No",
+        "amount" : "Amount",
+        "history" : "History",
+        "date" : "Date-Time",
+        "details" : "Details"
+        
     },
     "arabic":
     {
@@ -57,7 +62,11 @@
         "invalid-month" : "هذا الشهر غير صحيح",
         "ok" : "تمام", 
         "yes" : "أة",
-        "no" : "لأ"
+        "no" : "لأ",
+        "amount" : "المبلغ",
+        "history" : "السجل",
+        "date" : "الوقت",
+        "details" : "التفاصيل"
     }
 
 }
