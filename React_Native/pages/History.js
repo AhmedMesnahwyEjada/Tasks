@@ -3,7 +3,6 @@ import {useSelector} from 'react-redux';
 import globalStyle from '../assets/styles';
 import texts from '../assets/texts';
 import Header from '../components/Header';
-import {useNavigation} from '@react-navigation/native';
 
 const backgroundColorMid = globalStyle.backgroundColorMid;
 const backgroundColorLight = globalStyle.backgroundColorLight;
@@ -14,7 +13,6 @@ const History = ({route}) => {
     useSelector(state => state.months.histories).filter(
       history => history.id === route.params.id,
     )[0] || [];
-  const navigation = useNavigation();
   return (
     <View style={{flex: 1, backgroundColor: backgroundColorMid}}>
       <Header title={text['history']} />
@@ -22,13 +20,14 @@ const History = ({route}) => {
         Expense : {route.params.title}
       </Text>
       <FlatList
-        data={history.history}
+        data={[...(history?.history || [])].reverse()}
         renderItem={({item}) => {
           return (
             <View
               style={{
                 flex: 1,
                 marginTop: 20,
+                marginBottom: 10,
                 padding: 10,
                 marginHorizontal: 10,
                 backgroundColor: backgroundColorLight,

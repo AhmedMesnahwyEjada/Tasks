@@ -16,7 +16,7 @@
         "spend-money":"+",
         "save-money":"-",
         "remove-item" : "X",
-        "money-place-holder": "money amount",
+        "money-place-holder": "Money Amount",
         "add-expense": "Add Expense",
         "months-page": "Months Page",
         "expense-place-holder": "Expense",
@@ -31,8 +31,8 @@
         "amount" : "Amount",
         "history" : "History",
         "date" : "Date-Time",
-        "details" : "Details"
-        
+        "details" : "Details",
+        "details-place-holder" : "Details"
     },
     "arabic":
     {
@@ -66,7 +66,8 @@
         "amount" : "المبلغ",
         "history" : "السجل",
         "date" : "الوقت",
-        "details" : "التفاصيل"
+        "details" : "التفاصيل",
+        "details-place-holder" : "التفاصيل"
     }
 
 }

@@ -8,6 +8,7 @@ import {
   Alert,
   Modal,
   Pressable,
+  Keyboard,
 } from 'react-native';
 import CustomButton from './CustomButton';
 import {useSelector, useDispatch} from 'react-redux';
@@ -44,7 +45,11 @@ const ExpensesList = ({route}) => {
     const dummyValues = expenses.map(v => {
       return {id: v.id, value: 0};
     });
+    const dummyDetails = expenses.map(v => {
+      return {id: v.id, value: ''};
+    });
     setValues(dummyValues);
+    setDetails(dummyDetails);
     setShownExpenses(expenses);
     calculateTotalSpent(expenses);
   }, []);
@@ -61,8 +66,13 @@ const ExpensesList = ({route}) => {
   };
 
   const [values, setValues] = useState([]);
-  const handleValueChange = (newValue, id) => {
-    const updatedValues = values.map(value => {
+  const [details, setDetails] = useState([]);
+  const onHandleInputChange = (type, newValue, id) => {
+    if (type === 'value') handleInputChange(values, setValues, newValue, id);
+    else handleInputChange(details, setDetails, newValue, id);
+  };
+  const handleInputChange = (array, set, newValue, id) => {
+    const updatedValues = array.map(value => {
       if (value.id === id) {
         return {
           ...value,
@@ -71,13 +81,14 @@ const ExpensesList = ({route}) => {
       }
       return value;
     });
-    setValues(updatedValues);
+    set(updatedValues);
   };
 
   const updateMoney = (id, type) => {
     let value = parseFloat(values.find(v => v.id === id).value) || 0;
     value = type === 'spend' ? value : -value;
     let expenseTitle = null;
+    const detail = details.find(d => d.id === id).value || '';
     const updatedExpenses = expenses.map(e => {
       if (e.id === id) {
         expenseTitle = e.title;
@@ -89,17 +100,20 @@ const ExpensesList = ({route}) => {
       return e;
     });
     onExpensesChange(updatedExpenses);
-    dispatch(
-      addHistory({
-        id: `${monthID}_${expenseTitle}`,
-        history: {
-          details: '',
-          amount: value,
-          date: new Date(Date.now()).toLocaleString(),
-        },
-      }),
-    );
-    handleValueChange(0, id);
+    value &&
+      dispatch(
+        addHistory({
+          id: `${monthID}_${expenseTitle}`,
+          history: {
+            details: detail,
+            amount: value,
+            date: new Date(Date.now()).toLocaleString(),
+          },
+        }),
+      );
+    Keyboard.dismiss();
+    handleInputChange(values, setValues, 0, id);
+    handleInputChange(details, setDetails, '', id);
   };
   const calculateTotalSpent = ex => {
     dispatch(
@@ -140,7 +154,7 @@ const ExpensesList = ({route}) => {
       }),
       0,
     );
-    const defalutValue = expensePrice >= 0 ? expensePrice : 0;
+    const defalutValue = Math.max(expensePrice, 0);
     const newExpense = {
       id: maxID + 1,
       title: expenseTitle,
@@ -148,10 +162,25 @@ const ExpensesList = ({route}) => {
     };
     const updatedExpenses = [...expenses, newExpense];
     const updatedValues = [...values, {id: maxID + 1, value: 0}];
+    const updatedDetails = [...details, {id: maxID + 1, value: ''}];
     setShownExpenses(shownExpenses => [...shownExpenses, newExpense]);
     onExpensesChange(updatedExpenses);
     dispatch(createHistory({id: `${monthID}_${expenseTitle}`}));
+    defalutValue &&
+      dispatch(
+        addHistory({
+          id: `${monthID}_${expenseTitle}`,
+          history: {
+            details: 'First time spent',
+            amount: defalutValue,
+            date: new Date(Date.now()).toLocaleString(),
+          },
+        }),
+      );
+
     setValues(updatedValues);
+    setDetails(updatedDetails);
+    Keyboard.dismiss();
     handleCancle();
   };
   const onRemovePress = (id, title) => {
@@ -167,6 +196,9 @@ const ExpensesList = ({route}) => {
     const updatedValues = values.filter(value => {
       return value.id !== id;
     });
+    const updatedDetails = details.filter(value => {
+      return value.id !== id;
+    });
     setShownExpenses(shownExpenses =>
       [...shownExpenses].filter(expense => {
         return expense.id !== id;
@@ -175,6 +207,7 @@ const ExpensesList = ({route}) => {
     onExpensesChange(updatedExpenses);
     dispatch(removeHistory({id: `${monthID}_${title}`}));
     setValues(updatedValues);
+    setDetails(updatedDetails);
   };
 
   const search = keyword => {
@@ -217,7 +250,7 @@ const ExpensesList = ({route}) => {
       />
       <Text style={styles.title}>{texts['list-of-expenses']}</Text>
       <FlatList
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps="handled"
         style={{marginBottom: 'auto'}}
         data={shownExpenses}
         renderItem={({item}) => (
@@ -248,12 +281,14 @@ const ExpensesList = ({route}) => {
               }}>
               <TextInput
                 value={values?.find(v => v.id === item.id)?.value || null}
-                onChangeText={value => handleValueChange(value, item.id)}
+                onChangeText={value =>
+                  onHandleInputChange('value', value, item.id)
+                }
                 placeholder={texts['money-place-holder']}
                 style={styles.newExpenseInput}
                 placeholderTextColor={'#FFFFFF'}
                 keyboardType="numeric"
-                maxLength={5}
+                maxLength={10}
                 cursorColor={backgroundColorDark}
                 onSubmitEditing={updateMoney.bind(this, item.id, 'spend')}
               />
@@ -276,6 +311,17 @@ const ExpensesList = ({route}) => {
                 onPress={onRemovePress.bind(this, item.id, item.title)}
               />
             </View>
+            <TextInput
+              value={details?.find(d => d.id === item.id)?.value || null}
+              onChangeText={value =>
+                onHandleInputChange('detail', value, item.id)
+              }
+              placeholder={texts['details-place-holder']}
+              style={[styles.newExpenseInput, {width: '100%'}]}
+              placeholderTextColor={'#FFFFFF'}
+              multiline={true}
+              cursorColor={backgroundColorDark}
+            />
           </Pressable>
         )}></FlatList>
       <ExpensesFooter
@@ -322,9 +368,9 @@ const styles = StyleSheet.create({
   },
   customButton: {
     backgroundColor: backgroundColorDark,
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
