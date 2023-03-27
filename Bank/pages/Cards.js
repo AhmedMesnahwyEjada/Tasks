@@ -182,6 +182,7 @@ const Cards = ({type}) => {
             pans.forEach(pan => {
               pan.setValue({x: 0, y: 0});
             });
+            setSelected(-1);
           }}
           ItemSeparatorComponent={() => <View style={{width: 5}}></View>}
           renderItem={({item, index}) => {
