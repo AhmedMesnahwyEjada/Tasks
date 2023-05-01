@@ -23,6 +23,7 @@ import simCard from '../assets/simCard.png';
 import transmitIcon from '../assets/transmitIcon.png';
 import CustomButton from '../components/CustomButton';
 import FingerprintModal from '../components/FingerprintModal';
+import {useMutation, useQueryClient} from 'react-query';
 const Cards = ({type}) => {
   const navigation = useNavigation();
   const user = useSelector(state => state.user.user);
@@ -118,6 +119,16 @@ const Cards = ({type}) => {
       );
       navigation.navigate('Home');
     };
+    const queryClient = useQueryClient();
+    const mutation = useMutation({
+      mutationFn: props => {
+        doTransaction(...props);
+        return props[1];
+      },
+      onSuccess: userID => {
+        queryClient.invalidateQueries({queryKey: ['cards', userID]});
+      },
+    });
     return (
       <View
         style={{
@@ -158,14 +169,9 @@ const Cards = ({type}) => {
           modalVisibility={modalVisibility}
           toggleModalVisible={toggleModalVisible}
           subtitle={text['air-payment']}
-          onApproval={doTransaction.bind(
-            this,
-            cards,
-            user.id,
-            1000,
-            '-NNH3M1s2n2hXFIUVBI1',
-            'Air Pay',
-          )}
+          onApproval={() =>
+            mutation.mutate([cards, user.id, 1000, '-NNH3M1s2n2hXFIUVBI1', 'Air Pay'])
+          }
         />
       </View>
     );

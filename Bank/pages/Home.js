@@ -43,7 +43,7 @@ const Home = () => {
     setRefreshing(false);
   };
   const {data: balance, refetch: fetchBalance} = useQuery(
-    'cards',
+    ['cards', user.id],
     () => getCards(user.id),
     {
       select: data => {
