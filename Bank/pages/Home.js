@@ -44,7 +44,7 @@ const Home = () => {
   };
   const {data: balance, refetch: fetchBalance} = useQuery(
     ['cards', user.id],
-    () => getCards(user.id),
+    prop => getCards(prop.queryKey[1]),
     {
       select: data => {
         return `$${

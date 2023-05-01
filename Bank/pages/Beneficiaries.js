@@ -12,6 +12,7 @@ import menuDotted from '../assets/menuDotted.png';
 import addIcon from '../assets/addIcon.png';
 import emptyBeneficiaries from '../assets/emptyBeneficiaries.png';
 import BeneficiariesItem from '../components/BeneficiarieItem';
+import {useQuery} from 'react-query';
 const Beneficiaries = () => {
   const navigation = useNavigation();
   const user = useSelector(state => state.user.user);
@@ -24,21 +25,23 @@ const Beneficiaries = () => {
   const rowStyle =
     language === 'english' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'};
   const fontColor = theme === 'light' ? {color: '#1C2437'} : {color: '#F7F7F7'};
-  const [beneficiaries, setBeneficiaries] = useState([]);
   const [showType, setShowType] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const getData = async () => {
     setRefreshing(true);
-    setBeneficiaries(await getBeneficiaries(user.id));
+    fetchBenefeciaries();
     setRefreshing(false);
   };
+  const {data: beneficiaries, refetch: fetchBenefeciaries} = useQuery(
+    ['beneficiaries', user.id],
+    key => getBeneficiaries(key.queryKey[1]),
+  );
   const navigateToTransaction = id => {
     navigation.navigate(`TransactionHistory`, id);
   };
   useEffect(() => {
     navigation.setOptions({headerShown: false});
-    getData();
-  }, []);
+  }, [navigation]);
   const EmptyBeneficiaries = () => {
     return (
       <Pressable
