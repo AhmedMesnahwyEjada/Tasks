@@ -18,6 +18,7 @@ const MobileVerification = ({route}) => {
   const rowStyle =
     language === 'english' ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'};
   const {mobileNumber, type, operation} = route.params;
+  console.log(operation.type);
   const [value, setValue] = useState('');
   const [nextButtonDisabled, setNextButtonDisabled] = useState(true);
   useEffect(() => {

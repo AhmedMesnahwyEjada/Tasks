@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView, RefreshControl} from 'react-native';
 import {useSelector} from 'react-redux';
+import {useQuery} from 'react-query';
 import texts from '../assets/language.json';
 import fingerprintLogo from '../assets/fingerprint.png';
 import Header from '../components/Header';
@@ -30,30 +31,39 @@ const Home = () => {
   const [fingerprintVisability, setFingerprintVisibilty] = useState(false);
   const [balanceText, setBalanceText] = useState(text['balance-hidden']);
   const [balanceFont, setBalanceFont] = useState(20);
-  const [balance, setBalance] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
   const onFingerprintApproval = () => {
-    setBalanceText(`$${balance}`);
+    setBalanceText(balance);
     setBalanceFont(35);
     setFingerprintVisibilty(false);
   };
-  const getCardsData = async () => {
-    const cardsData = await getCards(user.id);
-    setBalance(cardsData.reduce((accumulator, value) => value.balance + accumulator, 0));
-  };
   const onRefreshing = async () => {
     setRefreshing(true);
-    await getCardsData();
-    if (balanceText !== text['balance-hidden']) onFingerprintApproval();
+    fetchBalance();
     setRefreshing(false);
   };
+  const {data: balance, refetch: fetchBalance} = useQuery(
+    'cards',
+    () => getCards(user.id),
+    {
+      select: data => {
+        return `$${
+          data?.reduce((accumulator, value) => value.balance + accumulator, 0) || 0
+        }`;
+      },
+    },
+  );
   useEffect(() => {
     navigation.setOptions({headerShown: false});
-    getCardsData();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', e => {
+      fetchBalance();
+    });
+    return unsubscribe;
+  }, [navigation]);
   useEffect(() => {
     if (balanceText[0] !== '$') setBalanceText(text['balance-hidden']);
-  }, [language]);
+    else if (balanceText !== text['balance-hidden']) setBalanceText(balance);
+  }, [language, balance]);
   return (
     <View style={{flex: 1, backgroundColor: backgroundColor}}>
       <Header type={2} pageTitle={text['account-summary']} />
